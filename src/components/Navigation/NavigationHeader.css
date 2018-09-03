@@ -1,0 +1,16 @@
+.NavigationHeader {
+    height: 250px;
+    width: 100%;
+    background-color: #aaa;
+}
+.Content {
+    padding: 50px;
+}
+.Title {
+    margin: 0;
+}
+
+.Nav {
+    margin: 0;
+    padding-top: 30px;
+}
