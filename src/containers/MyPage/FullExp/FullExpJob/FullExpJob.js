@@ -1,24 +1,59 @@
 import React, { Component } from 'react';
 import classes from './FullExpJob.css';
+import axios from '../../../../axios';
 
 class FullExpJob extends Component {
 
     state = {
-        loadedExp: null
+        loadedPost: null
+    }
+
+    componentDidMount () {
+        console.log(this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate() {
+        this.loadData();
+    }
+
+    loadData () {
+        if ( this.props.match.params.id ) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
+                axios.get( '/posts/' + this.props.match.params.id )
+                    .then( response => {
+                        // console.log(response);
+                        this.setState( { loadedPost: response.data } );
+                    } );
+            }
+        }
+    }
+
+    deletePostHandler = () => {
+        axios.delete('/posts/' + this.props.match.params.id)
+            .then(response => {
+                console.log(response);
+            });
     }
 
     render () {
-        return (
-            <div>
-                <h1>Job Title</h1>
-                <p>Date: 2015~2018</p>
-                <ul>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
-                </ul>
-            </div>
-        );
+        let post = null;
+        if ( this.props.match.params.id ) {
+            post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+        }
+        if ( this.state.loadedPost ) {
+            post = (
+                <div className={classes.FullExpJob}>
+                    <h1>{this.state.loadedPost.title}</h1>
+                    <p>{this.state.loadedPost.body}</p>
+                    <div >
+                        <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+                    </div>
+                </div>
+
+            );
+        }
+        return post;
     }
 
 }
