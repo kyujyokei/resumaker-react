@@ -3,7 +3,7 @@ import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 
 class FullExpJob extends Component {
-
+    
     state = {
         loadedPost: null
     }

@@ -6,11 +6,15 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import FullExpJob from '../../../FullExp/FullExpJob/FullExpJob';
 import axios from '../../../../../axios';
 
-class Exps extends Component {
-
+class ExpsJob extends Component {
+    
     state = {
         posts: [],
         postSelected: null
+    }
+
+    componentWillMount() {
+        console.log("" , this.props);
     }
 
     componentDidMount () {
@@ -58,6 +62,7 @@ class Exps extends Component {
         return (
                     
             <div >
+                <h2>JOB EXPERIENCE</h2>
                 <section className={classes.Exps}>
                     {posts}
                 </section>
@@ -67,4 +72,4 @@ class Exps extends Component {
     }
 }
 
-export default Exps;
+export default ExpsJob;
