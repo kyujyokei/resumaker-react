@@ -4,6 +4,7 @@ import Aux from '../../../hoc/Aux';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
 import ExpsJob from './Exps/Job/ExpsJob';
+import PersonalInfo from '../PersonalInfo/PersonalInfo';
 
 class ExpsContainer extends Component {
 
@@ -17,8 +18,10 @@ class ExpsContainer extends Component {
             <Aux>
                 <Switch>
                 {/* {this.state.expSelected ? <Route path="/post" component={FullExpJob} /> : null} */}
+                <Route path="/me" component={PersonalInfo}/>
                 <Route path="/" exact component={AllExps}/>
                 <Route path="/:id" component={FullExpJob}/>
+                
                 {/* <Redirect from="/" to="/" /> */}
                 </Switch>
             </Aux>

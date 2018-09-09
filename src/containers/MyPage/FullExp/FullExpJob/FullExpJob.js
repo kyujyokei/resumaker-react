@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './FullExpJob.css';
 import axios from '../../../../axios';
+import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
 
 class FullExpJob extends Component {
     
@@ -39,7 +40,7 @@ class FullExpJob extends Component {
     render () {
         let post = null;
         if ( this.props.match.params.id ) {
-            post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+            post = <LoadingAnimation />;
         }
         if ( this.state.loadedPost ) {
             post = (
