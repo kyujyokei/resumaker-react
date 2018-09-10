@@ -8,9 +8,9 @@ class AllExps extends Component {
         console.log("ALL exps: " , this.props);
         return (
             <Aux>
-                <Route path='' exact component={ExpsJob} />
-                <Route path='' exact component={ExpsJob} />
-                <Route path='' exact component={ExpsJob} />
+                <Route path={this.props.match.url} component={ExpsJob} />
+                <Route path={this.props.match.url} component={ExpsJob} />
+                <Route path={this.props.match.url} component={ExpsJob} />
             </Aux>
         );
     }

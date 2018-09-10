@@ -14,12 +14,8 @@ class ExpsJob extends Component {
         postSelected: null
     }
 
-    componentWillMount() {
-        console.log("" , this.props);
-    }
-
     componentDidMount () {
-        console.log(this.props);
+        console.log("EXP JOBS: ", this.props);
         axios.get( '/posts' ) // this is from https://jsonplaceholder.typicode.com/posts
             .then( response => {
                 const posts = response.data.slice( 0, 3 );
@@ -35,7 +31,7 @@ class ExpsJob extends Component {
     }
 
     postSelectHandler = ( id ) => {
-        this.props.history.push( '/' + id );
+        this.props.history.push( '/exps/job/' + id );
         this.setState( { postSelected: id } )
     }
 

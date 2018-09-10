@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
+// import axios from '../../../axios';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
-import ExpsJob from './Exps/Job/ExpsJob';
-import PersonalInfo from '../PersonalInfo/PersonalInfo';
 
 class ExpsContainer extends Component {
 
@@ -13,14 +12,14 @@ class ExpsContainer extends Component {
     }
 
     render () {
-
+        console.log('EXP C: ', this.props);
         return (
             <Aux>
                 <Switch>
                 {/* {this.state.expSelected ? <Route path="/post" component={FullExpJob} /> : null} */}
-                <Route path="/me" component={PersonalInfo}/>
-                <Route path="/" exact component={AllExps}/>
-                <Route path="/:id" component={FullExpJob}/>
+                {/* <Route path="/me" component={PersonalInfo}/> */}
+                <Route path={this.props.match.url + '/job/:id'} exact component={FullExpJob}/>
+                <Route path={this.props.match.url} exact component={AllExps}/>
                 
                 {/* <Redirect from="/" to="/" /> */}
                 </Switch>

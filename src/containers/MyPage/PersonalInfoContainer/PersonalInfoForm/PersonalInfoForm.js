@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import classes from './PersonalInfo.css';
-import Input from '../../../components/UI/Input/Input';
-import Button from '../../../components/UI/Button/Button';
+import Input from '../../../../components/UI/Input/Input';
+import Button from '../../../../components/UI/Button/Button';
 
-class PersonalInfo extends Component {
+class PersonalInfoForm extends Component {
     state = {
         info: {
             firstName: {
@@ -152,6 +151,8 @@ class PersonalInfo extends Component {
 
     render () {
 
+        console.log(this.props);
+
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
@@ -186,4 +187,4 @@ class PersonalInfo extends Component {
 
 }
 
-export default PersonalInfo;
+export default PersonalInfoForm;
