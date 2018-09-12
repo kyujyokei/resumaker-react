@@ -1,121 +1,54 @@
 import React, {Component} from 'react';
-import Input from '../../../../components/UI/Input/Input';
-import Button from '../../../../components/UI/Button/Button';
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
 
-class PersonalInfoForm extends Component {
+class SignUp extends Component {
+
     state = {
         info: {
-            firstName: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'First Name'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            lastName: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Last Name'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            phone: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Phone Number'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    maxLength: 10,
-                    minLength: 10
-                },
-                valid: false,
-                touched: false
-            },
-            address: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Address'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            zipCode: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'ZIP Code'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    maxLength: 5,
-                    minLength: 5
-                },
-                valid: false,
-                touched: false
-            },
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'E-mail'
+                    placeholder: 'Email address'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            password: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Password'
                 },
                 value: '',
                 validation: {
                     required: true,
-                    isEmail: true
+                    minLength: 6
                 },
                 valid: false,
                 touched: false
             },
-            websiteURL: {
+            passwordRe: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Website Link'
+                    type: 'password',
+                    placeholder: 'Re-enter Password'
                 },
                 value: '',
-                validation: {},
-                valid: false,
-                touched: false
-            },
-            githubURL:{
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Github Link'
+                validation: {
+                    required: true
                 },
-                value: '',
-                validation: {},
                 valid: false,
                 touched: false
             }
-            
         },
         formIsValid: false,
-        loading: false
+        passwordMatched: false
     }
 
     checkValidity(value, rules) {
@@ -132,17 +65,9 @@ class PersonalInfoForm extends Component {
             isValid = value.length >= rules.minLength && isValid
         }
 
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
 
         if (rules.isEmail) {
             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
             isValid = pattern.test(value) && isValid
         }
 
@@ -170,8 +95,6 @@ class PersonalInfoForm extends Component {
 
     render () {
 
-        console.log("Personal Info Form: ", this.props);
-
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
@@ -193,17 +116,16 @@ class PersonalInfoForm extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
             </form>
         )
+
         return (
             <div>
                 {form}
+                <Button btnType="Success" disabled={!this.state.formIsValid}> submit </Button>
             </div>
         );
     }
+};
 
-
-}
-
-export default PersonalInfoForm;
+export default SignUp;

@@ -5,6 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const navigationHeader = (props) => (
     <div className={classes.NavigationHeader}>
+        <div className={classes.RightCorner}>
+            <a href="/login">Login</a>  |  
+            <a href="/signup">Sign Up</a>
+        </div>
         <div className={classes.Content}>
             <h2 className={classes.Title}>Resumaker</h2>
             <nav className={classes.Nav}>
