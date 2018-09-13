@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import * as actions from '../../../store/actions/index';
 
 class SignUp extends Component {
 
@@ -32,23 +35,11 @@ class SignUp extends Component {
                 },
                 valid: false,
                 touched: false
-            },
-            passwordRe: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Re-enter Password'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
             }
         },
         formIsValid: false,
-        passwordMatched: false
+        passwordMatched: false,
+        isSignup: true
     }
 
     checkValidity(value, rules) {
@@ -74,23 +65,48 @@ class SignUp extends Component {
         return isValid;
     }
 
-    inputChangedHandler = (event, inputIdentifier) => {
-        const updatedInfo = {
-            ...this.state.info
-        };
-        const updatedFormElement = { 
-            ...updatedInfo[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedInfo[inputIdentifier] = updatedFormElement;
+    // inputChangedHandler = (event, inputIdentifier) => {
+    //     const updatedInfo = {
+    //         ...this.state.info
+    //     };
+    //     const updatedFormElement = { 
+    //         ...updatedInfo[inputIdentifier]
+    //     };
+    //     updatedFormElement.value = event.target.value;
+    //     updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    //     updatedFormElement.touched = true;
+    //     updatedInfo[inputIdentifier] = updatedFormElement;
         
-        let formIsValid = true;
-        for (let inputIdentifier in updatedInfo) {
-            formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
-        }
-        this.setState({info: updatedInfo, formIsValid: formIsValid});
+    //     let formIsValid = true;
+    //     for (let inputIdentifier in updatedInfo) {
+    //         formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
+    //     }
+    //     this.setState({info: updatedInfo, formIsValid: formIsValid});
+    // }
+
+    inputChangedHandler = (event, controlName) => {
+        const updatedInfo = {
+            ...this.state.info,
+            [controlName]: {
+                ...this.state.info[controlName],
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.info[controlName].validation),
+                touched: true
+            }
+        };
+        this.setState({info: updatedInfo});
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault(); // stops the page from refreshing
+        this.props.onAuth( this.state.info.email.value, this.state.info.password.value, this.state.isSignup);
+
+    }
+
+    switchAuthModeHandler = () => {
+        this.setState(prevState => {
+            return {isSignup: !prevState.isSignup};
+        });
     }
 
     render () {
@@ -103,9 +119,7 @@ class SignUp extends Component {
             });
         }
 
-        let form = (
-            <form>
-                {formElementsArray.map(formElement => (
+        let form = formElementsArray.map(formElement => (
                     <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
@@ -115,17 +129,27 @@ class SignUp extends Component {
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-                ))}
-            </form>
-        )
+                ));
+        
 
         return (
             <div>
-                {form}
-                <Button btnType="Success" disabled={!this.state.formIsValid}> submit </Button>
+                <form onSubmit={this.submitHandler}> 
+                    {form}
+                    <Button btnType="Success" > submit </Button>
+                </form>
+                
+                <Button btnType="Danger" 
+                clicked={this.switchAuthModeHandler}>{this.state.isSignup ? 'SIGN IN' : 'SIGNUP'}</Button>
             </div>
         );
     }
-};
+}
 
-export default SignUp;
+const mapDispatchProps = dispatch => {
+    return {
+        onAuth: (email, password, isSignup) => dispatch (actions.auth(email, password, isSignup))
+    }
+}
+
+export default connect(null, mapDispatchProps)(SignUp);
