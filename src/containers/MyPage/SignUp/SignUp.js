@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import * as actions from '../../../store/actions/index';
+import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 
 class SignUp extends Component {
 
@@ -120,20 +121,34 @@ class SignUp extends Component {
         }
 
         let form = formElementsArray.map(formElement => (
-                    <Input
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-                ));
+            <Input
+                key={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value}
+                invalid={!formElement.config.valid}
+                shouldValidate={formElement.config.validation}
+                touched={formElement.config.touched}
+                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            )
+        );
+        
+        if (this.props.loading) {
+            form = <LoadingAnimation />
+        }
+
+        let errorMsg = null;
+
+        if (this.props.error) {
+            errorMsg = (
+                <p>{this.props.error}</p>
+            )
+        }
         
 
         return (
             <div>
+                {errorMsg}
                 <form onSubmit={this.submitHandler}> 
                     {form}
                     <Button btnType="Success" > submit </Button>
@@ -146,10 +161,17 @@ class SignUp extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+}
+
 const mapDispatchProps = dispatch => {
     return {
         onAuth: (email, password, isSignup) => dispatch (actions.auth(email, password, isSignup))
     }
 }
 
-export default connect(null, mapDispatchProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchProps)(SignUp);

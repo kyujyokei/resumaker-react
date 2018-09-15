@@ -14,7 +14,7 @@ const navigationHeader = (props) => (
             <nav className={classes.Nav}>
                 <a href="/exps">Experiences</a>  |  
                 <a href="/me">Personal Info</a>  |
-                {/* <NavLink to="/me" exact>Personal Info</NavLink> */}
+                <NavLink to="/resume" exact>My Resume</NavLink>
             </nav>
         </div>
     </div>

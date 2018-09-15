@@ -1,0 +1,11 @@
+.Tags{
+    display: inline-block;
+    margin-top: -20px;
+    margin-bottom: -20px;
+
+}
+.Tags li {
+    display: inline-block;
+    margin-right: 8px;
+
+}
