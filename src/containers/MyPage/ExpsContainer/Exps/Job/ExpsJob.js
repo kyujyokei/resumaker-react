@@ -5,6 +5,7 @@ import Aux from '../../../../../hoc/Aux';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import FullExpJob from '../../../FullExp/FullExpJob/FullExpJob';
 import axios from '../../../../../axios';
+import Button from '../../../../../components/UI/Button/Button';
 
 class ExpsJob extends Component {
     
@@ -60,6 +61,7 @@ class ExpsJob extends Component {
                     
             <div >
                 <h2>JOB EXPERIENCE</h2>
+                <Button btnType="BlueRounded">+ NEW</Button>
                 <section className={classes.Exps}>
                     {posts}
                 </section>

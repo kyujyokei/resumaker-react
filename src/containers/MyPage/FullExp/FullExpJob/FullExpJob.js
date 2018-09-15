@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
+import Button from '../../../../components/UI/Button/Button';
 
 class FullExpJob extends Component {
     
@@ -37,6 +38,13 @@ class FullExpJob extends Component {
             });
     }
 
+    editPostHandler = () => {
+        axios.delete('/posts/' + this.props.match.params.id)
+            .then(response => {
+                console.log(response);
+            });
+    }
+
     render () {
         let post = null;
         if ( this.props.match.params.id ) {
@@ -48,7 +56,9 @@ class FullExpJob extends Component {
                     <h1>{this.state.loadedPost.title}</h1>
                     <p>{this.state.loadedPost.body}</p>
                     <div >
+                        <button onClick={this.editPostHandler} className="Edit">Edit</button>
                         <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+                        
                     </div>
                 </div>
 
