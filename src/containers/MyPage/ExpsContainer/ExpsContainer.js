@@ -4,6 +4,7 @@ import Aux from '../../../hoc/Aux';
 // import axios from '../../../axios';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
+import NewExpJob from '../NewExp/NewExpJob/NewExpJob';
 
 class ExpsContainer extends Component {
 

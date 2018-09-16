@@ -6,7 +6,7 @@ const job = (props) => (
     <article className={classes.Job} onClick={props.clicked}>
         <h3 className={classes.Title}>{props.title}</h3>
         <Tags />
-        <p>{props.date}</p>
+        <p className={classes.Date}>{props.date}</p>
         <p>{props.description}</p>
     </article>
 );

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Job from '../../../../../components/Exp/Job/Job';
 import classes from './ExpsJob.css'
 import Aux from '../../../../../hoc/Aux';
-import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect, Link } from 'react-router-dom';
 import FullExpJob from '../../../FullExp/FullExpJob/FullExpJob';
 import axios from '../../../../../axios';
 import Button from '../../../../../components/UI/Button/Button';
+import NewExpJob from '../../../NewExp/NewExpJob/NewExpJob';
 
 class ExpsJob extends Component {
     
@@ -48,6 +49,7 @@ class ExpsJob extends Component {
                         <Job
                         key={post.id}
                         title={post.title}
+                        date={"2018/1/1~2019/1/1"}
                         description={post.body}
                         clicked={() => this.postSelectHandler( post.id )} />
                     );
@@ -60,8 +62,10 @@ class ExpsJob extends Component {
         return (
                     
             <div >
-                <h2>JOB EXPERIENCE</h2>
-                <Button btnType="BlueRounded">+ NEW</Button>
+                <h3>JOB EXPERIENCE</h3>
+                <Link to='/job/new'>
+                    <Button btnType="BlueRounded">+ NEW</Button>
+                </Link>
                 <section className={classes.Exps}>
                     {posts}
                 </section>

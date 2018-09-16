@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import classes from './SignUp.css';
 import * as actions from '../../../store/actions/index';
 import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 
@@ -147,7 +148,7 @@ class SignUp extends Component {
         
 
         return (
-            <div>
+            <div className={classes.SignUp}>
                 {errorMsg}
                 <form onSubmit={this.submitHandler}> 
                     {form}

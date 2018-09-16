@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
+import classes from './NewExpJob.css';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 
-class PersonalInfoForm extends Component {
+class NewExpJob extends Component {
+
     state = {
         info: {
-            firstName: {
+            jobTitle: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'First Name'
+                    placeholder: 'Job title'
                 },
                 value: '',
                 validation: {
@@ -18,11 +20,11 @@ class PersonalInfoForm extends Component {
                 valid: false,
                 touched: false
             },
-            lastName: {
+            CompanyName: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Last Name'
+                    placeholder: 'Company name'
                 },
                 value: '',
                 validation: {
@@ -31,11 +33,11 @@ class PersonalInfoForm extends Component {
                 valid: false,
                 touched: false
             },
-            phone: {
+            startDate: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Phone Number'
+                    type: 'date',
+                    placeholder: 'Start date'
                 },
                 value: '',
                 validation: {
@@ -47,10 +49,10 @@ class PersonalInfoForm extends Component {
                 valid: false,
                 touched: false
             },
-            address: {
+            endDate: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'date',
                     placeholder: 'Address'
                 },
                 value: '',
@@ -60,27 +62,11 @@ class PersonalInfoForm extends Component {
                 valid: false,
                 touched: false
             },
-            zipCode: {
+            description: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'ZIP Code'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    maxLength: 5,
-                    minLength: 5
-                },
-                valid: false,
-                touched: false
-            },
-            email: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'email',
-                    placeholder: 'E-mail'
+                    placeholder: 'Description'
                 },
                 value: '',
                 validation: {
@@ -89,64 +75,11 @@ class PersonalInfoForm extends Component {
                 },
                 valid: false,
                 touched: false
-            },
-            websiteURL: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Website Link'
-                },
-                value: '',
-                validation: {},
-                valid: false,
-                touched: false
-            },
-            githubURL:{
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Github Link'
-                },
-                value: '',
-                validation: {},
-                valid: false,
-                touched: false
             }
             
         },
         formIsValid: false,
         loading: false
-    }
-
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-        
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -170,8 +103,7 @@ class PersonalInfoForm extends Component {
 
     render () {
 
-        console.log("Personal Info Form: ", this.props);
-
+        
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
@@ -193,18 +125,16 @@ class PersonalInfoForm extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                
                 <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
             </form>
         )
+
         return (
-            <div>
+            <div className={classes.NewExpJob}>
                 {form}
             </div>
         );
     }
-
-
 }
 
-export default PersonalInfoForm;
+export default NewExpJob;

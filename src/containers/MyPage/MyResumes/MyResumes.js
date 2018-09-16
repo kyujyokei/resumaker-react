@@ -9,7 +9,7 @@ class MyResumes extends Component {
         return (
             <Aux>
                 <p>Paste job description: </p><input className={classes.JobLink}></input>
-                <Button btnType="Success">Generate</Button>
+                <Button btnType="BlueRounded">Generate</Button>
             </Aux>
         );
     }

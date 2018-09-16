@@ -14,7 +14,7 @@ class PersonalInfoContainer extends Component {
             <Aux>
                 <Link to={this.props.match.url + '/edit' }>EDIT</Link>
                 <Switch>
-                        <Route path={this.props.match.url + '/edit'} component={PersonalInfoForm}/>
+                        {/* <Route path={this.props.match.url + '/edit'} component={PersonalInfoForm}/> */}
                         <Route path={this.props.match.url} component={PersonalInfoDetail}/>
                         
                 </Switch>

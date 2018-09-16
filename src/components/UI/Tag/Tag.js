@@ -5,7 +5,7 @@ const Tag = (props) => {
     // class = 
     return (
         <li>
-        <span className={classes['w3-tag',' ','w3-blue']}>{props.children}</span>
+        <span className={classes['w3-tag',' ','w3-indigo']}>{props.children}</span>
         </li>
     );
     

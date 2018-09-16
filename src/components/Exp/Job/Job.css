@@ -17,5 +17,9 @@
 
 .Title {
     margin: 16px 0;
+    color: #aaa;
+}
+
+.Date {
     color: #ccc;
 }
