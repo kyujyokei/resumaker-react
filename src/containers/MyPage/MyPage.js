@@ -29,6 +29,7 @@ class MyPage extends Component {
                         <Route path="/me/edit" exact component={PersonalInfoForm} />
                         <Route path="/logout" component={Logout}/>
 
+
                     </Switch>
                 </div>
                 {/* <ExpsContainer /> */}

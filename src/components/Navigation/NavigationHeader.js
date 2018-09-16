@@ -11,11 +11,15 @@ const navigationHeader = (props) => (
         </div>
         <div className={classes.Content}>
             <h2 className={classes.Title}><b>Resumaker</b></h2>
-            <nav className={classes.Nav}>
+            {props.isAuth ? 
+                <nav className={classes.Nav}>
                 <a href="/exps">Experiences</a>  |  
                 <a href="/me">Personal Info</a>  |
                 <NavLink to="/resume" exact>My Resume</NavLink>
-            </nav>
+                </nav>
+                : null
+            }
+            
         </div>
     </div>
 );
