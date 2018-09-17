@@ -2,9 +2,34 @@
     background-color:#000;
     color:#fff;
     display:block;
-    padding-left:8px;
-    padding-right:8px;
+    /* padding-left:8px; */
+    /* padding-right:8px; */
     text-align:center;
+    position: relative;
+    top: -1px;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+    margin: 3px;
+    color: #fff;
+    background-color: #007bff;
+    font-size: 70%;
+}
+
+.btn .badge {
+position: relative;
+top: -1px;
+}
+
+.badge-pill {
+padding-right: 0.6em;
+padding-left: 0.6em;
+border-radius: 10rem;
+}
+
+.badge-primary {
+color: #fff;
+background-color: #007bff;
 }
 
 .w3-amber,.w3-hover-amber:hover{color:#000!important;background-color:#ffc107!important}

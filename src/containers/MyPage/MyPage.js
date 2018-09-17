@@ -11,6 +11,7 @@ import classes from './MyPage.css';
 import NewExpJob from './NewExp/NewExpJob/NewExpJob';
 import PersonalInfoForm from './PersonalInfoContainer/PersonalInfoForm/PersonalInfoForm';
 import Logout from './SignUp/Logout/Logout';
+import CoverPage from './CoverPage/CoverPage';
 
 class MyPage extends Component {
     render () {
@@ -28,6 +29,7 @@ class MyPage extends Component {
                         <Route path="/job/new" exact component={NewExpJob} />
                         <Route path="/me/edit" exact component={PersonalInfoForm} />
                         <Route path="/logout" component={Logout}/>
+                        <Route path="/" exact component={CoverPage} />
 
 
                     </Switch>
