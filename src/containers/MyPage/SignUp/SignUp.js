@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
@@ -189,4 +189,4 @@ const mapDispatchProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchProps)(SignUp);
+export default withRouter(connect(mapStateToProps, mapDispatchProps)(SignUp));

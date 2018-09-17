@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Aux from '../../hoc/Aux';
 import ExpsContainer from './ExpsContainer/ExpsContainer';
 import NavigationHeader from '../../components/Navigation/NavigationHeader';
-import { Route, Switch, Redirect} from 'react-router-dom';
+import { Route, Switch, withRouter} from 'react-router-dom';
 import PersonalInfoContainer from './PersonalInfoContainer/PersonalInfoContainer';
 import SignUp from './SignUp/SignUp';
 import MyResumes from './MyResumes/MyResumes';
@@ -47,4 +47,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps) (MyPage);
+export default withRouter(connect(mapStateToProps) (MyPage));
