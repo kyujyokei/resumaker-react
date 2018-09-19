@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import classes from './NewExpJob.css';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
+import Select from 'react-select';
 
 class NewExpJob extends Component {
+
+
 
     state = {
         info: {
@@ -103,6 +106,15 @@ class NewExpJob extends Component {
 
     render () {
 
+        const scaryAnimals = [
+            { label: "Alligators", value: 1 },
+            { label: "Crocodiles", value: 2 },
+            { label: "Sharks", value: 3 },
+            { label: "Small crocodiles", value: 4 },
+            { label: "Smallest crocodiles", value: 5 },
+            { label: "Snakes", value: 6 },
+          ];
+
         
         const formElementsArray = [];
         for (let key in this.state.info) {
@@ -132,6 +144,7 @@ class NewExpJob extends Component {
         return (
             <div className={classes.NewExpJob}>
                 {form}
+                <Select options={scaryAnimals} />
             </div>
         );
     }

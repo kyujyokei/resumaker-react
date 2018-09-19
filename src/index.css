@@ -4,3 +4,27 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #eee;
 }
+
+/* unvisited link */
+a:link {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: orange;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: cornflowerblue;
+  text-decoration: none;
+}
