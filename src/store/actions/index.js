@@ -3,3 +3,6 @@ export {
     logout,
     authCheckState
 } from './auth';
+export {
+    initSkills
+} from './skill';

@@ -17,9 +17,15 @@
 
 .Title {
     margin: 16px 0;
-    color: #aaa;
+    color: #888;
 }
 
 .Date {
     color: #ccc;
+}
+
+.CompanyName {
+    color: #aaa;
+    font-size: 100%;
+    margin-top: -15px;
 }

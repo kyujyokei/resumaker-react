@@ -12,46 +12,49 @@ class ExpsJob extends Component {
     
     
     state = {
-        posts: [],
-        postSelected: null
+        jobs: [],
+        jobSelected: null
     }
 
     componentDidMount () {
         console.log("EXP JOBS: ", this.props);
-        axios.get( '/posts' ) // this is from https://jsonplaceholder.typicode.com/posts
+        axios.get( '/jobs/me', { headers: { "x-auth":  localStorage.getItem("token")}}) // this is from https://jsonplaceholder.typicode.com/posts
             .then( response => {
-                const posts = response.data.slice( 0, 3 );
-                const updatedPosts = posts.map( post => {
+                console.log(response.data);
+                const jobs = response.data.jobs;
+                const updatedJobs = jobs.map( job => {
                     return {
-                        ...post // can edit each post here
+                        ...job // can edit each post here
                     }
                 });
-                this.setState( { posts: updatedPosts } );
+                this.setState( { jobs: updatedJobs } );
+                console.log("STATE: ", this.state )
             }).catch( error => {
                 console.log( error );
             });
     }
 
-    postSelectHandler = ( id ) => {
+    jobSelectHandler = ( id ) => {
         this.props.history.push( '/exps/job/' + id );
-        this.setState( { postSelected: id } )
+        this.setState( { jobSelected: id } )
     }
 
 
     render() {
 
-        let posts = <p>The place for posts</p>;
+        let jobs = <p>The place for jobs</p>;
         
         if ( !this.state.error ){
-            if ( !this.state.postSelected ) {
-                posts = this.state.posts.map( post => {
+            if ( !this.state.jobSelected ) {
+                jobs = this.state.jobs.map( job => {
                     return (
                         <Job
-                        key={post.id}
-                        title={post.title}
+                        key={job._id}
+                        title={job.position}
+                        company={job.companyName}
                         date={"2018/1/1~2019/1/1"}
-                        description={post.body}
-                        clicked={() => this.postSelectHandler( post.id )} />
+                        description={job.body}
+                        clicked={() => this.jobSelectHandler( job.id )} />
                     );
                 });
             } 
@@ -67,7 +70,7 @@ class ExpsJob extends Component {
                     <Button btnType="BlueRounded">+ NEW</Button>
                 </Link>
                 <section className={classes.Exps}>
-                    {posts}
+                    {jobs}
                 </section>
                 <Route path={this.props.match.url + '/:id'} exact component={FullExpJob} />
             </div>

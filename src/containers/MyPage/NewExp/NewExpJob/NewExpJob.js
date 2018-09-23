@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import classes from './NewExpJob.css';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
-import Select from 'react-select';
+import { Link } from 'react-router-dom';
+// import Select from 'react-select';
+import Description from '../../../../components/Discription/Discription';
+import * as actions from '../../../../store/actions/index';
+
 
 class NewExpJob extends Component {
 
@@ -82,7 +86,8 @@ class NewExpJob extends Component {
             
         },
         formIsValid: false,
-        loading: false
+        loading: false,
+        discriptionNumber: 1
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -144,7 +149,10 @@ class NewExpJob extends Component {
         return (
             <div className={classes.NewExpJob}>
                 {form}
-                <Select options={scaryAnimals} />
+                <Link to="/newskill">
+                    <Button btnType="BlueRounded">Add New Skill</Button>
+                </Link>
+                
             </div>
         );
     }
