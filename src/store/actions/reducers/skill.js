@@ -3,15 +3,16 @@ import { updateObject } from '../../utility';
 
 
 const initialState = {
-    skills: null,
+    skills: [],
     error: false
 }
 
 const setSkills = ( state, action ) => {
+    console.log("REDUCER");
     return updateObject( state, {
         skills: action.skills,
-        error: false // this part should fetch new skills loaded from server
-    })
+        error: false 
+    });
 }
 
 const fetchSkillsFailed = ( state, action ) => {
@@ -22,8 +23,9 @@ const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.SET_SKILLS: return setSkills( state, action );
         case actionTypes.FETCH_SKILLS_FAILED: return fetchSkillsFailed( state, action );
+        default: return state;
     }
-}
+};
 
 
 export default reducer;

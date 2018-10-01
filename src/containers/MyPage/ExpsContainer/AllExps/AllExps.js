@@ -5,7 +5,7 @@ import Aux from '../../../../hoc/Aux';
 
 class AllExps extends Component {
     render () {
-        console.log("ALL exps: " , this.props);
+        // console.log("ALL exps: " , this.props);
         return (
             <Aux>
                 <Route path={this.props.match.url} component={ExpsJob} />

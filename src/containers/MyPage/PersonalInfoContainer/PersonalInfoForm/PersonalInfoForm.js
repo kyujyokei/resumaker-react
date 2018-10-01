@@ -170,7 +170,7 @@ class PersonalInfoForm extends Component {
 
     render () {
 
-        console.log("Personal Info Form: ", this.props);
+        // console.log("Personal Info Form: ", this.props);
 
         const formElementsArray = [];
         for (let key in this.state.info) {

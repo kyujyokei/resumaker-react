@@ -7,26 +7,23 @@ import { withRouter } from 'react-router-dom';
 
 class NewSkill extends Component {
 
-
-
     componentDidMount () {
-        // console.log(this.props);
         this.props.onInitSkills();
-        console.log(this.props);
-        console.log(this.state);
+        // console.log("STATE",this.props.skills);
     }
 
-
-
-    // mapSkills () {
-    //     this.state.skills.map()
-    // }
-
     render () {
+        
+        var skillsList = [];
+        if (!this.props.skills) {
+            skillsList = [];
+        } else {
+            skillsList = this.props.skills
+        }
         return (
             <Aux>
                 <p>Please make sure your tag has not yet been created : </p>
-                {/* <Select options={this.state.skills.skills} /> */}
+                <Select options={skillsList} />
             </Aux>
         );
     };
@@ -35,20 +32,16 @@ class NewSkill extends Component {
 
 const mapStateToProps = state => {
     return {
-        skills: state.skills,
+        skills: state.skill.skills,
         error: state.error
     }
 }
-
-
 
 const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills())
     }
 }
-
-
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps) (NewSkill));

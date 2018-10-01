@@ -17,10 +17,10 @@ class ExpsJob extends Component {
     }
 
     componentDidMount () {
-        console.log("EXP JOBS: ", this.props);
+        // console.log("EXP JOBS: ", this.props);
         axios.get( '/jobs/me', { headers: { "x-auth":  localStorage.getItem("token")}}) // this is from https://jsonplaceholder.typicode.com/posts
             .then( response => {
-                console.log(response.data);
+                // console.log(response.data);
                 const jobs = response.data.jobs;
                 const updatedJobs = jobs.map( job => {
                     return {
@@ -28,7 +28,7 @@ class ExpsJob extends Component {
                     }
                 });
                 this.setState( { jobs: updatedJobs } );
-                console.log("STATE: ", this.state )
+                // console.log("STATE: ", this.state )
             }).catch( error => {
                 console.log( error );
             });
