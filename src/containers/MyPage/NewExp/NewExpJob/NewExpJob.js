@@ -1,16 +1,21 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classes from './NewExpJob.css';
+import Select from 'react-select';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 import { Link } from 'react-router-dom';
 // import Select from 'react-select';
 import Description from '../../../../components/Discription/Discription';
 import * as actions from '../../../../store/actions/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 class NewExpJob extends Component {
-
-
+    componentDidMount () {
+        this.props.onInitSkills();
+        // console.log("STATE",this.props.skills);
+    }
 
     state = {
         info: {
@@ -111,16 +116,6 @@ class NewExpJob extends Component {
 
     render () {
 
-        const scaryAnimals = [
-            { label: "Alligators", value: 1 },
-            { label: "Crocodiles", value: 2 },
-            { label: "Sharks", value: 3 },
-            { label: "Small crocodiles", value: 4 },
-            { label: "Smallest crocodiles", value: 5 },
-            { label: "Snakes", value: 6 },
-          ];
-
-        
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
@@ -146,9 +141,17 @@ class NewExpJob extends Component {
             </form>
         )
 
+        var skillsList = [];
+        if (!this.props.skills) {
+            skillsList = [];
+        } else {
+            skillsList = this.props.skills
+        }
+
         return (
             <div className={classes.NewExpJob}>
                 {form}
+                <Select options={skillsList} />
                 <Link to="/newskill">
                     <Button btnType="BlueRounded">Add New Skill</Button>
                 </Link>
@@ -158,4 +161,17 @@ class NewExpJob extends Component {
     }
 }
 
-export default NewExpJob;
+const mapStateToProps = state => {
+    return {
+        skills: state.skill.skills,
+        error: state.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onInitSkills: () => dispatch(actions.initSkills())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (NewExpJob));

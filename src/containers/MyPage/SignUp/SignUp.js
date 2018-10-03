@@ -161,6 +161,7 @@ class SignUp extends Component {
 
         return (
             <div className={classes.SignUp}>
+                {this.state.isSignup ? <p>Sign Up</p> :  <p>Sign in</p> }
                 {authRedirect}
                 {errorMsg}
                 <form onSubmit={this.submitHandler}> 
@@ -169,7 +170,7 @@ class SignUp extends Component {
                 </form>
                 
                 <Button btnType="Danger" 
-                clicked={this.switchAuthModeHandler}>{this.state.isSignup ? 'SIGN IN' : 'SIGNUP'}</Button>
+                clicked={this.switchAuthModeHandler}>{this.state.isSignup ? 'Switch to SIGN IN' : ' Switch to SIGNUP'}</Button>
             </div>
         );
     }
