@@ -17,10 +17,8 @@ class ExpsJob extends Component {
     }
 
     componentDidMount () {
-        // console.log("EXP JOBS: ", this.props);
         axios.get( '/jobs/me', { headers: { "x-auth":  localStorage.getItem("token")}}) // this is from https://jsonplaceholder.typicode.com/posts
             .then( response => {
-                // console.log(response.data);
                 const jobs = response.data.jobs;
                 const updatedJobs = jobs.map( job => {
                     return {
@@ -28,7 +26,6 @@ class ExpsJob extends Component {
                     }
                 });
                 this.setState( { jobs: updatedJobs } );
-                // console.log("STATE: ", this.state )
             }).catch( error => {
                 console.log( error );
             });
@@ -54,7 +51,7 @@ class ExpsJob extends Component {
                         company={job.companyName}
                         date={"2018/1/1~2019/1/1"}
                         description={job.body}
-                        clicked={() => this.jobSelectHandler( job.id )} />
+                        clicked={() => this.jobSelectHandler( job._id )} />
                     );
                 });
             } 

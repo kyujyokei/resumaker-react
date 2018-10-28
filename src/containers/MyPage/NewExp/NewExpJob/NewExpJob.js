@@ -5,16 +5,20 @@ import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 import { Link } from 'react-router-dom';
 // import Select from 'react-select';
-import Description from '../../../../components/Discription/Discription';
+// import Description from '../../../../components/Discription/Discription';
 import * as actions from '../../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Aux from '../../../../hoc/Aux';
 
 
 class NewExpJob extends Component {
     componentDidMount () {
         this.props.onInitSkills();
-        // console.log("STATE",this.props.skills);
+    }
+
+    componentDidUpdate () {
+        
     }
 
     state = {
@@ -73,27 +77,100 @@ class NewExpJob extends Component {
                 },
                 valid: false,
                 touched: false
-            },
-            description: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Description'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isEmail: true
-                },
-                valid: false,
-                touched: false
             }
-            
         },
         formIsValid: false,
         loading: false,
-        discriptionNumber: 1
+        descriptionConfig: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Description'
+            },
+            value: '',
+            validation: {
+                required: true,
+                isEmail: true
+            },
+            valid: false,
+            touched: false
+        },
+        descriptions: [
+            {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Description'
+            },
+            value: '',
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false     
+        }],
+        descriptionFormIsValid: false
     }
+
+    pushDescription = () => {
+
+
+        var d = {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Description'
+            },
+            value: '',
+            validation: {
+                required: true,
+            },
+            valid: false,
+            touched: false     
+        };
+
+        let newDescriptions = [
+            ...this.state.descriptions,
+            d
+        ]
+
+
+        // this.state.descriptions.push(d);
+        this.setState({ descriptions: newDescriptions})
+        console.log(this.state.descriptions);
+    }
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (!rules) {
+            return true;
+        }
+        
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        return isValid;
+    }
+
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedInfo = {
@@ -114,7 +191,46 @@ class NewExpJob extends Component {
         this.setState({info: updatedInfo, formIsValid: formIsValid});
     }
 
+    descriptionInputChangedHandler = (event, index) => {
+        const updatedDescriptions = [
+            ...this.state.descriptions
+        ];
+
+        const updatedDescriptionElement = {
+            ...updatedDescriptions[index]
+        };
+        updatedDescriptionElement.value = event.target.value;
+        updatedDescriptionElement.valid = this.checkValidity(updatedDescriptionElement.value, updatedDescriptionElement.validation);
+        updatedDescriptionElement.touched = true;
+        updatedDescriptions[index] = updatedDescriptionElement;
+
+        let formIsValid = true;
+        for (let index in updatedDescriptions) {
+            formIsValid = updatedDescriptions[index].valid && formIsValid;
+        }
+        
+        this.setState({descriptions: updatedDescriptions, descriptionFormIsValid: formIsValid})
+    }
+
+    deleteDescriptionHandler = (event, index) => {
+        event.preventDefault();
+        console.log(index);
+        const updatedDescriptions = [
+            ...this.state.descriptions
+        ];
+        updatedDescriptions.splice(index,1);
+        this.setState({description: this.state.descriptions.splice(index, 1)});
+        console.log(this.state.descriptions);
+    }
+
     render () {
+
+        var skillsList = [];
+        if (!this.props.skills) {
+            skillsList = [];
+        } else {
+            skillsList = this.props.skills
+        }
 
         const formElementsArray = [];
         for (let key in this.state.info) {
@@ -128,6 +244,7 @@ class NewExpJob extends Component {
             <form>
                 {formElementsArray.map(formElement => (
                     <Input
+                        className={classes.Inputs}
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -137,8 +254,33 @@ class NewExpJob extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
             </form>
+        )
+
+        let descriptionsForm = (
+            <Aux>
+            <form>
+            <h3>Descriptions</h3>
+            {this.state.descriptions.map((description, index) => (
+                <div key={index} className={classes.DescriptionRow}>
+                <Input
+                    // key={index}
+                    elementType={description.elementType}
+                    elemenyConfig={description.elementConfig}
+                    value={description.value}
+                    invalid={!description.valid}
+                    shouldValidate={description.validation}
+                    touched={description.touched}
+                    changed={(event) => this.descriptionInputChangedHandler(event, index)}
+                    />
+                <Select  className={classes.Select} options={skillsList} isMulti={true}/>
+                {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
+                </div>
+            ))}
+            </form>
+
+                <Button btnType={"Success"} clicked={this.pushDescription}>Add Description</Button>
+            </Aux>
         )
 
         var skillsList = [];
@@ -151,10 +293,13 @@ class NewExpJob extends Component {
         return (
             <div className={classes.NewExpJob}>
                 {form}
-                <Select options={skillsList} />
-                <Link to="/newskill">
+                {descriptionsForm}
+
+                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
+                {/* <Select options={skillsList} /> */}
+                {/* <Link to="/newskill">
                     <Button btnType="BlueRounded">Add New Skill</Button>
-                </Link>
+                </Link> */}
                 
             </div>
         );

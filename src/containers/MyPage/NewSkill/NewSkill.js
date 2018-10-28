@@ -26,7 +26,7 @@ class NewSkill extends Component {
 
     componentDidMount () {
         this.props.onInitSkills();
-        // console.log("STATE",this.props.skills);
+
     }
 
     inputChangedHandler = (event, inputIdentifier) => {

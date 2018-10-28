@@ -6,7 +6,7 @@ import PersonalInfoDetail from './PersonalInfoDetail/PersonalInfoDetail';
 
 class PersonalInfoContainer extends Component {
     componentDidMount () {
-        // console.log("PI container: ", this.props);
+
     }
 
     render () {

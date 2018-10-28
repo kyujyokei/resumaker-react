@@ -11,20 +11,16 @@ class FullExpJob extends Component {
     }
 
     componentDidMount () {
-        // console.log(this.props);
         this.loadData();
     }
 
-    componentDidUpdate() {
-        this.loadData();
-    }
 
     loadData () {
+
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
-                axios.get( '/posts/' + this.props.match.params.id )
+                axios.get( '/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}} )
                     .then( response => {
-                        // console.log(response);
                         this.setState( { loadedPost: response.data } );
                     } );
             }
@@ -32,14 +28,14 @@ class FullExpJob extends Component {
     }
 
     deletePostHandler = () => {
-        axios.delete('/posts/' + this.props.match.params.id)
+        axios.delete('/jobs/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
             });
     }
 
     editPostHandler = () => {
-        axios.delete('/posts/' + this.props.match.params.id)
+        axios.delete('/jobs/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
             });
@@ -53,8 +49,8 @@ class FullExpJob extends Component {
         if ( this.state.loadedPost ) {
             post = (
                 <div className={classes.FullExpJob}>
-                    <h1>{this.state.loadedPost.title}</h1>
-                    <p>{this.state.loadedPost.body}</p>
+                    <h1>{this.state.loadedPost.job[0].position}</h1>
+                    <p>{this.state.loadedPost.job[0].companyName}</p>
                     <div >
                         <button onClick={this.editPostHandler} className="Edit">Edit</button>
                         <button onClick={this.deletePostHandler} className="Delete">Delete</button>

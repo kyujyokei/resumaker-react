@@ -9,14 +9,13 @@ export const initSkills = () => {
                 var modifiedSkills = [];
 
                 Object.keys(response.data.skills).forEach(function(key) {
-                    // console.log("KEY", key, response.data.skills[key]);
+
                     modifiedSkills.push({
                         label:response.data.skills[key].name,
                         value:response.data.skills[key]._id
                     })
                 });
 
-                console.log("MOD: ", modifiedSkills);
                 dispatch(setSkills(modifiedSkills))
             })
             .catch( error => {
@@ -26,7 +25,7 @@ export const initSkills = () => {
 };
 
 export const setSkills = (skills) => {
-    console.log("ACTION");
+
     return {
         type: actionTypes.SET_SKILLS,
         skills: skills

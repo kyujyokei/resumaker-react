@@ -35,7 +35,7 @@ export const checkAuthTimeout = () => {
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
-        }, 3600 * 1000);
+        }, 36000000); // auto authorized time period, logs out afterwards
     };
 };
 

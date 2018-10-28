@@ -8,7 +8,6 @@ const initialState = {
 }
 
 const setSkills = ( state, action ) => {
-    console.log("REDUCER");
     return updateObject( state, {
         skills: action.skills,
         error: false 

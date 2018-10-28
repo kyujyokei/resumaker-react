@@ -13,7 +13,6 @@ class ExpsContainer extends Component {
     }
 
     render () {
-        // console.log('EXP C: ', this.props);
         return (
             <Aux>
                 <Switch>
