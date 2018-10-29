@@ -20,31 +20,58 @@ export const jobPostFail = (error) => {
     };
 };
 
-export const auth = (email, password, isSignup) => {
+export const postJob = (state) => {
     return dispatch => {
-        dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password
+        dispatch(jobPostStart());
+        // console.log('Job Post started');
+        console.log(state);
+
+        var updatedDescriptions = {};
+
+        for (var d in state.descriptions) {
+            console.log('D: ',state.descriptions[d])
+            var skills = []
+            for (var s in state.descriptions[d].skills){
+                console.log('S: ',state.descriptions[d].skills[s])
+                skills.push({
+                    skillName: state.descriptions[d].skills[s].label,
+                    skillId: state.descriptions[d].skills[s].value
+                });
+            }
+
+            updatedDescriptions[d] = {
+                description: state.descriptions[d].value,
+                skills: skills
+            };
+        }
+
+        console.log("UPDATED D: ", updatedDescriptions);
+
+        const job = {
+            position: state.info.position.value,
+            companyName: state.info.companyName.value,
+            startedDate: state.info.startedDate.value,
+            endDate: state.info.endDate.value,
+            descriptions: updatedDescriptions
         };
 
+
+        console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
-        axios.post(url, authData)
+        axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
-                // console.log(response);
-                // console.log(response.headers['x-auth']);
-                const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-                localStorage.setItem('token', response.headers['x-auth']);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data._id);
-                dispatch(authSuccess(response.headers['x-auth'], response.data._id));
-                dispatch(checkAuthTimeout());
+                console.log(response);
+
+                dispatch(jobPostSuccess());
 
             })
             .catch(err => {
-                // console.log(err.response.data.errmsg);
-                dispatch(authFail(err.response.data.errmsg));
+                console.log(err.response);
+                dispatch(jobPostFail(err.response.data.errmsg));
             })
+
+
+
     }
 }

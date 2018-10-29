@@ -23,7 +23,7 @@ class NewExpJob extends Component {
 
     state = {
         info: {
-            jobTitle: {
+            position: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -36,7 +36,7 @@ class NewExpJob extends Component {
                 valid: false,
                 touched: false
             },
-            CompanyName: {
+            companyName: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -49,7 +49,7 @@ class NewExpJob extends Component {
                 valid: false,
                 touched: false
             },
-            startDate: {
+            startedDate: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
@@ -58,9 +58,6 @@ class NewExpJob extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    isNumeric: true,
-                    maxLength: 10,
-                    minLength: 10
                 },
                 valid: false,
                 touched: false
@@ -102,12 +99,13 @@ class NewExpJob extends Component {
                 type: 'text',
                 placeholder: 'Description'
             },
-            value: '',
+            value:'',
             validation: {
                 required: true
             },
             valid: false,
-            touched: false     
+            touched: false,
+            skills:[]     
         }],
         descriptionFormIsValid: false
     }
@@ -208,19 +206,39 @@ class NewExpJob extends Component {
         for (let index in updatedDescriptions) {
             formIsValid = updatedDescriptions[index].valid && formIsValid;
         }
-        
+        // console.log("Description Handler: ", updatedDescriptions);
         this.setState({descriptions: updatedDescriptions, descriptionFormIsValid: formIsValid})
     }
 
     deleteDescriptionHandler = (event, index) => {
         event.preventDefault();
-        console.log(index);
+        // console.log(index);
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
         updatedDescriptions.splice(index,1);
         this.setState({description: this.state.descriptions.splice(index, 1)});
-        console.log(this.state.descriptions);
+        // console.log(this.state.descriptions);
+    }
+
+    selectChangeHandler = (opt, index) => {
+        //console.log(opt, index);
+        const updatedDescriptions = [
+            ...this.state.descriptions
+        ];
+        const updatedDescriptionElement = [
+            ...updatedDescriptions[index]
+        ];
+        updatedDescriptionElement.skills = [opt];
+        // console.log(updatedDescriptionElement.skills);
+        updatedDescriptions[index] = updatedDescriptionElement;
+        this.setState({descriptions: updatedDescriptions})
+
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault(); // stops the page from refreshing
+        this.props.postJob( this.state );
     }
 
     render () {
@@ -273,7 +291,11 @@ class NewExpJob extends Component {
                     touched={description.touched}
                     changed={(event) => this.descriptionInputChangedHandler(event, index)}
                     />
-                <Select  className={classes.Select} options={skillsList} isMulti={true}/>
+                <Select  
+                    className={classes.Select} 
+                    options={skillsList} 
+                    isMulti={true} 
+                    onChange={opt => this.selectChangeHandler(opt, index)}/>
                 {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
                 </div>
             ))}
@@ -295,7 +317,10 @@ class NewExpJob extends Component {
                 {form}
                 {descriptionsForm}
 
-                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
+                <Button 
+                    btnType="Success" 
+                    disabled={!this.state.formIsValid}
+                    clicked={this.submitHandler} > save </Button>
                 {/* <Select options={skillsList} /> */}
                 {/* <Link to="/newskill">
                     <Button btnType="BlueRounded">Add New Skill</Button>
@@ -315,7 +340,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onInitSkills: () => dispatch(actions.initSkills())
+        onInitSkills: () => dispatch(actions.initSkills()),
+        postJob: ( state ) => dispatch(actions.postJob(state))
     }
 }
 
