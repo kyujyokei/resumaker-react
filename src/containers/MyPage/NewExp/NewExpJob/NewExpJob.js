@@ -222,16 +222,23 @@ class NewExpJob extends Component {
     }
 
     selectChangeHandler = (opt, index) => {
-        //console.log(opt, index);
+        // console.log("OPT: ", opt, "IDX: ",index);
+        // console.log(this.state)
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
-        const updatedDescriptionElement = [
-            ...updatedDescriptions[index]
-        ];
+        // console.log(updatedDescriptions);
+        // console.log(updatedDescriptions[index]);
+        // const updatedDescriptionElement = [
+        //     ...updatedDescriptions[index]
+        // ];
+        var updatedDescriptionElement = JSON.parse(JSON.stringify(updatedDescriptions[index]));
+        // console.log(updatedDescriptionElement);
         updatedDescriptionElement.skills = [opt];
-        // console.log(updatedDescriptionElement.skills);
         updatedDescriptions[index] = updatedDescriptionElement;
+        // console.log(updatedDescriptionElement);
+        // console.log(updatedDescriptions[index]);
+        console.log(updatedDescriptions);
         this.setState({descriptions: updatedDescriptions})
 
     }
@@ -295,7 +302,7 @@ class NewExpJob extends Component {
                     className={classes.Select} 
                     options={skillsList} 
                     isMulti={true} 
-                    onChange={opt => this.selectChangeHandler(opt, index)}/>
+                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
                 {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
                 </div>
             ))}
