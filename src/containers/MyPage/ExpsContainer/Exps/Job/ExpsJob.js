@@ -44,13 +44,14 @@ class ExpsJob extends Component {
         if ( !this.state.error ){
             if ( !this.state.jobSelected ) {
                 jobs = this.state.jobs.map( job => {
+                    console.log("JOB: ", job);
                     return (
                         <Job
                         key={job._id}
                         title={job.position}
                         company={job.companyName}
                         date={"2018/1/1~2019/1/1"}
-                        description={job.body}
+                        descriptions={job.descriptions}
                         clicked={() => this.jobSelectHandler( job._id )} />
                     );
                 });

@@ -23,28 +23,22 @@ export const jobPostFail = (error) => {
 export const postJob = (state) => {
     return dispatch => {
         dispatch(jobPostStart());
-        // console.log('Job Post started');
         console.log(state);
 
         var updatedDescriptions = [];
 
         for (var d in state.descriptions) {
-            // console.log('D: ',state.descriptions[d])
             var skills = []
             for (var s in state.descriptions[d].skills[0]){
-                // console.log('S: ',state.descriptions[d].skills[0])
-                // console.log('S[s]: ',state.descriptions[d].skills[0][s])
                 skills.push({
                     skillName: state.descriptions[d].skills[0][s].label,
                     skillId: state.descriptions[d].skills[0][s].value
                 });
-                // console.log('[S]: ',skills);
             }
             updatedDescriptions.push({
                 description: state.descriptions[d].value,
                 skills: skills
             });
-            // console.log('[D]: ',updatedDescriptions);
         }
 
         console.log("UPDATED D: ", updatedDescriptions);
