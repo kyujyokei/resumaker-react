@@ -44,7 +44,7 @@ class ExpsJob extends Component {
         if ( !this.state.error ){
             if ( !this.state.jobSelected ) {
                 jobs = this.state.jobs.map( job => {
-                    console.log("JOB: ", job);
+                    // console.log("JOB: ", job);
                     return (
                         <Job
                         key={job._id}
