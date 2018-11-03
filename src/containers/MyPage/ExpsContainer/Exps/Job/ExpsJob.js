@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Job from '../../../../../components/Exp/Job/Job';
 import classes from './ExpsJob.css'
-import Aux from '../../../../../hoc/Aux';
-import { Route, NavLink, Switch, Redirect, Link } from 'react-router-dom';
+// import Aux from '../../../../../hoc/Aux';
+import { Route, Link } from 'react-router-dom';
 import FullExpJob from '../../../FullExp/FullExpJob/FullExpJob';
 import axios from '../../../../../axios';
 import Button from '../../../../../components/UI/Button/Button';
-import NewExpJob from '../../../NewExp/NewExpJob/NewExpJob';
+// import NewExpJob from '../../../NewExp/NewExpJob/NewExpJob';
 
 class ExpsJob extends Component {
     

@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
-import Button from '../../../../components/UI/Button/Button';
+// import Button from '../../../../components/UI/Button/Button';
+import {Redirect} from 'react-router-dom';
+import Tags from '../../../../components/Tags/Tags';
+import Tag from '../../../../components/UI/Tag/Tag';
 
 class FullExpJob extends Component {
     
     state = {
-        loadedPost: null
+        loadedPost: null,
+        redirect: false
     }
 
     componentDidMount () {
@@ -30,7 +34,12 @@ class FullExpJob extends Component {
         axios.delete('/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
+                if (response.status == 200) {
+                    this.setState({redirect: true});
+                    
+                }
             });
+
     }
 
     editPostHandler = () => {
@@ -57,21 +66,36 @@ class FullExpJob extends Component {
       
 
     render () {
+        console.log(this.state);
         let post = null;
         
         if ( this.props.match.params.id ) {
             post = <LoadingAnimation />;
         }
         if ( this.state.loadedPost ) {
-            console.log(this.state.loadedPost);
-
+            // console.log(this.state.loadedPost);
+            
             var descriptions = this.state.loadedPost.job[0].descriptions.map((d, index) => {
-                return <p key={index}>{d.description}</p>
+                var skillNames = d.skills.map((s, index) => {
+                    return <Tag key={index}>{s.skillName}</Tag>
+                    // console.log("S: ",s, d);
+                })
+                return (
+                    <div key={index}>
+                        <p>{d.description}</p>
+                        <Tags>
+                            {skillNames}
+                        </Tags>
+                    </div>)
             });
 
-
+            let shouldRedirect = null;
+            if (this.state.redirect) {
+                shouldRedirect = <Redirect to="/exps/"/>
+            }
             post = (
                 <div className={classes.FullExpJob}>
+                    {shouldRedirect}
                     <h1>{this.state.loadedPost.job[0].position}</h1>
                     <p>{this.state.loadedPost.job[0].companyName}</p>
                     <p>Start: {new Date(this.state.loadedPost.job[0].startedDate).toISOString().split('T')[0]}</p>

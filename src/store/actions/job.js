@@ -7,18 +7,27 @@ export const jobPostStart = () => {
     };
 };
 
-export const jobPostSuccess = () => {
+export const jobPostSuccess = (status) => {
     return {
-        type: actionTypes.JOB_POST_SUCCESS
+        type: actionTypes.JOB_POST_SUCCESS,
+        status: status
     };
 };
 
-export const jobPostFail = (error) => {
+export const jobPostFail = (status, error) => {
     return {
         type: actionTypes.JOB_POST_FAIL,
-        error: error
+        error: error,
+        status: status
     };
 };
+
+export const jobPostReset = () => {
+    return {
+        type: actionTypes.JOB_POST_RESET
+    };
+};
+
 
 export const postJob = (state) => {
     return dispatch => {
@@ -41,7 +50,7 @@ export const postJob = (state) => {
             });
         }
 
-        console.log("UPDATED D: ", updatedDescriptions);
+        //console.log("UPDATED D: ", updatedDescriptions);
 
         const job = {
             position: state.info.position.value,
@@ -52,19 +61,19 @@ export const postJob = (state) => {
         };
 
 
-        console.log('JOB: ',job);
+        //console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
         axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
 
-                dispatch(jobPostSuccess());
+                dispatch(jobPostSuccess(response.status));
 
             })
             .catch(err => {
                 console.log(err.response);
-                dispatch(jobPostFail(err.response.data.errmsg));
+                dispatch(jobPostFail(err.response.status, err.response.data.message));
             })
 
 

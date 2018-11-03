@@ -3,11 +3,11 @@ import classes from './NewExpJob.css';
 import Select from 'react-select';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import Select from 'react-select';
 // import Description from '../../../../components/Discription/Discription';
 import * as actions from '../../../../store/actions/index';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
 
@@ -319,8 +319,22 @@ class NewExpJob extends Component {
             skillsList = this.props.skills
         }
 
+        let jobRedirect = null;
+        if (this.props.status == 200) {
+            jobRedirect = <Redirect to="/exps/" />
+            // this.props.status = null;
+            this.props.resetState();
+        }
+
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = <p>{this.props.error}</p>
+            console.log(this.props.error);
+        }
         return (
             <div className={classes.NewExpJob}>
+                {jobRedirect}
+                {errorMessage}
                 {form}
                 {descriptionsForm}
 
@@ -341,14 +355,17 @@ class NewExpJob extends Component {
 const mapStateToProps = state => {
     return {
         skills: state.skill.skills,
-        error: state.error
+        error: state.job.error,
+        status: state.job.status,
+        loading: state.job.loading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
-        postJob: ( state ) => dispatch(actions.postJob(state))
+        postJob: ( state ) => dispatch(actions.postJob(state)),
+        resetState: () => dispatch(actions.jobPostReset())
     }
 }
 

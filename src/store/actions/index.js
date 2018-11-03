@@ -10,5 +10,6 @@ export {
     postJob,
     jobPostStart,
     jobPostSuccess,
-    jobPostFail
+    jobPostFail,
+    jobPostReset
 } from './job';

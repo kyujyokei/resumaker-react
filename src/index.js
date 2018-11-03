@@ -9,12 +9,14 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/actions/reducers/auth';
 import skillReducer from './store/actions/reducers/skill';
+import jobReducer from './store/actions/reducers/job';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    skill: skillReducer
+    skill: skillReducer,
+    job: jobReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
