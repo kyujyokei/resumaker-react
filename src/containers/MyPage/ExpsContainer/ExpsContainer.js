@@ -17,7 +17,7 @@ class ExpsContainer extends Component {
             <Aux>
                 <Switch>
                 {/* {this.state.expSelected ? <Route path="/post" component={FullExpJob} /> : null} */}
-                {/* <Route path="/me" component={PersonalInfo}/> */}
+                {/* <Route path="/me" component={Profile}/> */}
                 <Route path={this.props.match.url + '/job/:id'} exact component={FullExpJob}/>
                 <Route path={this.props.match.url} exact component={AllExps}/>
                 

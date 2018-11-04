@@ -53,8 +53,6 @@ export const auth = (authInfo, isSignup) => {
 
         axios.post(url, authData)
             .then(response => {
-                // console.log(response);
-                // console.log(response.headers['x-auth']);
                 const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
                 localStorage.setItem('token', response.headers['x-auth']);
                 localStorage.setItem('expirationDate', expirationDate);

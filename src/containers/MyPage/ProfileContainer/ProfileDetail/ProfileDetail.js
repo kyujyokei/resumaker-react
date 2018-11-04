@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Aux from '../../../../hoc/Aux';
 
-class PersonalInfoDetail extends Component {
+class ProfileDetail extends Component {
     render () {
         return (
             <Aux>
@@ -17,4 +17,4 @@ class PersonalInfoDetail extends Component {
     }
 }
 
-export default PersonalInfoDetail;
+export default ProfileDetail;

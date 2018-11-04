@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 
-class PersonalInfoForm extends Component {
+class ProfileForm extends Component {
     state = {
         info: {
             firstName: {
@@ -207,4 +207,4 @@ class PersonalInfoForm extends Component {
 
 }
 
-export default PersonalInfoForm;
+export default ProfileForm;

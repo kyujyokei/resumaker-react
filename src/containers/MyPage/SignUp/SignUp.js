@@ -220,7 +220,7 @@ class SignUp extends Component {
 
         let authInfo = {};
         let postObject = {}; // this is what's going to be sent to server
-        // TODO: create 2 differen objects for singin & sign up, pass the whole object
+
         // Sign up
         if (this.state.isSignup) {
             authInfo = {...this.state.signUpInfo};
