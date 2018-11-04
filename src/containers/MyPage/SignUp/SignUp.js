@@ -197,7 +197,6 @@ class SignUp extends Component {
             currentForm = this.state.signUpInfo;
         }
 
-        console.log(currentForm);
         const updatedInfo = {
             ...currentForm,
             [controlName]: {
@@ -219,8 +218,23 @@ class SignUp extends Component {
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
 
+        let authInfo = {};
+        let postObject = {}; // this is what's going to be sent to server
         // TODO: create 2 differen objects for singin & sign up, pass the whole object
-        this.props.onAuth( this.state.info.email.value, this.state.info.password.value, this.state.isSignup);
+        // Sign up
+        if (this.state.isSignup) {
+            authInfo = {...this.state.signUpInfo};
+        } else {
+            authInfo = {...this.state.info};
+        }
+
+        for (var key in authInfo) {
+            postObject[key] = authInfo[key].value;
+        }
+
+        // console.log(postObject);
+
+        this.props.onAuth( postObject, this.state.isSignup);
 
     }
 
@@ -305,7 +319,7 @@ const mapStateToProps = state => {
 
 const mapDispatchProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch (actions.auth(email, password, isSignup))
+        onAuth: (authInfo, isSignup) => dispatch (actions.auth(authInfo, isSignup))
     }
 }
 

@@ -39,12 +39,11 @@ export const checkAuthTimeout = () => {
     };
 };
 
-export const auth = (email, password, isSignup) => {
+export const auth = (authInfo, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
-            email: email,
-            password: password
+            ...authInfo
         };
 
         let url = 'https://obscure-journey-65698.herokuapp.com/users';
@@ -56,7 +55,7 @@ export const auth = (email, password, isSignup) => {
             .then(response => {
                 // console.log(response);
                 // console.log(response.headers['x-auth']);
-                const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+                const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
                 localStorage.setItem('token', response.headers['x-auth']);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data._id);
@@ -65,7 +64,6 @@ export const auth = (email, password, isSignup) => {
 
             })
             .catch(err => {
-                // console.log(err.response.data.errmsg);
                 dispatch(authFail(err.response.data.errmsg));
             })
     }
