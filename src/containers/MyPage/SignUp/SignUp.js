@@ -40,9 +40,131 @@ class SignUp extends Component {
                 touched: false
             }
         },
+        signUpInfo: {
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Email address'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            password: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Password'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 6
+                },
+                valid: false,
+                touched: false
+            },
+            firstName: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'First Name'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            lastName: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Last Name'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            phone: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Phone Number'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    maxLength: 10,
+                    minLength: 10
+                },
+                valid: false,
+                touched: false
+            },
+            address: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Address'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    maxLength: 5,
+                    minLength: 5
+                },
+                valid: false,
+                touched: false
+            },
+            websiteURL: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Website Link'
+                },
+                value: '',
+                validation: {},
+                valid: false,
+                touched: false
+            },
+            githubURL:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Github Link'
+                },
+                value: '',
+                validation: {},
+                valid: false,
+                touched: false
+            }
+        },
         formIsValid: false,
         passwordMatched: false,
-        isSignup: true
+        isSignup: false
     }
 
     checkValidity(value, rules) {
@@ -68,40 +190,36 @@ class SignUp extends Component {
         return isValid;
     }
 
-    // inputChangedHandler = (event, inputIdentifier) => {
-    //     const updatedInfo = {
-    //         ...this.state.info
-    //     };
-    //     const updatedFormElement = { 
-    //         ...updatedInfo[inputIdentifier]
-    //     };
-    //     updatedFormElement.value = event.target.value;
-    //     updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-    //     updatedFormElement.touched = true;
-    //     updatedInfo[inputIdentifier] = updatedFormElement;
-        
-    //     let formIsValid = true;
-    //     for (let inputIdentifier in updatedInfo) {
-    //         formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
-    //     }
-    //     this.setState({info: updatedInfo, formIsValid: formIsValid});
-    // }
-
     inputChangedHandler = (event, controlName) => {
+        let currentForm = this.state.info;
+
+        if (this.state.isSignup) {
+            currentForm = this.state.signUpInfo;
+        }
+
+        console.log(currentForm);
         const updatedInfo = {
-            ...this.state.info,
+            ...currentForm,
             [controlName]: {
-                ...this.state.info[controlName],
+                ...currentForm[controlName],
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.info[controlName].validation),
+                valid: this.checkValidity(event.target.value, currentForm[controlName].validation),
                 touched: true
             }
         };
-        this.setState({info: updatedInfo});
+
+        if (this.state.isSignup) {
+            this.setState({signUpInfo: updatedInfo});
+        } else {
+            this.setState({info: updatedInfo});
+        }
+        
     }
 
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
+
+        // TODO: create 2 differen objects for singin & sign up, pass the whole object
         this.props.onAuth( this.state.info.email.value, this.state.info.password.value, this.state.isSignup);
 
     }
@@ -112,19 +230,20 @@ class SignUp extends Component {
         });
     }
 
-    // componentDidMount () {
-    //     if (this.props.authRedirectPath !== '/') {
-    //         this.props.onSetAuthRedirectPath();
-    //     }
-    // }
-
     render () {
 
         const formElementsArray = [];
-        for (let key in this.state.info) {
+        let currentForm = this.state.info;
+        if (this.state.isSignup) {
+            currentForm = this.state.signUpInfo
+        } else {
+            currentForm = this.state.info;
+        }
+
+        for (let key in currentForm) {
             formElementsArray.push({
                 id: key,
-                config: this.state.info[key]
+                config: currentForm[key]
             });
         }
 
