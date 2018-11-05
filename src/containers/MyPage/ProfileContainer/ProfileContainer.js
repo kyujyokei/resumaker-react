@@ -7,12 +7,33 @@ import ProfileDetail from './ProfileDetail/ProfileDetail';
 import * as actions from '../../../store/actions/index';
 
 class ProfileContainer extends Component {
+
+    state = {
+        isEdit: false
+    }
+
     componentDidMount () {
         this.props.onInitProfile();
         // console.log
     }
 
     render () {
+        let content = null;
+        if (!this.state.isEdit) {
+            content = <ProfileDetail
+                f_name={this.props.profile.f_name}
+                l_name={this.props.profile.l_name}
+                phone={this.props.profile.phone}
+                address={this.props.profile.address}
+                email={this.props.profile.email}/>
+        } else {
+            content = <ProfileForm info={this.props.profile}/>
+
+        }
+
+
+
+
         return (
             <Aux>
                 <Link to={this.props.match.url + '/edit' }>EDIT</Link>
