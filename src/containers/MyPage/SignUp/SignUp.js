@@ -68,7 +68,7 @@ class SignUp extends Component {
                 valid: false,
                 touched: false
             },
-            firstName: {
+            f_name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -81,7 +81,7 @@ class SignUp extends Component {
                 valid: false,
                 touched: false
             },
-            lastName: {
+            l_name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',

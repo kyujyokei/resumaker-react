@@ -3,9 +3,6 @@ import classes from './NewExpJob.css';
 import Select from 'react-select';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
-// import { Link } from 'react-router-dom';
-// import Select from 'react-select';
-// import Description from '../../../../components/Discription/Discription';
 import * as actions from '../../../../store/actions/index';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,9 +14,6 @@ class NewExpJob extends Component {
         this.props.onInitSkills();
     }
 
-    componentDidUpdate () {
-        
-    }
 
     state = {
         info: {

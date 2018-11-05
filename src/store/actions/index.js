@@ -13,3 +13,12 @@ export {
     jobPostFail,
     jobPostReset
 } from './job';
+export {
+    initProfile,
+    fetchProfileFailed,
+    patchProfile,
+    proPatchStart,
+    proPatchSuccess,
+    proPatchFail,
+    proPatchReset
+} from './profile';

@@ -6,11 +6,11 @@ class ProfileDetail extends Component {
         return (
             <Aux>
                 <div>
-                    <p>Name: Kejo Hsieh</p>
-                    <p>Phone: 6267660549</p>
-                    <p>Address: 3276 NW Orchard Ave Corvallis OR 97330</p>
-                    <p>Email: hsiehke@oregonstate.edu</p>
-                    <p>Github Link: https://github.io/kyujyokei</p>
+                    <p>{this.props.f_name} {this.props.l_name}</p>
+                    <p>Phone: {this.props.phone}</p>
+                    <p>Address: {this.props.address}</p>
+                    <p>Email: {this.props.email}</p>
+                    {/* <p>Github Link: https://github.io/kyujyokei</p> */}
                 </div>
             </Aux>
         )

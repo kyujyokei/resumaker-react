@@ -25,7 +25,6 @@ export const initSkills = () => {
 };
 
 export const setSkills = (skills) => {
-
     return {
         type: actionTypes.SET_SKILLS,
         skills: skills

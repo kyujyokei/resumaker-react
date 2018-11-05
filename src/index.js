@@ -10,13 +10,15 @@ import thunk from 'redux-thunk';
 import authReducer from './store/actions/reducers/auth';
 import skillReducer from './store/actions/reducers/skill';
 import jobReducer from './store/actions/reducers/job';
+import profileReducer from './store/actions/reducers/profile';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
     skill: skillReducer,
-    job: jobReducer
+    job: jobReducer,
+    profile: profileReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

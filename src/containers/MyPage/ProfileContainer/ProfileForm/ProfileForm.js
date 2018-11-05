@@ -5,7 +5,7 @@ import Button from '../../../../components/UI/Button/Button';
 class ProfileForm extends Component {
     state = {
         info: {
-            firstName: {
+            f_name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -18,7 +18,7 @@ class ProfileForm extends Component {
                 valid: false,
                 touched: false
             },
-            lastName: {
+            l_name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',

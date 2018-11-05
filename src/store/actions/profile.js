@@ -1,22 +1,50 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-export const jobPostStart = () => {
-    return {
-        type: actionTypes.JOB_POST_START
+
+export const initProfile = () => {
+    return dispatch => {
+        let url = 'https://obscure-journey-65698.herokuapp.com/users/me'
+        axios.get(url, { headers: { "x-auth":  localStorage.getItem("token")}})
+            .then( response => {
+
+                dispatch(setProfile(response.data));
+            })
+            .catch( error => {
+                dispatch(fetchProfileFailed());
+            });
     };
 };
 
-export const jobPostSuccess = (status) => {
+export const setProfile = (profile) => {
     return {
-        type: actionTypes.JOB_POST_SUCCESS,
+        type: actionTypes.SET_PRO,
+        profile: profile
+    }
+};
+
+export const fetchProfileFailed = () => {
+    return {
+        type: actionTypes.FETCH_PRO_FAILED
+    }
+}
+
+export const proPatchStart = () => {
+    return {
+        type: actionTypes.PRO_PATCH_START
+    };
+};
+
+export const proPatchSuccess = (status) => {
+    return {
+        type: actionTypes.PRO_PATCH_SUCCESS,
         status: status
     };
 };
 
-export const jobPostFail = (status, error) => {
+export const proPatchFail = (status, error) => {
     return {
-        type: actionTypes.JOB_POST_FAIL,
+        type: actionTypes.PRO_PATCH_FAIL,
         error: error,
         status: status
     };
@@ -24,18 +52,18 @@ export const jobPostFail = (status, error) => {
 
 export const jobPostReset = () => {
     return {
-        type: actionTypes.JOB_POST_RESET
+        type: actionTypes.PRO_PATCH_RESET
     };
 };
 
 
-export const postJob = (state) => {
+export const patchProfile = (state) => {
     return dispatch => {
-        dispatch(jobPostStart());
-        // console.log(state);
+        dispatch(proPatchStart());
 
         var updatedDescriptions = [];
 
+        /// TODO: change this part to pro patch
         for (var d in state.descriptions) {
             var skills = []
             for (var s in state.descriptions[d].skills[0]){
@@ -62,18 +90,18 @@ export const postJob = (state) => {
 
 
         //console.log('JOB: ',job);
-        let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
+        let url = 'https://obscure-journey-65698.herokuapp.com/users';
 
-        axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
+        axios.patch(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
 
-                dispatch(jobPostSuccess(response.status));
+                dispatch(proPatchSuccess(response.status));
 
             })
             .catch(err => {
                 console.log(err.response);
-                dispatch(jobPostFail(err.response.status, err.response.data.message));
+                dispatch(proPatchFail(err.response.status, err.response.data.message));
             })
 
 
