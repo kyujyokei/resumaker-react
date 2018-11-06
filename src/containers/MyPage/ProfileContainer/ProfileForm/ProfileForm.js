@@ -11,7 +11,7 @@ class ProfileForm extends Component {
                     type: 'text',
                     placeholder: 'First Name'
                 },
-                value: '',
+                value: this.props.children.f_name,
                 validation: {
                     required: true
                 },
@@ -24,7 +24,7 @@ class ProfileForm extends Component {
                     type: 'text',
                     placeholder: 'Last Name'
                 },
-                value: '',
+                value: this.props.children.l_name,
                 validation: {
                     required: true
                 },
@@ -37,7 +37,7 @@ class ProfileForm extends Component {
                     type: 'text',
                     placeholder: 'Phone Number'
                 },
-                value: '',
+                value: this.props.children.phone,
                 validation: {
                     required: true,
                     isNumeric: true,
@@ -53,25 +53,9 @@ class ProfileForm extends Component {
                     type: 'text',
                     placeholder: 'Address'
                 },
-                value: '',
+                value: this.props.children.address,
                 validation: {
                     required: true
-                },
-                valid: false,
-                touched: false
-            },
-            zipCode: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'ZIP Code'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    maxLength: 5,
-                    minLength: 5
                 },
                 valid: false,
                 touched: false
@@ -82,33 +66,11 @@ class ProfileForm extends Component {
                     type: 'email',
                     placeholder: 'E-mail'
                 },
-                value: '',
+                value: this.props.children.email,
                 validation: {
                     required: true,
                     isEmail: true
                 },
-                valid: false,
-                touched: false
-            },
-            websiteURL: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Website Link'
-                },
-                value: '',
-                validation: {},
-                valid: false,
-                touched: false
-            },
-            githubURL:{
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Github Link'
-                },
-                value: '',
-                validation: {},
                 valid: false,
                 touched: false
             }
@@ -156,6 +118,7 @@ class ProfileForm extends Component {
         const updatedFormElement = { 
             ...updatedInfo[inputIdentifier]
         };
+        console.log(updatedFormElement);
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
@@ -166,17 +129,16 @@ class ProfileForm extends Component {
             formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
         }
         this.setState({info: updatedInfo, formIsValid: formIsValid});
+        console.log(this.state.info);
     }
 
     render () {
-
-
 
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
                 id: key,
-                config: this.state.info[key]
+                config: { ...this.state.info[key]}
             });
         }
 

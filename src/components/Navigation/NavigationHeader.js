@@ -15,9 +15,9 @@ const navigationHeader = (props) => (
         </Link>
             {props.isAuth ? 
                 <nav className={classes.Nav}>
-                <a href="/exps">Experiences</a>  |  
-                <a href="/me">Personal Info</a>  |
-                <NavLink to="/resume" exact>My Resume</NavLink>
+                <a href="/exps">Experiences</a>    |  
+                <a href="/me">    Personal Info</a>    |
+                <NavLink to="/resume" exact>    My Resume</NavLink>
                 </nav>
                 : null
             }
