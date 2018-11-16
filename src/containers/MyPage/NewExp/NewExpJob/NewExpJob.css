@@ -10,18 +10,29 @@
 }
 
 .Inputs {
-    padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%
+    padding:8px;
+    display:block;
 }
 
 .Select {
-    width: 100%;
+    display: block;
+    width: 80%;
     height: 20px;
     margin-top: 10px;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.DescriptionRow {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: left;
+.DesNum{
+    margin-left: 10%;
+    text-align: left;
 }
+
+.X {
+    margin-left: 10%;
+    text-align: left;
+}
+
+
+

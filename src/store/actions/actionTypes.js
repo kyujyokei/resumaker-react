@@ -17,3 +17,8 @@ export const PRO_PATCH_FAIL = 'PRO_PATCH_FAIL';
 export const PRO_PATCH_RESET = 'PRO_PATCH_RESET';
 export const FETCH_PRO_FAILED = 'FETCH_PRO_FAILED';
 export const SET_PRO = 'SET_PRO';
+
+export const RES_POST_START = 'RES_POST_START';
+export const RES_POST_SUCCESS = 'RES_POST_SUCCESS';
+export const RES_POST_FAIL = 'RES_POST_FAIL';
+export const RES_POST_RESET = 'RES_POST_RESET';

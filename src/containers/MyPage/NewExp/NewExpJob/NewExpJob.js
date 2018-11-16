@@ -91,7 +91,7 @@ class NewExpJob extends Component {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Description'
+                placeholder: 'Enter your accomplishments here'
             },
             value:'',
             validation: {
@@ -111,7 +111,7 @@ class NewExpJob extends Component {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Description'
+                placeholder: 'Enter your accomplishments here'
             },
             value: '',
             validation: {
@@ -126,8 +126,6 @@ class NewExpJob extends Component {
             d
         ]
 
-
-        // this.state.descriptions.push(d);
         this.setState({ descriptions: newDescriptions})
         console.log(this.state.descriptions);
     }
@@ -281,11 +279,13 @@ class NewExpJob extends Component {
             <form>
             <h3>Descriptions</h3>
             {this.state.descriptions.map((description, index) => (
-                <div key={index} className={classes.DescriptionRow}>
+                <div key={index} >
+                <p className={classes.DesNum}>{index+1}.</p>
                 <Input
                     // key={index}
+                    className={classes.Inputs}
                     elementType={description.elementType}
-                    elemenyConfig={description.elementConfig}
+                    elementConfig={description.elementConfig}
                     value={description.value}
                     invalid={!description.valid}
                     shouldValidate={description.validation}

@@ -10,18 +10,15 @@
 }
 
 .InputElement {
-    outline: none;
-    border: none;
-    background-color: black;
+    /* outline: none; */
     font: inherit;
     padding: 6px 10px;
-    display: block;
-    width: 100%;
+    width: 80%;
+    /* display: block; */
     box-sizing: border-box;
 }
 
 .InputElement:focus {
-    outline: none;
     background-color: #ccc;
 }
 

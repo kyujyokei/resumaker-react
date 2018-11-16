@@ -22,3 +22,11 @@ export {
     proPatchFail,
     proPatchReset
 } from './profile';
+export {
+    resPostStart,
+    resPostSuccess,
+    resPostFail,
+    resPostReset,
+    postRes
+
+} from './resume';

@@ -11,6 +11,7 @@ import authReducer from './store/actions/reducers/auth';
 import skillReducer from './store/actions/reducers/skill';
 import jobReducer from './store/actions/reducers/job';
 import profileReducer from './store/actions/reducers/profile';
+import resumeReducer from './store/actions/reducers/resume';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     skill: skillReducer,
     job: jobReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    resume: resumeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
