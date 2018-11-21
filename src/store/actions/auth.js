@@ -62,7 +62,9 @@ export const auth = (authInfo, isSignup) => {
 
             })
             .catch(err => {
-                dispatch(authFail(err.response.data.errmsg));
+                console.log(err);
+                dispatch(authFail(err));
+                // dispatch(authFail(err.response.data.errmsg));
             })
     }
 }

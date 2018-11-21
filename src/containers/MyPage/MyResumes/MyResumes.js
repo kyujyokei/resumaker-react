@@ -27,6 +27,19 @@ class MyResumes extends Component {
 
     render () {
         let scrapedData = this.props.data;
+        let jobsForDisplay = [];
+        console.log("scraped data: ", scrapedData);
+        if (scrapedData){
+            for (var i in scrapedData){
+                jobsForDisplay.push(<div key={i}>
+                    <h3>{scrapedData[i].position}</h3>
+                    <p>{scrapedData[i].companyName}</p>
+                </div>);
+            }
+        }
+
+
+
         return (
             <Aux>
                 <p>Paste job description url: </p>
@@ -36,7 +49,7 @@ class MyResumes extends Component {
                     ></Input>
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
-                {scrapedData}
+                {jobsForDisplay}
             </Aux>
         );
     }

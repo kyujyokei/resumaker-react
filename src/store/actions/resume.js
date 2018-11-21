@@ -8,6 +8,9 @@ export const resPostStart = () => {
 };
 
 export const resPostSuccess = (response) => {
+    // console.log('success');
+    // console.log(response)
+    // console.log(response.status, response.data);
     return {
         type: actionTypes.RES_POST_SUCCESS,
         status: response.status,
@@ -48,12 +51,12 @@ export const postRes = (state) => {
 
         axios.post(url, jobPostUrl, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
-
+                console.log("R:: " , response);
                 dispatch(resPostSuccess(response));
 
             })
             .catch(err => {
-                console.log(err.response);
+                console.log("ERR: ",err);
                 dispatch(resPostFail(err.response.status, err.response.data.message));
             })
 
