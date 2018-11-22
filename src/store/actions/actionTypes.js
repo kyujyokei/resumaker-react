@@ -5,6 +5,9 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const FETCH_SKILLS_FAILED = 'FETCH_SKILLS';
 export const SET_SKILLS = 'SET_SKILLS';
+export const SKILL_POST_START = 'SKILL_POST_START';
+export const SKILL_POST_SUCCESS = 'SKILL_POST_SUCCESS';
+export const SKILL_POST_FAIL = 'SKILL_POST_FAIL';
 
 export const JOB_POST_START = 'JOB_POST_START';
 export const JOB_POST_SUCCESS = 'JOB_POST_SUCCESS';

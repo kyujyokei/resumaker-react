@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 import * as actions from '../../../../store/actions/index';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
 
@@ -337,9 +337,9 @@ class NewExpJob extends Component {
                     disabled={!this.state.formIsValid}
                     clicked={this.submitHandler} > save </Button>
                 {/* <Select options={skillsList} /> */}
-                {/* <Link to="/newskill">
-                    <Button btnType="BlueRounded">Add New Skill</Button>
-                </Link> */}
+                <p>Didn't find the skill tag? Add new ones from <Link to="/newskill">
+                    here
+                </Link></p>
                 
             </div>
         );

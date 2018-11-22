@@ -5,6 +5,7 @@ import Aux from '../../../hoc/Aux';
 import * as actions from '../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
 
 class NewSkill extends Component {
 
@@ -33,19 +34,21 @@ class NewSkill extends Component {
         const updatedInfo = {
             ...this.state.skillName
         };
-        const updatedFormElement = { 
-            ...updatedInfo[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedInfo[inputIdentifier] = updatedFormElement;
+        // const updatedFormElement = { 
+        //     ...updatedInfo[inputIdentifier]
+        // };
+        updatedInfo.value = event.target.value;
+        updatedInfo.valid = this.checkValidity(updatedInfo.value, updatedInfo.validation);
+        updatedInfo.touched = true;
+        // updatedInfo[inputIdentifier] = updatedFormElement;
         
         let formIsValid = true;
         for (let inputIdentifier in updatedInfo) {
             formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
         }
-        this.setState({info: updatedInfo, formIsValid: formIsValid});
+        console.log(this.state.skillName.value);
+        this.setState({skillName: updatedInfo, formIsValid: formIsValid});
+        
     }
 
     checkValidity(value, rules) {
@@ -57,6 +60,11 @@ class NewSkill extends Component {
             isValid = value.trim() !== '' && isValid;
         }
         return isValid;
+    }
+
+    postSkillHandler = (event) => {
+        event.preventDefault(); // stops the page from refreshing
+        this.props.postSkill( this.state );
     }
 
     render () {
@@ -72,15 +80,21 @@ class NewSkill extends Component {
             type: 'text',
             placeholder: 'Enter your skill name'
         }
+
         return (
             <Aux>
-                <p>Please make sure your tag has not yet been created : </p>
+                <p>Please make sure your tag has not been created in the list below : </p>
                 <Select options={skillsList} />
-
+                <br/><br/>
+                <p>If you're sure it's a new tag...</p>
                 <Input
                 elementType={'input'}
                 elementConfig={elementConfig}
-                value={this.state.skillName}/>
+                value={this.state.skillName.value}
+                changed={this.inputChangedHandler}/>
+                <Button 
+                    btnType="Success"
+                    clicked={this.postSkillHandler}>Post</Button>
             </Aux>
         );
     };
@@ -96,7 +110,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onInitSkills: () => dispatch(actions.initSkills())
+        onInitSkills: () => dispatch(actions.initSkills()),
+        postSkill: (state) => dispatch(actions.postSkill(state)),
     }
 }
 

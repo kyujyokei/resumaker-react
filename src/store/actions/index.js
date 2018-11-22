@@ -4,7 +4,11 @@ export {
     authCheckState
 } from './auth';
 export {
-    initSkills
+    initSkills,
+    skillPostStart,
+    skillPostSuccess,
+    skillPostFail,
+    postSkill
 } from './skill';
 export {
     postJob,

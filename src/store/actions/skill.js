@@ -36,3 +36,47 @@ export const fetchSkillsFailed = () => {
         type: actionTypes.FETCH_SKILLS_FAILED
     }
 };
+
+export const postSkill = ( state, action ) => {
+    return dispatch => {
+        dispatch(skillPostStart());
+        const skill = {
+            name: state.skillName.value
+        };
+
+        console.log(skill);
+
+        let url = 'https://obscure-journey-65698.herokuapp.com/skills';
+
+        axios.post(url, skill, { headers: { "x-auth":  localStorage.getItem("token")}})
+            .then(response => {
+                console.log(response);
+
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+    }
+}
+
+export const skillPostStart = () => {
+    return {
+        type: actionTypes.SKILL_POST_START
+    };
+};
+
+export const skillPostSuccess = (status) => {
+    return {
+        type: actionTypes.SKILL_POST_SUCCESS,
+        status: status
+    };
+};
+
+export const skillPostFail = (status, error) => {
+    return {
+        type: actionTypes.SKILL_POST_FAIL,
+        error: error,
+        status: status
+    };
+};
