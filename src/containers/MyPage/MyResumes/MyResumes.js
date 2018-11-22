@@ -31,9 +31,19 @@ class MyResumes extends Component {
         console.log("scraped data: ", scrapedData);
         if (scrapedData){
             for (var i in scrapedData){
+                let descriptions_arr = [];
+                for (var j in scrapedData[i].descriptions) {
+                    descriptions_arr.push(
+                        <li key={j}>{scrapedData[i].descriptions[j].description}</li>
+                    )
+                }
                 jobsForDisplay.push(<div key={i}>
                     <h3>{scrapedData[i].position}</h3>
                     <p>{scrapedData[i].companyName}</p>
+                    <p>{scrapedData[i].startedDate} - {scrapedData[i].endDate}</p>
+                    <ul>
+                        {descriptions_arr}
+                    </ul>
                 </div>);
             }
         }
