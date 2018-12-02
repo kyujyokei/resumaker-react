@@ -28,19 +28,29 @@ class MyResumes extends Component {
     render () {
         let scrapedData = this.props.data;
         let jobsForDisplay = [];
+        let profile = [];
         console.log("scraped data: ", scrapedData);
         if (scrapedData){
-            for (var i in scrapedData){
+            let user = scrapedData.user;
+            profile.push(
+                <div>
+                    <h3>{user.f_name} {user.l_name}</h3>
+                    <p>{user.email}</p>
+                    <p>{user.phone}</p>
+                    <p>{user.address}</p>
+                </div>
+            );
+            for (var i in scrapedData.jobs){
                 let descriptions_arr = [];
-                for (var j in scrapedData[i].descriptions) {
+                for (var j in scrapedData.jobs[i].descriptions) {
                     descriptions_arr.push(
-                        <li key={j}>{scrapedData[i].descriptions[j].description}</li>
+                        <li key={j}>{scrapedData.jobs[i].descriptions[j].description}</li>
                     )
                 }
                 jobsForDisplay.push(<div key={i}>
-                    <h3>{scrapedData[i].position}</h3>
-                    <p>{scrapedData[i].companyName}</p>
-                    <p>{scrapedData[i].startedDate} - {scrapedData[i].endDate}</p>
+                    <h3>{scrapedData.jobs[i].position}</h3>
+                    <p>{scrapedData.jobs[i].companyName}</p>
+                    <p>{scrapedData.jobs[i].startedDate} - {scrapedData.jobs[i].endDate}</p>
                     <ul>
                         {descriptions_arr}
                     </ul>
@@ -59,6 +69,7 @@ class MyResumes extends Component {
                     ></Input>
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
+                {profile}
                 {jobsForDisplay}
             </Aux>
         );
