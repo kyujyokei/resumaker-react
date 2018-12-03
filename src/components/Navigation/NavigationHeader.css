@@ -1,5 +1,5 @@
 .NavigationHeader {
-    height: 200px;
+    height: 110px;
     width: 100%;
     background-color: #fff;
     font-weight: bold;
@@ -8,18 +8,25 @@
     padding: 50px;
 }
 .Title {
-    margin: 0;
-    color: #111111;
+    width: 20%;
+    margin: 0px;
+    color: cornflowerblue;
     font-weight: 900;
+    display: inline;
 }
 
 .Nav {
-    margin: 0;
+    width: 60%;
     padding-top: 30px;
+    margin-right: 50px;
     font-weight: 400;
+    display: inline;
 }
 
-.RightCorner {
-    text-align: right;
-    margin: 10px;
+
+
+
+
+a {
+    margin: 30px;
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import TopImage from '../../../assets/images/top.jpg';
+import TopImage from '../../../assets/images/front.png';
 import classes from './CoverPage.css';
 
 class CoverPage extends Component {
     render () {
         return (
-            <div>
+            <div className={classes.Background}>
                 <img src={TopImage} className={classes.TopImage}/>
                 <h1>Welcome!</h1>
                 <h3>This is how it works...</h3>

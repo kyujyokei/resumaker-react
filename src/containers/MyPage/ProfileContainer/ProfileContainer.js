@@ -6,6 +6,7 @@ import ProfileForm from './ProfileForm/ProfileForm';
 import ProfileDetail from './ProfileDetail/ProfileDetail';
 import * as actions from '../../../store/actions/index';
 import Button from '../../../components/UI/Button/Button'
+import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 
 class ProfileContainer extends Component {
 
@@ -34,6 +35,7 @@ class ProfileContainer extends Component {
                 address={this.props.profile.address}
                 email={this.props.profile.email}/>
         } else {
+
             content = <ProfileForm>{this.props.profile}</ProfileForm>
 
         }
@@ -45,15 +47,6 @@ class ProfileContainer extends Component {
             <Aux>
                 {/* <Link to={this.props.match.url + '/edit' }>EDIT</Link> */}
                 {this.state.isEdit ? <Button clicked={this.editButtonHandler} btnType="Danger">Cancel</Button> : <Button clicked={this.editButtonHandler} btnType="BlueRounded">EDIT</Button>}
-                {/* <Switch>
-                        <Route path={this.props.match.url} component={ProfileDetail}/>
-                </Switch> */}
-                {/* <ProfileDetail
-                    f_name={this.props.profile.f_name}
-                    l_name={this.props.profile.l_name}
-                    phone={this.props.profile.phone}
-                    address={this.props.profile.address}
-                    email={this.props.profile.email}/> */}
                 {content}
             </Aux>
         )

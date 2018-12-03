@@ -30,7 +30,7 @@
 }
 
 .BlueRounded {
-    background-color: blue;
+    background-color: cornflowerblue;
     height: 30px;
     border-radius: 15px;
     border: none;
@@ -40,5 +40,20 @@
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+    width: 100px;
+}
+
+.Auth {
+    background-color: cornflowerblue;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    /* padding: 5px 13px; */
     width: 100px;
 }

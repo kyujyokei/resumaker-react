@@ -6,6 +6,7 @@ import { Route, Link } from 'react-router-dom';
 import FullExpJob from '../../../FullExp/FullExpJob/FullExpJob';
 import axios from '../../../../../axios';
 import Button from '../../../../../components/UI/Button/Button';
+import LoadingAnimation from '../../../../../components/UI/LoadingAnimation/LoadingAnimation';
 // import NewExpJob from '../../../NewExp/NewExpJob/NewExpJob';
 
 class ExpsJob extends Component {
@@ -13,7 +14,8 @@ class ExpsJob extends Component {
     
     state = {
         jobs: [],
-        jobSelected: null
+        jobSelected: null,
+        loading: true
     }
 
     componentDidMount () {
@@ -26,6 +28,7 @@ class ExpsJob extends Component {
                     }
                 });
                 this.setState( { jobs: updatedJobs } );
+                this.setState({loading: false});
             }).catch( error => {
                 console.log( error );
             });
@@ -61,12 +64,14 @@ class ExpsJob extends Component {
         }
 
         return (
-                    
+                  
             <div >
+    
                 <h3>JOB EXPERIENCE</h3>
                 <Link to='/job/new'>
                     <Button btnType="BlueRounded">+ NEW</Button>
                 </Link>
+                {this.state.loading ? <LoadingAnimation/> : null}  
                 <section className={classes.Exps}>
                     {jobs}
                 </section>

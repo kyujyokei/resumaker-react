@@ -34,7 +34,7 @@ class MyResumes extends Component {
             let user = scrapedData.user;
             profile.push(
                 <div>
-                    <h3>{user.f_name} {user.l_name}</h3>
+                    <h1>{user.f_name} {user.l_name}</h1>
                     <p>{user.email}</p>
                     <p>{user.phone}</p>
                     <p>{user.address}</p>
@@ -69,8 +69,12 @@ class MyResumes extends Component {
                     ></Input>
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
-                {profile}
-                {jobsForDisplay}
+                {scrapedData? 
+                <div className={classes.resumeContainer}>
+                    {profile}
+                    {jobsForDisplay}
+                </div> : null}
+                
             </Aux>
         );
     }

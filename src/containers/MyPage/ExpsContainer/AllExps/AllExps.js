@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ExpsJob from '../Exps/Job/ExpsJob';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import Aux from '../../../../hoc/Aux';
+import classes from './AllExps.css'
 
 class AllExps extends Component {
     render () {

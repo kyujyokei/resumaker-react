@@ -1,6 +1,15 @@
 .TopImage {
-    margin-top: -100px;
+    margin-top: -180px;
     margin-left: -100px;
     width: 120%;
 
+}
+
+.Background {
+    width: 100%;
+    margin-left: -80px;
+    margin-right: -80px;
+    margin-bottom: -80px;
+    padding: 80px;
+    background-color: #fff;
 }

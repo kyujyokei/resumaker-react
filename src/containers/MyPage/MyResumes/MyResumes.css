@@ -1,3 +1,10 @@
 .JobLink {
     width: 500px;
 }
+
+.resumeContainer {
+    background-color: #fff;
+    margin: 20px;
+    padding: 20px;
+    width: 80%;
+}
