@@ -9,6 +9,7 @@ import SignUp from './SignUp/SignUp';
 import MyResumes from './MyResumes/MyResumes';
 import classes from './MyPage.css';
 import NewExpJob from './NewExp/NewExpJob/NewExpJob';
+import NewExpSchool from './NewExp/NewExpSchool/NewExpSchool';
 import ProfileForm from './ProfileContainer/ProfileForm/ProfileForm';
 import Logout from './SignUp/Logout/Logout';
 import CoverPage from './CoverPage/CoverPage';
@@ -28,6 +29,7 @@ class MyPage extends Component {
                         <Route path="/signup" component={SignUp} />
                         <Route path="/resume" component={MyResumes} />
                         <Route path="/job/new" exact component={NewExpJob} />
+                        <Route path="/school/new" exact component={NewExpSchool} />
                         <Route path="/me/edit" exact component={ProfileForm} />
                         <Route path="/logout" component={Logout}/>
                         <Route path="/newskill" component={NewSkill} />

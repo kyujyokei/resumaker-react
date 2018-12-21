@@ -25,7 +25,7 @@ const job = (props) => (
         }
         </Tags>
         {skillNames = []}
-        <p className={classes.Date}>{props.date}</p>
+        <p className={classes.Date}>{props.startedDate}~{props.endDate}</p>
         {/* <p>{props.description}</p> */}
     </article>
 );

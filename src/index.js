@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import authReducer from './store/actions/reducers/auth';
 import skillReducer from './store/actions/reducers/skill';
 import jobReducer from './store/actions/reducers/job';
+import schoolReducer from './store/actions/reducers/school';
 import profileReducer from './store/actions/reducers/profile';
 import resumeReducer from './store/actions/reducers/resume';
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     skill: skillReducer,
     job: jobReducer,
     profile: profileReducer,
-    resume: resumeReducer
+    resume: resumeReducer,
+    school: schoolReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

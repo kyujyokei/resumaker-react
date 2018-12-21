@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
 // import axios from '../../../axios';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
+import FullExpSchool from '../FullExp/FullExpSchool/FullExpSchool';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
 import NewExpJob from '../NewExp/NewExpJob/NewExpJob';
 
@@ -19,6 +20,7 @@ class ExpsContainer extends Component {
                 {/* {this.state.expSelected ? <Route path="/post" component={FullExpJob} /> : null} */}
                 {/* <Route path="/me" component={Profile}/> */}
                 <Route path={this.props.match.url + '/job/:id'} exact component={FullExpJob}/>
+                <Route path={this.props.match.url + '/school/:id'} exact component={FullExpSchool}/>
                 <Route path={this.props.match.url} exact component={AllExps}/>
                 
                 {/* <Redirect from="/" to="/" /> */}

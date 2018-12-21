@@ -34,3 +34,10 @@ export {
     postRes
 
 } from './resume';
+export {
+    postSchool,
+    schoolPostStart,
+    schoolPostSuccess,
+    schoolPostFail,
+    schoolPostReset
+} from './school';

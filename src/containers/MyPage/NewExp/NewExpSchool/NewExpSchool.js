@@ -1,88 +1,94 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import classes from './NewExpSchool.css';
+import Select from 'react-select';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
+import * as actions from '../../../../store/actions/index';
+import { withRouter, Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
 
 
-class ProfileForm extends Component {
-    state = {
-        info: {
-            f_name: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'First Name'
-                },
-                value: this.props.children.f_name,
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            l_name: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Last Name'
-                },
-                value: this.props.children.l_name,
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            phone: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Phone Number'
-                },
-                value: this.props.children.phone,
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    maxLength: 10,
-                    minLength: 10
-                },
-                valid: false,
-                touched: false
-            },
-            address: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Address'
-                },
-                value: this.props.children.address,
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            email: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'email',
-                    placeholder: 'E-mail'
-                },
-                value: this.props.children.email,
-                validation: {
-                    required: true,
-                    isEmail: true
-                },
-                valid: false,
-                touched: false
-            }
-            
-        },
-        formIsValid: false,
-        loading: false
+
+class NewExpSchool extends Component {
+    componentDidMount () {
+        this.props.onInitSkills();
     }
 
 
+    state = {
+        info: {
+            schoolName: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'School name'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            major: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Major'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            gpa: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'GPA'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            startedDate: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'date',
+                    placeholder: 'Start date'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false
+            },
+            endDate: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'date',
+                    placeholder: 'Address'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+        },
+        formIsValid: false,
+        loading: false
+       
+    }
 
     inputChangedHandler = (event, inputIdentifier) => {
 
@@ -95,22 +101,33 @@ class ProfileForm extends Component {
         const updatedInfo = updateObject(this.state.info, {
             [inputIdentifier]: updatedFormElement
         })
-        
+
         let formIsValid = true;
         for (let inputIdentifier in updatedInfo) {
             formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
         }
         this.setState({info: updatedInfo, formIsValid: formIsValid});
-        console.log(this.state.info);
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault(); // stops the page from refreshing
+        this.props.postSchool( this.state );
     }
 
     render () {
+
+        var skillsList = [];
+        if (!this.props.skills) {
+            skillsList = [];
+        } else {
+            skillsList = this.props.skills
+        }
 
         const formElementsArray = [];
         for (let key in this.state.info) {
             formElementsArray.push({
                 id: key,
-                config: { ...this.state.info[key]}
+                config: this.state.info[key]
             });
         }
 
@@ -118,6 +135,7 @@ class ProfileForm extends Component {
             <form>
                 {formElementsArray.map(formElement => (
                     <Input
+                        className={classes.Inputs}
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -127,18 +145,52 @@ class ProfileForm extends Component {
                         touched={formElement.config.touched}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
-                
-                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
             </form>
         )
+
+        let schoolRedirect = null;
+        if (this.props.status == 200) {
+            schoolRedirect = <Redirect to="/exps/" />
+            // this.props.status = null;
+            this.props.resetState();
+        }
+
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = <p>{this.props.error}</p>
+            console.log(this.props.error);
+        }
         return (
-            <div>
+            <div className={classes.NewExpSchool}>
+                {schoolRedirect}
+                {errorMessage}
                 {form}
+
+                <Button 
+                    btnType="Success" 
+                    disabled={!this.state.formIsValid}
+                    clicked={this.submitHandler} > save </Button>
+                
             </div>
         );
     }
-
-
 }
 
-export default ProfileForm;
+const mapStateToProps = state => {
+    return {
+        skills: state.skill.skills,
+        error: state.school.error,
+        status: state.school.status,
+        loading: state.school.loading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onInitSkills: () => dispatch(actions.initSkills()),
+        postSchool: ( state ) => dispatch(actions.postSchool(state)),
+        resetState: () => dispatch(actions.schoolPostReset())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (NewExpSchool));

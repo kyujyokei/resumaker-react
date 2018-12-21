@@ -6,6 +6,8 @@ import * as actions from '../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import { checkValidity } from '../../../shared/utility';
+import { updateObject } from '../../../shared/utility';
 
 class NewSkill extends Component {
 
@@ -30,18 +32,15 @@ class NewSkill extends Component {
 
     }
 
-    inputChangedHandler = (event, inputIdentifier) => {
+    inputChangedHandler = (event) => {
         const updatedInfo = {
             ...this.state.skillName
         };
-        // const updatedFormElement = { 
-        //     ...updatedInfo[inputIdentifier]
-        // };
+
         updatedInfo.value = event.target.value;
-        updatedInfo.valid = this.checkValidity(updatedInfo.value, updatedInfo.validation);
+        updatedInfo.valid = checkValidity(updatedInfo.value, updatedInfo.validation);
         updatedInfo.touched = true;
-        // updatedInfo[inputIdentifier] = updatedFormElement;
-        
+
         let formIsValid = true;
         for (let inputIdentifier in updatedInfo) {
             formIsValid = updatedInfo[inputIdentifier].valid && formIsValid;
@@ -51,16 +50,6 @@ class NewSkill extends Component {
         
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }      
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        return isValid;
-    }
 
     postSkillHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing

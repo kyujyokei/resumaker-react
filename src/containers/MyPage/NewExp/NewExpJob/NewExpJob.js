@@ -7,14 +7,13 @@ import * as actions from '../../../../store/actions/index';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
+import { updateObject, checkValidity } from '../../../../shared/utility';
 
 
 class NewExpJob extends Component {
     componentDidMount () {
         this.props.onInitSkills();
     }
-
-
     state = {
         info: {
             position: {
@@ -130,49 +129,20 @@ class NewExpJob extends Component {
         console.log(this.state.descriptions);
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-        
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    }
+    
 
 
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedInfo = {
-            ...this.state.info
-        };
-        const updatedFormElement = { 
-            ...updatedInfo[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedInfo[inputIdentifier] = updatedFormElement;
+
+        const updatedFormElement = updateObject(this.state.info[inputIdentifier],{
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.info[inputIdentifier].validation),
+            touched: true
+        });
+       
+        const updatedInfo = updateObject(this.state.info, {
+            [inputIdentifier]: updatedFormElement
+        })
         
         let formIsValid = true;
         for (let inputIdentifier in updatedInfo) {
@@ -190,7 +160,7 @@ class NewExpJob extends Component {
             ...updatedDescriptions[index]
         };
         updatedDescriptionElement.value = event.target.value;
-        updatedDescriptionElement.valid = this.checkValidity(updatedDescriptionElement.value, updatedDescriptionElement.validation);
+        updatedDescriptionElement.valid = checkValidity(updatedDescriptionElement.value, updatedDescriptionElement.validation);
         updatedDescriptionElement.touched = true;
         updatedDescriptions[index] = updatedDescriptionElement;
 

@@ -1,0 +1,31 @@
+.School {
+    width: 250px;
+    padding: 25px;
+    text-align: left;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: white;
+}
+
+.School:hover,
+.School:active {
+    background-color: #C0DDF5;
+}
+
+.Title {
+    margin: 16px 0;
+    color: #888;
+}
+
+.Date {
+    color: #ccc;
+}
+
+.SchoolName {
+    color: #aaa;
+    font-size: 100%;
+    margin-top: -15px;
+}

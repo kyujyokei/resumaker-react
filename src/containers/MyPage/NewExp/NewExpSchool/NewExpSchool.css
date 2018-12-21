@@ -1,0 +1,38 @@
+.NewExpSchool {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.Inputs {
+    padding:8px;
+    display:block;
+}
+
+.Select {
+    display: block;
+    width: 80%;
+    height: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.DesNum{
+    margin-left: 10%;
+    text-align: left;
+}
+
+.X {
+    margin-left: 10%;
+    text-align: left;
+}
+
+
+

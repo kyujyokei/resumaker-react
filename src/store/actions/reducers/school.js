@@ -7,7 +7,7 @@ const initialState = {
     status: null
 };
 
-const jobPostStart = ( state, action) => {
+const schoolPostStart = ( state, action) => {
     return updateObject( state, {
         error: null, 
         loading: true,
@@ -15,7 +15,7 @@ const jobPostStart = ( state, action) => {
     });
 };
 
-const jobPostSuccess = (state, action) => {
+const schoolPostSuccess = (state, action) => {
     return updateObject( state, {
         error: null,
         loading: false,
@@ -23,7 +23,7 @@ const jobPostSuccess = (state, action) => {
     });
 };
 
-const jobPostFail = ( state, action) => {
+const schoolPostFail = ( state, action) => {
     return updateObject( state, {
         error: action.error,
         loading: false,
@@ -31,7 +31,7 @@ const jobPostFail = ( state, action) => {
     });
 };
 
-const jobPostReset = (state, action) => {
+const schoolPostReset = (state, action) => {
     return updateObject( state, {
         error: null,
         loading: false,
@@ -41,10 +41,10 @@ const jobPostReset = (state, action) => {
 
 const reducer = (state = initialState, action ) => {
     switch (action.type) {
-        case actionTypes.JOB_POST_START: return jobPostStart(state, action);
-        case actionTypes.JOB_POST_SUCCESS: return jobPostSuccess(state, action);
-        case actionTypes.JOB_POST_FAIL: return jobPostFail(state, action);
-        case actionTypes.JOB_POST_RESET: return jobPostReset(state, action);
+        case actionTypes.SCHOOL_POST_START: return schoolPostStart(state, action);
+        case actionTypes.SCHOOL_POST_SUCCESS: return schoolPostSuccess(state, action);
+        case actionTypes.SCHOOL_POST_FAIL: return schoolPostFail(state, action);
+        case actionTypes.SCHOOL_POST_RESET: return schoolPostReset(state, action);
         default:
             return state;
     }

@@ -37,17 +37,20 @@ export const postJob = (state) => {
         var updatedDescriptions = [];
 
         for (var d in state.descriptions) {
-            var skills = []
-            for (var s in state.descriptions[d].skills[0]){
-                skills.push({
-                    skillName: state.descriptions[d].skills[0][s].label,
-                    skillId: state.descriptions[d].skills[0][s].value
+            var skills = [];
+            if (state.descriptions[d].skills){ // this allows statements without skill tags to pass
+                for (var s in state.descriptions[d].skills[0]){
+                    skills.push({
+                        skillName: state.descriptions[d].skills[0][s].label,
+                        skillId: state.descriptions[d].skills[0][s].value
+                    });
+                }
+                updatedDescriptions.push({
+                    description: state.descriptions[d].value,
+                    skills: skills
                 });
             }
-            updatedDescriptions.push({
-                description: state.descriptions[d].value,
-                skills: skills
-            });
+            
         }
 
         //console.log("UPDATED D: ", updatedDescriptions);

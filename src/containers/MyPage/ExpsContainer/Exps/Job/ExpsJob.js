@@ -53,7 +53,8 @@ class ExpsJob extends Component {
                         key={job._id}
                         title={job.position}
                         company={job.companyName}
-                        date={"2018/1/1~2019/1/1"}
+                        endDate={new Date(job.endDate).toISOString().split('T')[0]}
+                        startedDate={new Date(job.startedDate).toISOString().split('T')[0]}
                         descriptions={job.descriptions}
                         clicked={() => this.jobSelectHandler( job._id )} />
                     );
@@ -67,7 +68,7 @@ class ExpsJob extends Component {
                   
             <div >
     
-                <h3>JOB EXPERIENCE</h3>
+                <h3>JOB / PROJECTS</h3>
                 <Link to='/job/new'>
                     <Button btnType="BlueRounded">+ NEW</Button>
                 </Link>

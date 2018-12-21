@@ -1,0 +1,12 @@
+.Exps {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    width: 80%;
+    margin: auto;
+    /* background-color: white; */
+}
+
+.Title {
+    width: 100%;
+}
