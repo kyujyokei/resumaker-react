@@ -118,3 +118,10 @@ export const jobGetByIdFail = (response) => {
         status: response.status
     };
 };
+
+export const enablePatch = (isPatch) => {
+    return {
+        type: actionTypes.JOB_EN_PATCH,
+        isPatch: true
+    };
+};

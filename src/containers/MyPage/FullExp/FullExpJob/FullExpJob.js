@@ -48,7 +48,7 @@ class FullExpJob extends Component {
     }
 
     editPostHandler = () => {
-
+        this.props.enablePatch();
     }
 
 
@@ -109,13 +109,15 @@ const mapStateToProps = state => {
         job: state.job.job,
         error: state.job.error,
         status: state.job.status,
-        loading: state.job.loading
+        loading: state.job.loading,
+        isPatch: state.job.isPatch
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getJob: (id) => dispatch(actions.getJobById(id)),
+        enablePatch: () => dispatch(actions.enablePatch())
     }
 }
 

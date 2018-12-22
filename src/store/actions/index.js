@@ -19,7 +19,8 @@ export {
     jobGetByIdStart,
     jobGetByIdSuccess,
     jobGetByIdFail,
-    getJobById
+    getJobById,
+    enablePatch
 } from './job';
 export {
     initProfile,

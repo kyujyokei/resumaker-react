@@ -4,7 +4,8 @@ import { updateObject } from '../../../shared/utility';
 const initialState = {
     error: null,
     loading: false,
-    status: null
+    status: null,
+    isPatch: false
 };
 
 const jobPostStart = ( state, action) => {
@@ -39,7 +40,7 @@ const jobPostReset = (state, action) => {
         });
 }
 
-const jobGetByIdStart = ( state, action) => {
+const jobGetByIdStart = ( state, action ) => {
     return updateObject( state, {
         error: null, 
         loading: true,
@@ -47,7 +48,7 @@ const jobGetByIdStart = ( state, action) => {
     });
 };
 
-const jobGetByIdSuccess = (state, action) => {
+const jobGetByIdSuccess = (state, action ) => {
     return updateObject( state, {
         error: null,
         loading: false,
@@ -56,11 +57,17 @@ const jobGetByIdSuccess = (state, action) => {
     });
 };
 
-const jobGetByIdFail = ( state, action) => {
+const jobGetByIdFail = ( state, action ) => {
     return updateObject( state, {
         error: action.error,
         loading: false,
         status: action.status
+    });
+};
+
+const enablePatch = ( state, action ) => {
+    return updateObject( state, {
+        isPatch: action.isPatch
     });
 };
 
@@ -73,6 +80,7 @@ const reducer = (state = initialState, action ) => {
         case actionTypes.JOB_GID_START: return jobGetByIdStart(state, action);
         case actionTypes.JOB_GID_SUCCESS: return jobGetByIdSuccess(state, action);
         case actionTypes.JOB_GID_FAIL: return jobGetByIdFail(state, action);
+        case actionTypes.JOB_EN_PATCH: return enablePatch(state, action);
         default:
             return state;
     }
