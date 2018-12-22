@@ -17,6 +17,7 @@ class NewExpJob extends Component {
     state = {
         info: {
             position: {
+                title: 'Position',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -30,6 +31,7 @@ class NewExpJob extends Component {
                 touched: false
             },
             companyName: {
+                title: 'Company Name',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -43,6 +45,7 @@ class NewExpJob extends Component {
                 touched: false
             },
             startedDate: {
+                title: 'Start Date',
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
@@ -56,6 +59,7 @@ class NewExpJob extends Component {
                 touched: false
             },
             endDate: {
+                title: 'End Date',
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
@@ -223,22 +227,28 @@ class NewExpJob extends Component {
                 id: key,
                 config: this.state.info[key]
             });
+
         }
 
         let form = (
             <form>
-                {formElementsArray.map(formElement => (
-                    <Input
-                        className={classes.Inputs}
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-                ))}
+                {formElementsArray.map(formElement => {
+                    // console.log("E: ", formElement);
+                    return (
+                        <div key={formElement.id} className={classes.InfoRow}>
+                            <p className={classes.Title}>{formElement.config.title}</p>
+                            <Input
+                                className={classes.Inputs}
+                                elementType={formElement.config.elementType}
+                                elementConfig={formElement.config.elementConfig}
+                                value={formElement.config.value}
+                                invalid={!formElement.config.valid}
+                                shouldValidate={formElement.config.validation}
+                                touched={formElement.config.touched}
+                                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                        </div>
+                    )
+                })}
             </form>
         )
 
