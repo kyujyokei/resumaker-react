@@ -104,7 +104,6 @@ class NewExpJob extends Component {
     }
 
     pushDescription = () => {
-
         var d = {
             elementType: 'input',
             elementConfig: {
@@ -141,7 +140,7 @@ class NewExpJob extends Component {
        
         const updatedInfo = updateObject(this.state.info, {
             [inputIdentifier]: updatedFormElement
-        });
+        })
         
         let formIsValid = true;
         for (let inputIdentifier in updatedInfo) {
@@ -151,16 +150,17 @@ class NewExpJob extends Component {
     }
 
     descriptionInputChangedHandler = (event, index) => {
+        const updatedDescriptions = [
+            ...this.state.descriptions
+        ];
 
-        const updatedDescriptionElement = updateObject(this.state.descriptions[index], {
-            value: event.target.value,
-            valid: checkValidity(event.target.value, this.state.descriptions[index].validation),
-            touched: true
-        });
-
-        const updatedDescriptions = updateObject(this.state.info, {
-            [index]: updatedDescriptionElement
-        });
+        const updatedDescriptionElement = {
+            ...updatedDescriptions[index]
+        };
+        updatedDescriptionElement.value = event.target.value;
+        updatedDescriptionElement.valid = checkValidity(updatedDescriptionElement.value, updatedDescriptionElement.validation);
+        updatedDescriptionElement.touched = true;
+        updatedDescriptions[index] = updatedDescriptionElement;
 
         let formIsValid = true;
         for (let index in updatedDescriptions) {
@@ -172,22 +172,35 @@ class NewExpJob extends Component {
 
     deleteDescriptionHandler = (event, index) => {
         event.preventDefault();
+        // console.log(index);
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
         updatedDescriptions.splice(index,1);
         this.setState({description: this.state.descriptions.splice(index, 1)});
+        // console.log(this.state.descriptions);
     }
 
     selectChangeHandler = (opt, index) => {
+        // console.log("OPT: ", opt, "IDX: ",index);
+        // console.log(this.state)
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
+        // console.log(updatedDescriptions);
+        // console.log(updatedDescriptions[index]);
+        // const updatedDescriptionElement = [
+        //     ...updatedDescriptions[index]
+        // ];
         var updatedDescriptionElement = JSON.parse(JSON.stringify(updatedDescriptions[index]));
+        // console.log(updatedDescriptionElement);
         updatedDescriptionElement.skills = [opt];
         updatedDescriptions[index] = updatedDescriptionElement;
+        // console.log(updatedDescriptionElement);
+        // console.log(updatedDescriptions[index]);
         console.log(updatedDescriptions);
         this.setState({descriptions: updatedDescriptions})
+
     }
 
     submitHandler = (event) => {

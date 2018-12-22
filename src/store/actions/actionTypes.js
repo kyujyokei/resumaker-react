@@ -13,6 +13,9 @@ export const JOB_POST_START = 'JOB_POST_START';
 export const JOB_POST_SUCCESS = 'JOB_POST_SUCCESS';
 export const JOB_POST_FAIL = 'JOB_POST_FAIL';
 export const JOB_POST_RESET = 'JOB_POST_RESET';
+export const JOB_GID_START = 'JOB_GID_START';
+export const JOB_GID_SUCCESS = 'JOB_GID_SUCCESS';
+export const JOB_GID_FAIL = 'JOB_GID_FAIL';
 
 export const PRO_PATCH_START = 'PRO_PATCH_START';
 export const PRO_PATCH_SUCCESS = 'PRO_PATCH_SUCCESS';

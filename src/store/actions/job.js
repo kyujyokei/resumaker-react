@@ -28,7 +28,6 @@ export const jobPostReset = () => {
     };
 };
 
-
 export const postJob = (state) => {
     return dispatch => {
         dispatch(jobPostStart());
@@ -70,8 +69,7 @@ export const postJob = (state) => {
         axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
-
-                dispatch(jobPostSuccess(response.status));
+                dispatch(jobPostSuccess(response));
 
             })
             .catch(err => {
@@ -81,5 +79,42 @@ export const postJob = (state) => {
 
 
 
+    };
+};
+
+export const getJobById = (id) => {
+    return dispatch => {
+        dispatch(jobGetByIdStart());
+        axios.get( 'https://obscure-journey-65698.herokuapp.com/jobs/' + id, { headers: { "x-auth":  localStorage.getItem("token")}} )
+                    .then( response => {
+                        // console.log("Get Job by ID Res: ",response);
+                        dispatch(jobGetByIdSuccess(response))
+                    }).catch(err => {
+                        console.log(err);
+                        dispatch(jobGetByIdFail(err));
+                    });
     }
-}
+    
+};
+
+export const jobGetByIdStart = () => {
+    return {
+        type: actionTypes.JOB_GID_START
+    };
+};
+
+export const jobGetByIdSuccess = (response) => {
+    return {
+        type: actionTypes.JOB_GID_SUCCESS,
+        status: response.status,
+        job: response.data.job[0] // only loads 1 job so it's gauranteed to be the first one
+    };
+};
+
+export const jobGetByIdFail = (response) => {
+    return {
+        type: actionTypes.JOB_GID_FAIL,
+        error: response.err,
+        status: response.status
+    };
+};

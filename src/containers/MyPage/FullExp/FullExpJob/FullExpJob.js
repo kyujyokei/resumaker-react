@@ -3,9 +3,13 @@ import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
 // import Button from '../../../../components/UI/Button/Button';
-import {Redirect} from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../../../store/actions/index';
 import Tags from '../../../../components/Tags/Tags';
 import Tag from '../../../../components/UI/Tag/Tag';
+
+
 
 class FullExpJob extends Component {
     
@@ -18,15 +22,15 @@ class FullExpJob extends Component {
         this.loadData();
     }
 
-
     loadData () {
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
-                axios.get( '/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}} )
-                    .then( response => {
-                        // console.log("R: ",response);
-                        this.setState( { loadedPost: response.data } );
-                    } );
+                // axios.get( '/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}} )
+                //     .then( response => {
+                //         // console.log("R: ",response);
+                //         this.setState( { loadedPost: response.data } );
+                //     } );
+                this.props.getJob( this.props.match.params.id );
             }
         }
     }
@@ -57,10 +61,10 @@ class FullExpJob extends Component {
         if ( this.props.match.params.id ) {
             post = <LoadingAnimation />;
         }
-        if ( this.state.loadedPost ) {
+        if ( this.props.job ) {
             // console.log(this.state.loadedPost);
             
-            var descriptions = this.state.loadedPost.job[0].descriptions.map((d, index) => {
+            var descriptions = this.props.job.descriptions.map((d, index) => {
                 var skillNames = d.skills.map((s, index) => {
                     return <Tag key={index}>{s.skillName}</Tag>
                     // console.log("S: ",s, d);
@@ -81,10 +85,10 @@ class FullExpJob extends Component {
             post = (
                 <div className={classes.FullExpJob}>
                     {shouldRedirect}
-                    <h1>{this.state.loadedPost.job[0].position}</h1>
-                    <h3>{this.state.loadedPost.job[0].companyName}</h3>
-                    <p>Start: {new Date(this.state.loadedPost.job[0].startedDate).toISOString().split('T')[0]}</p>
-                    <p>End: {new Date(this.state.loadedPost.job[0].endDate).toISOString().split('T')[0]}</p>
+                    <h1>{this.props.job.position}</h1>
+                    <h3>{this.props.job.companyName}</h3>
+                    <p>Start: {new Date(this.props.job.startedDate).toISOString().split('T')[0]}</p>
+                    <p>End: {new Date(this.props.job.endDate).toISOString().split('T')[0]}</p>
                     <h3>Descriptions</h3>
                     {descriptions}
                     <div>
@@ -100,4 +104,19 @@ class FullExpJob extends Component {
 
 }
 
-export default FullExpJob;
+const mapStateToProps = state => {
+    return {
+        job: state.job.job,
+        error: state.job.error,
+        status: state.job.status,
+        loading: state.job.loading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getJob: (id) => dispatch(actions.getJobById(id)),
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (FullExpJob));
