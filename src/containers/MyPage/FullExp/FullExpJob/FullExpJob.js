@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
+// import Button from '../../../../components/UI/Button/Button';
 import {Redirect} from 'react-router-dom';
 import Tags from '../../../../components/Tags/Tags';
 import Tag from '../../../../components/UI/Tag/Tag';
@@ -43,26 +44,10 @@ class FullExpJob extends Component {
     }
 
     editPostHandler = () => {
-        // axios.delete('/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}})
-        //     .then(response => {
-        //         console.log(response);
-        //     });
+
     }
 
-    formatDate(date) {
-        var monthNames = [
-          "January", "February", "March",
-          "April", "May", "June", "July",
-          "August", "September", "October",
-          "November", "December"
-        ];
-      
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-      
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
-      }
+
       
 
     render () {
