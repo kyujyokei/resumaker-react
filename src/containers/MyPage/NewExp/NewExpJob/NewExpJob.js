@@ -21,7 +21,7 @@ class NewExpJob extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Job title'
+                    placeholder: 'ex. Product Manager'
                 },
                 value: '',
                 validation: {
@@ -35,7 +35,7 @@ class NewExpJob extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Company name'
+                    placeholder: 'ex. Example Inc.'
                 },
                 value: '',
                 validation: {
@@ -63,7 +63,7 @@ class NewExpJob extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
-                    placeholder: 'Address'
+                    placeholder: 'End Date'
                 },
                 value: '',
                 validation: {
@@ -128,7 +128,7 @@ class NewExpJob extends Component {
         ]
 
         this.setState({ descriptions: newDescriptions})
-        console.log(this.state.descriptions);
+        // console.log(this.state.descriptions);
     }
 
     
@@ -186,22 +186,16 @@ class NewExpJob extends Component {
     }
 
     selectChangeHandler = (opt, index) => {
-        // console.log("OPT: ", opt, "IDX: ",index);
-        // console.log(this.state)
+
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
-        // console.log(updatedDescriptions);
-        // console.log(updatedDescriptions[index]);
-        // const updatedDescriptionElement = [
-        //     ...updatedDescriptions[index]
-        // ];
+
         var updatedDescriptionElement = JSON.parse(JSON.stringify(updatedDescriptions[index]));
-        // console.log(updatedDescriptionElement);
+
         updatedDescriptionElement.skills = [opt];
         updatedDescriptions[index] = updatedDescriptionElement;
-        // console.log(updatedDescriptionElement);
-        // console.log(updatedDescriptions[index]);
+
         console.log(updatedDescriptions);
         this.setState({descriptions: updatedDescriptions})
 
@@ -213,7 +207,7 @@ class NewExpJob extends Component {
     }
 
     render () {
-
+        // console.log("new");
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -260,7 +254,6 @@ class NewExpJob extends Component {
                 <div key={index} >
                 <p className={classes.DesNum}>{index+1}.</p>
                 <Input
-                    // key={index}
                     className={classes.Inputs}
                     elementType={description.elementType}
                     elementConfig={description.elementConfig}
@@ -294,7 +287,6 @@ class NewExpJob extends Component {
         let jobRedirect = null;
         if (this.props.status == 200) {
             jobRedirect = <Redirect to="/exps/" />
-            // this.props.status = null;
             this.props.resetState();
         }
 
@@ -309,6 +301,7 @@ class NewExpJob extends Component {
                 {errorMessage}
                 {form}
                 {descriptionsForm}
+                {this.props.isPatch? <p>Patching</p> : <p>Not patch</p>}
 
                 <Button 
                     btnType="Success" 
@@ -329,7 +322,8 @@ const mapStateToProps = state => {
         skills: state.skill.skills,
         error: state.job.error,
         status: state.job.status,
-        loading: state.job.loading
+        loading: state.job.loading,
+        isPatch: state.job.isPatch
     }
 }
 
@@ -337,7 +331,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
         postJob: ( state ) => dispatch(actions.postJob(state)),
-        resetState: () => dispatch(actions.jobPostReset())
+        resetState: () => dispatch(actions.jobStateReset())
     }
 }
 

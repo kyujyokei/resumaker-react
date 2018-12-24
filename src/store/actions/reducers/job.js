@@ -32,7 +32,7 @@ const jobPostFail = ( state, action) => {
     });
 };
 
-const jobPostReset = (state, action) => {
+const jobStateReset = (state, action) => {
     return updateObject( state, {
         error: null,
         loading: false,
@@ -76,7 +76,7 @@ const reducer = (state = initialState, action ) => {
         case actionTypes.JOB_POST_START: return jobPostStart(state, action);
         case actionTypes.JOB_POST_SUCCESS: return jobPostSuccess(state, action);
         case actionTypes.JOB_POST_FAIL: return jobPostFail(state, action);
-        case actionTypes.JOB_POST_RESET: return jobPostReset(state, action);
+        case actionTypes.JOB_STATE_RESET: return jobStateReset(state, action);
         case actionTypes.JOB_GID_START: return jobGetByIdStart(state, action);
         case actionTypes.JOB_GID_SUCCESS: return jobGetByIdSuccess(state, action);
         case actionTypes.JOB_GID_FAIL: return jobGetByIdFail(state, action);

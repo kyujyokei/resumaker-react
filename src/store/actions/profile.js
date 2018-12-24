@@ -50,7 +50,7 @@ export const proPatchFail = (status, error) => {
     };
 };
 
-export const jobPostReset = () => {
+export const jobPostReset = () => {  // TODO: incorrect function name
     return {
         type: actionTypes.PRO_PATCH_RESET
     };

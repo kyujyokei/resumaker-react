@@ -15,7 +15,7 @@ export {
     jobPostStart,
     jobPostSuccess,
     jobPostFail,
-    jobPostReset,
+    jobStateReset,
     jobGetByIdStart,
     jobGetByIdSuccess,
     jobGetByIdFail,

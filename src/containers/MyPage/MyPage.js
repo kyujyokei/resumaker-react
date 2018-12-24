@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Aux from '../../hoc/Aux';
 import ExpsContainer from './ExpsContainer/ExpsContainer';
 import NavigationHeader from '../../components/Navigation/NavigationHeader';
-import { Route, Switch, withRouter} from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import ProfileContainer from './ProfileContainer/ProfileContainer';
 import SignUp from './SignUp/SignUp';
 import MyResumes from './MyResumes/MyResumes';
@@ -23,8 +23,10 @@ class MyPage extends Component {
                 <NavigationHeader 
                     isAuth={this.props.isAuthenticated}/>
                 <div className={classes.Contents}>
+                
                     <Switch>
                         <Route path="/me" exact component={ProfileContainer}/>
+                        <Route path="/exps/job/edit/:id" exact component={NewExpJob} />
                         <Route path="/exps" component={ExpsContainer}/>
                         <Route path="/signup" component={SignUp} />
                         <Route path="/resume" component={MyResumes} />
@@ -34,8 +36,8 @@ class MyPage extends Component {
                         <Route path="/logout" component={Logout}/>
                         <Route path="/newskill" component={NewSkill} />
                         <Route path="/" exact component={CoverPage} />
-
                     </Switch>
+                    {/* {this.props.isAuthenticated ? null : <Redirect to="/"/>} */}
                 </div>
                 {/* <ExpsContainer /> */}
                 </div>

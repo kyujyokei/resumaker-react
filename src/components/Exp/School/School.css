@@ -1,6 +1,9 @@
 .School {
-    width: 250px;
-    padding: 25px;
+    width: 300px;
+    padding-left: 25px;
+    /* padding-right: 25px; */
+    padding-top: 50px;
+    padding-bottom: 40px;
     text-align: left;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;

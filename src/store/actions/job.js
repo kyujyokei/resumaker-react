@@ -22,9 +22,9 @@ export const jobPostFail = (status, error) => {
     };
 };
 
-export const jobPostReset = () => {
+export const jobStateReset = () => {
     return {
-        type: actionTypes.JOB_POST_RESET
+        type: actionTypes.JOB_STATE_RESET
     };
 };
 
@@ -125,3 +125,40 @@ export const enablePatch = (isPatch) => {
         isPatch: true
     };
 };
+
+// export const patchJob = ( state ) => {
+//     return dispatch => {
+//         dispatch(jobGetByIdStart());
+//         axios.get( 'https://obscure-journey-65698.herokuapp.com/jobs/' + id, { headers: { "x-auth":  localStorage.getItem("token")}} )
+//                     .then( response => {
+//                         // console.log("Get Job by ID Res: ",response);
+//                         dispatch(jobGetByIdSuccess(response))
+//                     }).catch(err => {
+//                         console.log(err);
+//                         dispatch(jobGetByIdFail(err));
+//                     });
+//     }
+    
+// };
+
+// export const jobPatchStart = () => {
+//     return {
+//         type: actionTypes.JOB_PATCH_START
+//     };
+// };
+
+// export const jobPatchSuccess = (response) => {
+//     return {
+//         type: actionTypes.JOB_PATCH_SUCCESS,
+//         status: response.status,
+//         // job: response.data.job[0] // only loads 1 job so it's gauranteed to be the first one
+//     };
+// };
+
+// export const jobPatchFail = (response) => {
+//     return {
+//         type: actionTypes.JOB_PATCH_FAIL,
+//         error: response.err,
+//         status: response.status
+//     };
+// };

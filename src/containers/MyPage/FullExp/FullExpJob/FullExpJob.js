@@ -3,7 +3,7 @@ import classes from './FullExpJob.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
 // import Button from '../../../../components/UI/Button/Button';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 import Tags from '../../../../components/Tags/Tags';
@@ -15,7 +15,8 @@ class FullExpJob extends Component {
     
     state = {
         loadedPost: null,
-        redirect: false
+        redirect: false,
+        isPatch: false
     }
 
     componentDidMount () {
@@ -25,11 +26,7 @@ class FullExpJob extends Component {
     loadData () {
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
-                // axios.get( '/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}} )
-                //     .then( response => {
-                //         // console.log("R: ",response);
-                //         this.setState( { loadedPost: response.data } );
-                //     } );
+
                 this.props.getJob( this.props.match.params.id );
             }
         }
@@ -48,14 +45,16 @@ class FullExpJob extends Component {
     }
 
     editPostHandler = () => {
+        // console.log("Match: ",this.props.match.url);
+        // console.log("History: ",this.props.history);
+        this.props.resetState();
         this.props.enablePatch();
+        this.props.history.push( '/exps/job/edit/' + this.props.match.params.id );
+        // console.log("History after: ",this.props.history);
     }
 
-
-      
-
     render () {
-        console.log(this.state);
+        // console.log(this.state);
         let post = null;
         
         if ( this.props.match.params.id ) {
@@ -82,6 +81,7 @@ class FullExpJob extends Component {
             if (this.state.redirect) {
                 shouldRedirect = <Redirect to="/exps/"/>
             }
+
             post = (
                 <div className={classes.FullExpJob}>
                     {shouldRedirect}
@@ -95,6 +95,7 @@ class FullExpJob extends Component {
                         <button onClick={this.editPostHandler} className={classes.Buttons}>Edit</button>
                         <button onClick={this.deletePostHandler} className={classes.Buttons}>Delete</button>
                     </div>
+                    <Route path={this.props.match.url + '/edit/:id'} exact component={FullExpJob} />
                 </div>
 
             );
@@ -117,7 +118,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getJob: (id) => dispatch(actions.getJobById(id)),
-        enablePatch: () => dispatch(actions.enablePatch())
+        enablePatch: () => dispatch(actions.enablePatch()),
+        resetState: () => dispatch(actions.jobStateReset())
     }
 }
 
