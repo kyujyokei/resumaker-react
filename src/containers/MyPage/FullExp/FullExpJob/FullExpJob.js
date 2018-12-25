@@ -56,7 +56,7 @@ class FullExpJob extends Component {
     }
 
     render () {
-        // console.log(this.state);
+        // console.log("JOB:", this.props.job);
         let post = null;
         
         if ( this.props.match.params.id ) {
@@ -110,7 +110,8 @@ class FullExpJob extends Component {
                     position={this.props.job.position}
                     companyName={this.props.job.companyName}
                     startedDate={new Date(this.props.job.startedDate).toISOString().split('T')[0]}
-                    endDate={new Date(this.props.job.endDate).toISOString().split('T')[0]}/>;
+                    endDate={new Date(this.props.job.endDate).toISOString().split('T')[0]}
+                    descriptions={this.props.job.descriptions}/>;
             }
         }
         return post;

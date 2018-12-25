@@ -11,9 +11,7 @@ import { updateObject, checkValidity } from '../../../../shared/utility';
 
 
 class NewExpJob extends Component {
-    componentDidMount () {
-        this.props.onInitSkills();
-    }
+
     state = {
         info: {
             position: {
@@ -107,6 +105,37 @@ class NewExpJob extends Component {
         descriptionFormIsValid: false
     }
 
+    componentWillMount () {
+
+    }
+    componentDidMount () {
+        this.props.onInitSkills();
+        if (this.props.position){
+            this.setState({
+                info: {
+                    ...this.state.info,
+                    position: {
+                        ...this.state.position,
+                        value: this.props.position
+                    },
+                    companyName: {
+                        ...this.state.companyName,
+                        value: this.props.companyName
+                    },
+                    startedDate: {
+                        ...this.state.startedDate,
+                        value: this.props.startedDate
+                    },
+                    endDate: {
+                        ...this.state.info.endDate,
+                        value: this.props.endDate
+                    }
+                }
+            });
+        }
+    }
+
+
     pushDescription = () => {
         var d = {
             elementType: 'input',
@@ -119,7 +148,8 @@ class NewExpJob extends Component {
                 required: true,
             },
             valid: false,
-            touched: false     
+            touched: false,
+            skills:[]  
         };
 
         let newDescriptions = [
@@ -207,9 +237,6 @@ class NewExpJob extends Component {
     }
 
     render () {
-        if (this.props.patchJob) {
-            console.log("this props job: ", this.props.patchJob);
-        }
         
         var skillsList = [];
         if (!this.props.skills) {
@@ -220,17 +247,12 @@ class NewExpJob extends Component {
 
         const formElementsArray = [];
         for (let key in this.state.info) {
-            let val = this.state.info[key].value;
-
-            if (this.props[key]){
-                val = this.props[key]
-            }
 
             formElementsArray.push({
                 id: key,
                 config: {
                     ...this.state.info[key],
-                    value: val
+                    value: this.state.info[key].value
                 }
             });
 
@@ -257,7 +279,7 @@ class NewExpJob extends Component {
                     )
                 })}
             </form>
-        )
+        );
 
         let descriptionsForm = (
             <Aux>
@@ -289,6 +311,12 @@ class NewExpJob extends Component {
                 <Button btnType={"Success"} clicked={this.pushDescription}>Add Description</Button>
             </Aux>
         )
+
+        if (this.props.descriptions){
+            this.props.descriptions.map(idx => {
+                console.log("IDX: ",idx);
+            })
+        }
 
         var skillsList = [];
         if (!this.props.skills) {
