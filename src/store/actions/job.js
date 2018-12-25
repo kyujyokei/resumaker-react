@@ -28,7 +28,7 @@ export const jobStateReset = () => {
     };
 };
 
-export const postJob = (state) => {
+export const postJob = (state, isPatch, id) => {
     return dispatch => {
         dispatch(jobPostStart());
         // console.log(state);
@@ -52,9 +52,7 @@ export const postJob = (state) => {
             
         }
 
-        //console.log("UPDATED D: ", updatedDescriptions);
-
-        const job = {
+        let job = {
             position: state.info.position.value,
             companyName: state.info.companyName.value,
             startedDate: state.info.startedDate.value,
@@ -66,7 +64,10 @@ export const postJob = (state) => {
         //console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
-        axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
+
+        if ( !isPatch ) {
+            console.log("POST JOB:", job);
+            axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
                 dispatch(jobPostSuccess(response));
@@ -76,6 +77,26 @@ export const postJob = (state) => {
                 console.log(err.response);
                 dispatch(jobPostFail(err.response.status, err.response.data.message));
             })
+        } else {
+            console.log("PATCH LAUNCHED IN ACTIONS")
+            job = {
+                ...job,
+                _id: id
+            }
+            console.log("PATCH JOB:", job);
+            axios.patch(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
+            .then(response => {
+                console.log(response);
+                dispatch(jobPostSuccess(response));
+
+            })
+            .catch(err => {
+                console.log(err.response);
+                dispatch(jobPostFail(err.response.status, err.response.data.message));
+            })
+        }
+
+
 
 
 
@@ -129,13 +150,13 @@ export const enablePatch = (isPatch) => {
 // export const patchJob = ( state ) => {
 //     return dispatch => {
 //         dispatch(jobGetByIdStart());
-//         axios.get( 'https://obscure-journey-65698.herokuapp.com/jobs/' + id, { headers: { "x-auth":  localStorage.getItem("token")}} )
+//         axios.patch( 'https://obscure-journey-65698.herokuapp.com/jobs/' + id, { headers: { "x-auth":  localStorage.getItem("token")}} )
 //                     .then( response => {
 //                         // console.log("Get Job by ID Res: ",response);
-//                         dispatch(jobGetByIdSuccess(response))
+//                         // dispatch(jobGetByIdSuccess(response))
 //                     }).catch(err => {
 //                         console.log(err);
-//                         dispatch(jobGetByIdFail(err));
+//                         // dispatch(jobGetByIdFail(err));
 //                     });
 //     }
     

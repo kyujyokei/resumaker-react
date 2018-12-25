@@ -104,14 +104,16 @@ class FullExpJob extends Component {
                 );
             } else {
                 post = <NewExpJob
-                    bubui="patch mode"
+                    patch="patch mode"
                     patchMode={true}
                     // patchJob={this.props.job}
                     position={this.props.job.position}
                     companyName={this.props.job.companyName}
                     startedDate={new Date(this.props.job.startedDate).toISOString().split('T')[0]}
                     endDate={new Date(this.props.job.endDate).toISOString().split('T')[0]}
-                    descriptions={this.props.job.descriptions}/>;
+                    descriptions={this.props.job.descriptions}
+                    patchId={this.props.match.params.id }/>;
+                    
             }
         }
         return post;

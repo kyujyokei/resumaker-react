@@ -71,6 +71,30 @@ const enablePatch = ( state, action ) => {
     });
 };
 
+const jobPatchStart = ( state, action) => {
+    return updateObject( state, {
+        error: null, 
+        loading: true,
+        status: null
+    });
+};
+
+const jobPatchSuccess = (state, action) => {
+    return updateObject( state, {
+        error: null,
+        loading: false,
+        status: action.status
+    });
+};
+
+const jobPatchFail = ( state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        loading: false,
+        status: action.status
+    });
+};
+
 const reducer = (state = initialState, action ) => {
     switch (action.type) {
         case actionTypes.JOB_POST_START: return jobPostStart(state, action);
@@ -81,6 +105,9 @@ const reducer = (state = initialState, action ) => {
         case actionTypes.JOB_GID_SUCCESS: return jobGetByIdSuccess(state, action);
         case actionTypes.JOB_GID_FAIL: return jobGetByIdFail(state, action);
         case actionTypes.JOB_EN_PATCH: return enablePatch(state, action);
+        case actionTypes.JOB_PATCH_START: return jobPatchStart(state, action);
+        case actionTypes.JOB_PATCH_SUCCESS: return jobPatchSuccess(state, action);
+        case actionTypes.JOB_PATCH_FAIL: return jobPatchFail(state, action);
         default:
             return state;
     }

@@ -94,13 +94,13 @@ class NewExpJob extends Component {
                 type: 'text',
                 placeholder: 'Enter your accomplishments here'
             },
-            value: this.props.descriptions[0].description,
+            value: this.props.descriptions ? this.props.descriptions[0].description : '',
             validation: {
                 required: true
             },
             valid: false,
             touched: false,
-            skills: this.props.descriptions[0].skills     
+            skills: this.props.descriptions ? this.props.descriptions[0].skills : ''    
         }],
         descriptionFormIsValid: false
     }
@@ -114,19 +114,28 @@ class NewExpJob extends Component {
                     ...this.state.info,
                     position: {
                         ...this.state.info.position,
-                        value: this.props.position
+                        value: this.props.position,
+                        valid: true,
+                        touched: true,
+
                     },
                     companyName: {
                         ...this.state.info.companyName,
-                        value: this.props.companyName
+                        value: this.props.companyName,
+                        valid: true,
+                        touched: true,
                     },
                     startedDate: {
                         ...this.state.info.startedDate,
-                        value: this.props.startedDate
+                        value: this.props.startedDate,
+                        valid: true,
+                        touched: true,
                     },
                     endDate: {
                         ...this.state.info.endDate,
-                        value: this.props.endDate
+                        value: this.props.endDate,
+                        valid: true,
+                        touched: true,
                     }
                 }
             });
@@ -147,8 +156,8 @@ class NewExpJob extends Component {
                     validation: {
                         required: true,
                     },
-                    valid: false,
-                    touched: false,
+                    valid: true,
+                    touched: true,
                     skills: idx.skills 
                 };
         
@@ -262,11 +271,17 @@ class NewExpJob extends Component {
 
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
-        this.props.postJob( this.state );
+        if ( ! this.props.patch) { // not patch
+            this.props.postJob( this.state, false, null );
+        } else { //patch
+            console.log("PATCH INIT NEW");
+            this.props.postJob( this.state, true, this.props.patchId);
+        }
+       
     }
 
     render () {
-        console.log("DES: ",this.state.descriptions);
+        // console.log("DES: ",this.state.descriptions);
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -313,10 +328,12 @@ class NewExpJob extends Component {
             <h3>Descriptions</h3>
             {this.state.descriptions.map((description, index) =>{
                 let selectArr = [];
-                this.state.descriptions[index].skills.map((idx) => {
-                    // console.log("skill idx: ", idx)
-                    selectArr.push({value: idx.skillId, label: idx.skillName});
-                });
+                if (this.props.patch){
+                    this.state.descriptions[index].skills.map((idx) => {
+                        // console.log("skill idx: ", idx)
+                        selectArr.push({value: idx.skillId, label: idx.skillName});
+                    });
+                }
                 return (
                     <div key={index} >
                 <p className={classes.DesNum}>{index+1}.</p>
@@ -371,7 +388,7 @@ class NewExpJob extends Component {
         return (
             
             <div className={classes.NewExpJob}>
-            <h1>{this.props.bubui}</h1>
+            <h1>{this.props.patchId}</h1>
                 {jobRedirect}
                 {errorMessage}
                 {form}
@@ -397,10 +414,7 @@ const mapStateToProps = (state, ownProps) => {
         skills: state.skill.skills,
         error: state.job.error,
         status: state.job.status,
-        loading: state.job.loading,
-        isPatch: ownProps.isPatch,
-        bubui: ownProps.bubui
-
+        loading: state.job.loading
     }
 }
 
