@@ -94,24 +94,21 @@ class NewExpJob extends Component {
                 type: 'text',
                 placeholder: 'Enter your accomplishments here'
             },
-            value:'',
+            value: this.props.descriptions[0].description,
             validation: {
                 required: true
             },
             valid: false,
             touched: false,
-            skills:[]     
+            skills: this.props.descriptions[0].skills     
         }],
         descriptionFormIsValid: false
     }
 
-    componentWillMount () {
-
-    }
     componentDidMount () {
         this.props.onInitSkills();
         console.log(this.props);
-        if (this.props.position){
+        if (this.props.position){ // patch mode
             this.setState({
                 info: {
                     ...this.state.info,
@@ -133,6 +130,37 @@ class NewExpJob extends Component {
                     }
                 }
             });
+
+            this.setState({
+                descriptions: null
+            });
+
+            this.props.descriptions.map(idx => {
+                // console.log("IDX: ",idx);
+                var d = {
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Enter your accomplishments here'
+                    },
+                    value: idx.description,
+                    validation: {
+                        required: true,
+                    },
+                    valid: false,
+                    touched: false,
+                    skills: idx.skills 
+                };
+        
+                let newDescriptions = [
+                    ...this.state.descriptions,
+                    d
+                ]
+        
+                this.setState({ descriptions: newDescriptions})
+            })
+            
+            
         }
     }
 
@@ -238,7 +266,7 @@ class NewExpJob extends Component {
     }
 
     render () {
-        
+        console.log("DES: ",this.state.descriptions);
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -278,6 +306,7 @@ class NewExpJob extends Component {
             </form>
         );
 
+
         let descriptionsForm = (
             <Aux>
             <form>
@@ -298,6 +327,7 @@ class NewExpJob extends Component {
                 <Select  
                     className={classes.Select} 
                     options={skillsList} 
+                    placeholder="Select skills"
                     isMulti={true} 
                     onChange={(opt) => this.selectChangeHandler(opt, index)}/>
                 {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
@@ -309,11 +339,7 @@ class NewExpJob extends Component {
             </Aux>
         )
 
-        if (this.props.descriptions){
-            this.props.descriptions.map(idx => {
-                console.log("IDX: ",idx);
-            })
-        }
+
 
         var skillsList = [];
         if (!this.props.skills) {
