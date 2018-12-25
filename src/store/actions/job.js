@@ -78,12 +78,9 @@ export const postJob = (state, isPatch, id) => {
                 dispatch(jobPostFail(err.response.status, err.response.data.message));
             })
         } else {
-            console.log("PATCH LAUNCHED IN ACTIONS")
-            job = {
-                ...job,
-                _id: id
-            }
+            // console.log("PATCH LAUNCHED IN ACTIONS")
             console.log("PATCH JOB:", job);
+            url = url + '/' + id
             axios.patch(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);

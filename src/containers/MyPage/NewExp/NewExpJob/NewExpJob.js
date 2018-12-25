@@ -326,14 +326,31 @@ class NewExpJob extends Component {
             <Aux>
             <form>
             <h3>Descriptions</h3>
-            {this.state.descriptions.map((description, index) =>{
+            {this.state.descriptions.map((description, index) => {
+                
                 let selectArr = [];
-                if (this.props.patch){
+                let select = null;
+                if (this.props.patch){ // this part fills the react-select input in patch mode
                     this.state.descriptions[index].skills.map((idx) => {
-                        // console.log("skill idx: ", idx)
                         selectArr.push({value: idx.skillId, label: idx.skillName});
                     });
+
+                    select = <Select  
+                    className={classes.Select} 
+                    options={skillsList} 
+                    placeholder="Select skills"
+                    isMulti={true}
+                    value={selectArr}
+                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
+                } else {
+                    select = <Select  
+                    className={classes.Select} 
+                    options={skillsList} 
+                    placeholder="Select skills"
+                    isMulti={true}
+                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
                 }
+                
                 return (
                     <div key={index} >
                 <p className={classes.DesNum}>{index+1}.</p>
@@ -347,13 +364,7 @@ class NewExpJob extends Component {
                     touched={description.touched}
                     changed={(event) => this.descriptionInputChangedHandler(event, index)}
                     />
-                <Select  
-                    className={classes.Select} 
-                    options={skillsList} 
-                    placeholder="Select skills"
-                    isMulti={true}
-                    value={selectArr}
-                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
+                {select}
                 {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
                 </div>
                 )
@@ -421,7 +432,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
-        postJob: ( state ) => dispatch(actions.postJob(state)),
+        postJob: ( state, isPatch, id ) => dispatch(actions.postJob(state, isPatch, id)),
         resetState: () => dispatch(actions.jobStateReset())
     }
 }
