@@ -311,8 +311,14 @@ class NewExpJob extends Component {
             <Aux>
             <form>
             <h3>Descriptions</h3>
-            {this.state.descriptions.map((description, index) => (
-                <div key={index} >
+            {this.state.descriptions.map((description, index) =>{
+                let selectArr = [];
+                this.state.descriptions[index].skills.map((idx) => {
+                    // console.log("skill idx: ", idx)
+                    selectArr.push({value: idx.skillId, label: idx.skillName});
+                });
+                return (
+                    <div key={index} >
                 <p className={classes.DesNum}>{index+1}.</p>
                 <Input
                     className={classes.Inputs}
@@ -328,11 +334,14 @@ class NewExpJob extends Component {
                     className={classes.Select} 
                     options={skillsList} 
                     placeholder="Select skills"
-                    isMulti={true} 
+                    isMulti={true}
+                    value={selectArr}
                     onChange={(opt) => this.selectChangeHandler(opt, index)}/>
                 {this.state.descriptions.length > 1 ? <Button btnType={"Danger"} clicked={(event) => this.deleteDescriptionHandler(event, index)}>X</Button> : null}
                 </div>
-            ))}
+                )
+                
+            })}
             </form>
 
                 <Button btnType={"Success"} clicked={this.pushDescription}>Add Description</Button>
