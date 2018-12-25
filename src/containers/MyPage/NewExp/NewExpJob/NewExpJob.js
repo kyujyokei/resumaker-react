@@ -207,7 +207,10 @@ class NewExpJob extends Component {
     }
 
     render () {
-        // console.log("new");
+        if (this.props.patchJob) {
+            console.log("this props job: ", this.props.patchJob);
+        }
+        
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -217,12 +220,22 @@ class NewExpJob extends Component {
 
         const formElementsArray = [];
         for (let key in this.state.info) {
+            let val = this.state.info[key].value;
+
+            if (this.props[key]){
+                val = this.props[key]
+            }
+
             formElementsArray.push({
                 id: key,
-                config: this.state.info[key]
+                config: {
+                    ...this.state.info[key],
+                    value: val
+                }
             });
 
         }
+        
 
         let form = (
             <form>
@@ -296,12 +309,14 @@ class NewExpJob extends Component {
             console.log(this.props.error);
         }
         return (
+            
             <div className={classes.NewExpJob}>
+            <h1>{this.props.bubui}</h1>
                 {jobRedirect}
                 {errorMessage}
                 {form}
                 {descriptionsForm}
-                {this.props.isPatch? <p>Patching</p> : <p>Not patch</p>}
+
 
                 <Button 
                     btnType="Success" 
@@ -317,13 +332,15 @@ class NewExpJob extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
         skills: state.skill.skills,
         error: state.job.error,
         status: state.job.status,
         loading: state.job.loading,
-        isPatch: state.job.isPatch
+        isPatch: ownProps.isPatch,
+        bubui: ownProps.bubui
+
     }
 }
 
