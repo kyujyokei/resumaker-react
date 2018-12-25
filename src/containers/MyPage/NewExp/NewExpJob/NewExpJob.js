@@ -110,20 +110,21 @@ class NewExpJob extends Component {
     }
     componentDidMount () {
         this.props.onInitSkills();
+        console.log(this.props);
         if (this.props.position){
             this.setState({
                 info: {
                     ...this.state.info,
                     position: {
-                        ...this.state.position,
+                        ...this.state.info.position,
                         value: this.props.position
                     },
                     companyName: {
-                        ...this.state.companyName,
+                        ...this.state.info.companyName,
                         value: this.props.companyName
                     },
                     startedDate: {
-                        ...this.state.startedDate,
+                        ...this.state.info.startedDate,
                         value: this.props.startedDate
                     },
                     endDate: {
@@ -247,13 +248,9 @@ class NewExpJob extends Component {
 
         const formElementsArray = [];
         for (let key in this.state.info) {
-
             formElementsArray.push({
                 id: key,
-                config: {
-                    ...this.state.info[key],
-                    value: this.state.info[key].value
-                }
+                config: this.state.info[key]
             });
 
         }
