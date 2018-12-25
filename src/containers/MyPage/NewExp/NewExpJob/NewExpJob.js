@@ -107,7 +107,7 @@ class NewExpJob extends Component {
 
     componentDidMount () {
         this.props.onInitSkills();
-        console.log(this.props);
+
         if (this.props.position){ // patch mode
             this.setState({
                 info: {
@@ -143,9 +143,9 @@ class NewExpJob extends Component {
             this.setState({
                 descriptions: null
             });
-
+            
             this.props.descriptions.map(idx => {
-                // console.log("IDX: ",idx);
+                // console.log("idx.skills: ", idx);
                 var d = {
                     elementType: 'input',
                     elementConfig: {
@@ -196,7 +196,6 @@ class NewExpJob extends Component {
         ]
 
         this.setState({ descriptions: newDescriptions})
-        // console.log(this.state.descriptions);
     }
 
     
@@ -238,33 +237,32 @@ class NewExpJob extends Component {
         for (let index in updatedDescriptions) {
             formIsValid = updatedDescriptions[index].valid && formIsValid;
         }
-        // console.log("Description Handler: ", updatedDescriptions);
+
         this.setState({descriptions: updatedDescriptions, descriptionFormIsValid: formIsValid})
     }
 
     deleteDescriptionHandler = (event, index) => {
         event.preventDefault();
-        // console.log(index);
+
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
         updatedDescriptions.splice(index,1);
         this.setState({description: this.state.descriptions.splice(index, 1)});
-        // console.log(this.state.descriptions);
+
     }
 
     selectChangeHandler = (opt, index) => {
-
+        // console.log('opt: ',opt);
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
 
         var updatedDescriptionElement = JSON.parse(JSON.stringify(updatedDescriptions[index]));
-
-        updatedDescriptionElement.skills = [opt];
+        // console.log('updatedDescriptionElement: ', updatedDescriptionElement);
+        updatedDescriptionElement.skills = opt;
         updatedDescriptions[index] = updatedDescriptionElement;
 
-        console.log(updatedDescriptions);
         this.setState({descriptions: updatedDescriptions})
 
     }
@@ -274,14 +272,13 @@ class NewExpJob extends Component {
         if ( ! this.props.patch) { // not patch
             this.props.postJob( this.state, false, null );
         } else { //patch
-            console.log("PATCH INIT NEW");
             this.props.postJob( this.state, true, this.props.patchId);
         }
        
     }
 
     render () {
-        // console.log("DES: ",this.state.descriptions);
+        console.log("this.state.descriptions: ", this.state.descriptions);
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -302,7 +299,6 @@ class NewExpJob extends Component {
         let form = (
             <form>
                 {formElementsArray.map(formElement => {
-                    // console.log("E: ", formElement);
                     return (
                         <div key={formElement.id} className={classes.InfoRow}>
                             <p className={classes.Title}>{formElement.config.title}</p>
@@ -331,7 +327,9 @@ class NewExpJob extends Component {
                 let selectArr = [];
                 let select = null;
                 if (this.props.patch){ // this part fills the react-select input in patch mode
+                    console.log("this.state.descriptions[index].skills: ", this.state.descriptions[index].skills)
                     this.state.descriptions[index].skills.map((idx) => {
+                        console.log("IDX: ", idx)
                         selectArr.push({value: idx.skillId, label: idx.skillName});
                     });
 

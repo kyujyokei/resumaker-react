@@ -34,14 +34,15 @@ export const postJob = (state, isPatch, id) => {
         // console.log(state);
 
         var updatedDescriptions = [];
-
+        console.log('state.descriptions: ', state.descriptions);
         for (var d in state.descriptions) {
+            console.log('D: ', state.descriptions[d]);
             var skills = [];
             if (state.descriptions[d].skills){ // this allows statements without skill tags to pass
-                for (var s in state.descriptions[d].skills[0]){
+                for (var s in state.descriptions[d].skills){
                     skills.push({
-                        skillName: state.descriptions[d].skills[0][s].label,
-                        skillId: state.descriptions[d].skills[0][s].value
+                        skillName: state.descriptions[d].skills[s].label,
+                        skillId: state.descriptions[d].skills[s].value
                     });
                 }
                 updatedDescriptions.push({
@@ -61,7 +62,7 @@ export const postJob = (state, isPatch, id) => {
         };
 
 
-        //console.log('JOB: ',job);
+        console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
 

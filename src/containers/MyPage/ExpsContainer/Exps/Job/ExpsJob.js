@@ -35,12 +35,12 @@ class ExpsJob extends Component {
     }
 
     jobSelectHandler = ( id ) => {
-        console.log("Match: ",this.props.match.url);
-        console.log("History: ",this.props.history);
+        // console.log("Match: ",this.props.match.url);
+        // console.log("History: ",this.props.history);
         this.props.history.push( '/exps/job/' + id );
         this.setState( { jobSelected: id } )
-        console.log("Match: ",this.props.match.url);
-        console.log("History: ",this.props.history);
+        // console.log("Match: ",this.props.match.url);
+        // console.log("History: ",this.props.history);
     }
 
 
