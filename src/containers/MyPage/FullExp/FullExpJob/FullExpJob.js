@@ -112,8 +112,7 @@ class FullExpJob extends Component {
                     startedDate={new Date(this.props.job.startedDate).toISOString().split('T')[0]}
                     endDate={new Date(this.props.job.endDate).toISOString().split('T')[0]}
                     descriptions={this.props.job.descriptions}
-                    patchId={this.props.match.params.id }/>;
-                    
+                    patchId={this.props.match.params.id }/>;   
             }
         }
         return post;

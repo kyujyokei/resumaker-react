@@ -106,6 +106,7 @@ class NewExpJob extends Component {
     }
 
     componentDidMount () {
+        console.log('did mount');
         this.props.onInitSkills();
 
         if (this.props.position){ // patch mode
@@ -145,7 +146,19 @@ class NewExpJob extends Component {
             });
             
             this.props.descriptions.map(idx => {
-                // console.log("idx.skills: ", idx);
+                console.log("idx: ", idx);
+                let selectArr = [];
+                idx.skills.map((element) => {
+                    console.log("element: ", element)
+                    selectArr.push({value: element.skillId, label: element.skillName});
+                });
+                // const updatedDescription = updateObject(this.state.descriptions[idx], {
+                //     skills: selectArr
+                // });
+                // const updatedDescriptions = updateObject(this.state.descriptions, {
+                //     [index]: updatedDescription
+                    
+                // })
                 var d = {
                     elementType: 'input',
                     elementConfig: {
@@ -158,7 +171,7 @@ class NewExpJob extends Component {
                     },
                     valid: true,
                     touched: true,
-                    skills: idx.skills 
+                    skills: selectArr 
                 };
         
                 let newDescriptions = [
@@ -328,17 +341,14 @@ class NewExpJob extends Component {
                 let select = null;
                 if (this.props.patch){ // this part fills the react-select input in patch mode
                     console.log("this.state.descriptions[index].skills: ", this.state.descriptions[index].skills)
-                    this.state.descriptions[index].skills.map((idx) => {
-                        console.log("IDX: ", idx)
-                        selectArr.push({value: idx.skillId, label: idx.skillName});
-                    });
 
+                   
                     select = <Select  
                     className={classes.Select} 
                     options={skillsList} 
                     placeholder="Select skills"
                     isMulti={true}
-                    value={selectArr}
+                    value={this.state.descriptions[index].skills}
                     onChange={(opt) => this.selectChangeHandler(opt, index)}/>
                 } else {
                     select = <Select  
