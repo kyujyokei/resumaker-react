@@ -88,25 +88,25 @@ class NewExpJob extends Component {
             touched: false
         },
         descriptions: [
-            {
-            elementType: 'input',
-            elementConfig: {
-                type: 'text',
-                placeholder: 'Enter your accomplishments here'
-            },
-            value: this.props.descriptions ? this.props.descriptions[0].description : '',
-            validation: {
-                required: true
-            },
-            valid: false,
-            touched: false,
-            skills: this.props.descriptions ? this.props.descriptions[0].skills : ''    
-        }],
+        //     {
+        //     elementType: 'input',
+        //     elementConfig: {
+        //         type: 'text',
+        //         placeholder: 'Enter your accomplishments here'
+        //     },
+        //     value: '',
+        //     validation: {
+        //         required: true
+        //     },
+        //     valid: false,
+        //     touched: false,
+        //     skills: ''    
+        // }
+        ],
         descriptionFormIsValid: false
     }
 
     componentDidMount () {
-        console.log('did mount');
         this.props.onInitSkills();
 
         if (this.props.position){ // patch mode
@@ -141,31 +141,22 @@ class NewExpJob extends Component {
                 }
             });
 
-            this.setState({
-                descriptions: null
-            });
+
             
-            this.props.descriptions.map(idx => {
-                console.log("idx: ", idx);
+            this.props.descriptions.map((des, idx) => {
+                console.log("idx: ", idx, des);
                 let selectArr = [];
-                idx.skills.map((element) => {
+                des.skills.map((element) => {
                     console.log("element: ", element)
                     selectArr.push({value: element.skillId, label: element.skillName});
                 });
-                // const updatedDescription = updateObject(this.state.descriptions[idx], {
-                //     skills: selectArr
-                // });
-                // const updatedDescriptions = updateObject(this.state.descriptions, {
-                //     [index]: updatedDescription
-                    
-                // })
                 var d = {
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
                         placeholder: 'Enter your accomplishments here'
                     },
-                    value: idx.description,
+                    value: des.description,
                     validation: {
                         required: true,
                     },
@@ -178,11 +169,39 @@ class NewExpJob extends Component {
                     ...this.state.descriptions,
                     d
                 ]
-        
+
+                // NOTE: can't use object update because description is supposed to be an array, not an object
+                //       this is important since the latter part uses .map() which is looping through arrays
+                // let newDescriptions = updateObject(this.state.descriptions, {
+                //     [idx]: d
+                // })
+
+                console.log('this.state.descriptions: ',this.state.descriptions)
+
                 this.setState({ descriptions: newDescriptions})
+                
+                
             })
             
             
+        } else {
+            this.setState({
+                descriptions: [
+                        {
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'text',
+                            placeholder: 'Enter your accomplishments here'
+                        },
+                        value: '',
+                        validation: {
+                            required: true
+                        },
+                        valid: false,
+                        touched: false,
+                        skills: ''    
+                }]
+            })
         }
     }
 
@@ -266,13 +285,11 @@ class NewExpJob extends Component {
     }
 
     selectChangeHandler = (opt, index) => {
-        // console.log('opt: ',opt);
         const updatedDescriptions = [
             ...this.state.descriptions
         ];
 
         var updatedDescriptionElement = JSON.parse(JSON.stringify(updatedDescriptions[index]));
-        // console.log('updatedDescriptionElement: ', updatedDescriptionElement);
         updatedDescriptionElement.skills = opt;
         updatedDescriptions[index] = updatedDescriptionElement;
 
@@ -291,7 +308,7 @@ class NewExpJob extends Component {
     }
 
     render () {
-        console.log("this.state.descriptions: ", this.state.descriptions);
+        console.log('this.state.descriptions: ', this.state.descriptions);
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -337,27 +354,16 @@ class NewExpJob extends Component {
             <h3>Descriptions</h3>
             {this.state.descriptions.map((description, index) => {
                 
-                let selectArr = [];
                 let select = null;
-                if (this.props.patch){ // this part fills the react-select input in patch mode
-                    console.log("this.state.descriptions[index].skills: ", this.state.descriptions[index].skills)
 
-                   
-                    select = <Select  
-                    className={classes.Select} 
-                    options={skillsList} 
-                    placeholder="Select skills"
-                    isMulti={true}
-                    value={this.state.descriptions[index].skills}
-                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
-                } else {
-                    select = <Select  
-                    className={classes.Select} 
-                    options={skillsList} 
-                    placeholder="Select skills"
-                    isMulti={true}
-                    onChange={(opt) => this.selectChangeHandler(opt, index)}/>
-                }
+                select = <Select  
+                className={classes.Select} 
+                options={skillsList} 
+                placeholder="Select skills"
+                isMulti={true}
+                value={this.state.descriptions[index].skills}
+                onChange={(opt) => this.selectChangeHandler(opt, index)}/>
+
                 
                 return (
                     <div key={index} >
