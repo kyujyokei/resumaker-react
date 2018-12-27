@@ -8,7 +8,7 @@ import classes from './SignUp.css';
 import * as actions from '../../../store/actions/index';
 import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 import { checkValidity } from '../../../shared/utility';
-import { updateObject } from '../../../shared/utility';
+// import { updateObject } from '../../../shared/utility';
 
 class SignUp extends Component {
 

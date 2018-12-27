@@ -16,14 +16,19 @@ import CoverPage from './CoverPage/CoverPage';
 import NewSkill from './NewSkill/NewSkill';
 
 class MyPage extends Component {
+    
     render () {
+        let shouldRedirect = null;
+        if (!this.props.isAuthenticated) {
+            shouldRedirect = <Redirect to="/signup"/>
+        }
         return (
             <Aux>
                 <div className={classes.MyPage}>
                 <NavigationHeader 
                     isAuth={this.props.isAuthenticated}/>
                 <div className={classes.Contents}>
-                
+                    {shouldRedirect}
                     <Switch>
                         <Route path="/me" exact component={ProfileContainer}/>
                         <Route path="/exps/job/edit/:id" exact component={NewExpJob} />
