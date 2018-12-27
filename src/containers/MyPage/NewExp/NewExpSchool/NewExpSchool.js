@@ -152,7 +152,7 @@ class NewExpSchool extends Component {
         if (this.props.status == 200) {
             schoolRedirect = <Redirect to="/exps/" />
             // this.props.status = null;
-            this.props.resetState();
+            this.props.resetSchoolState();
         }
 
         let errorMessage = null;
@@ -189,7 +189,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
         postSchool: ( state ) => dispatch(actions.postSchool(state)),
-        resetState: () => dispatch(actions.schoolPostReset())
+        resetSchoolState: () => dispatch(actions.schoolStateReset())
     }
 }
 

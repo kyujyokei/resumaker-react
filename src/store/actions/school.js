@@ -22,12 +22,11 @@ export const schoolPostFail = (status, error) => {
     };
 };
 
-export const schoolPostReset = () => {
+export const schoolStateReset = () => {
     return {
-        type: actionTypes.SCHOOL_POST_RESET
+        type: actionTypes.SCHOOL_STATE_RESET
     };
 };
-
 
 export const postSchool = (state) => {
     return dispatch => {
@@ -63,3 +62,48 @@ export const postSchool = (state) => {
 
     }
 }
+
+
+export const getSchoolById = (id) => {
+    return dispatch => {
+        dispatch(schoolGetByIdStart());
+        axios.get( 'https://obscure-journey-65698.herokuapp.com/schools/' + id, { headers: { "x-auth":  localStorage.getItem("token")}} )
+                    .then( response => {
+                        // console.log("Get School by ID Res: ",response);
+                        dispatch(schoolGetByIdSuccess(response))
+                    }).catch(err => {
+                        console.log(err);
+                        dispatch(schoolGetByIdFail(err));
+                    });
+    }
+    
+};
+
+export const schoolGetByIdStart = () => {
+    return {
+        type: actionTypes.SCHOOL_GID_START
+    };
+};
+
+export const schoolGetByIdSuccess = (response) => {
+    return {
+        type: actionTypes.SCHOOL_GID_SUCCESS,
+        status: response.status,
+        school: response.data.school[0] // only loads 1 school so it's gauranteed to be the first one
+    };
+};
+
+export const schoolGetByIdFail = (response) => {
+    return {
+        type: actionTypes.SCHOOL_GID_FAIL,
+        error: response.err,
+        status: response.status
+    };
+};
+
+export const enableSchoolPatch = () => {
+    return {
+        type: actionTypes.SCHOOL_EN_PATCH,
+        isPatch: true
+    };
+};

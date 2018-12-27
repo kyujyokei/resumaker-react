@@ -138,7 +138,7 @@ export const jobGetByIdFail = (response) => {
     };
 };
 
-export const enablePatch = (isPatch) => {
+export const enablePatch = () => {
     return {
         type: actionTypes.JOB_EN_PATCH,
         isPatch: true

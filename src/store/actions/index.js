@@ -44,5 +44,7 @@ export {
     schoolPostStart,
     schoolPostSuccess,
     schoolPostFail,
-    schoolPostReset
+    schoolStateReset,
+    getSchoolById,
+    enableSchoolPatch
 } from './school';
