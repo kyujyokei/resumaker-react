@@ -53,6 +53,7 @@ class NewExpSchool extends Component {
 
 
     state = {
+        redirect: false, 
         info: {
             schoolName: {
                 elementType: 'input',
@@ -147,10 +148,8 @@ class NewExpSchool extends Component {
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
         if (!this.props.patchSchool){
-            console.log('is not patch, new');
             this.props.postSchool( this.state, false, null );
         } else {
-            console.log('is patch, new');
             this.props.postSchool( this.state, true, this.props.patchId );
         }
         
@@ -191,8 +190,8 @@ class NewExpSchool extends Component {
         )
 
         let schoolRedirect = null;
-        if (this.props.status == 200) {
-            // schoolRedirect = <Redirect to="/exps/" />
+        if (this.props.status === 200) {
+            schoolRedirect = <Redirect to="/exps/" />
             this.props.resetSchoolState();
         }
 

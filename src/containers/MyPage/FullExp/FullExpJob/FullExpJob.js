@@ -50,7 +50,8 @@ class FullExpJob extends Component {
         // console.log("Match: ",this.props.match.url);
         // console.log("History: ",this.props.history);
         this.props.resetState();
-        this.props.enablePatch();
+        this.setState({isPatch: true});
+        // this.props.enablePatch();
         // this.props.history.push( '/exps/job/edit/' + this.props.match.params.id );
         // console.log("History after: ",this.props.history);
     }
@@ -84,7 +85,7 @@ class FullExpJob extends Component {
                 shouldRedirect = <Redirect to="/exps/"/>
             }
 
-            if (!this.props.isPatch){
+            if (!this.state.isPatch){
                 post = (
                     <div className={classes.FullExpJob}>
                         {shouldRedirect}

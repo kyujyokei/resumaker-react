@@ -17,10 +17,11 @@ const jobPostStart = ( state, action) => {
 };
 
 const jobPostSuccess = (state, action) => {
+    console.log("ACTION: ", action)
     return updateObject( state, {
         error: null,
         loading: false,
-        status: action.status
+        status: action.status.status
     });
 };
 
@@ -28,7 +29,7 @@ const jobPostFail = ( state, action) => {
     return updateObject( state, {
         error: action.error,
         loading: false,
-        status: action.status
+        status: action.status.status
     });
 };
 

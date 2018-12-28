@@ -34,9 +34,9 @@ export const postJob = (state, isPatch, id) => {
         // console.log(state);
 
         var updatedDescriptions = [];
-        console.log('state.descriptions: ', state.descriptions);
+        // console.log('state.descriptions: ', state.descriptions);
         for (var d in state.descriptions) {
-            console.log('D: ', state.descriptions[d]);
+            // console.log('D: ', state.descriptions[d]);
             var skills = [];
             if (state.descriptions[d].skills){ // this allows statements without skill tags to pass
                 for (var s in state.descriptions[d].skills){
@@ -62,12 +62,12 @@ export const postJob = (state, isPatch, id) => {
         };
 
 
-        console.log('JOB: ',job);
+        // console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
 
         if ( !isPatch ) {
-            console.log("POST JOB:", job);
+            // console.log("POST JOB:", job);
             axios.post(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
@@ -80,7 +80,7 @@ export const postJob = (state, isPatch, id) => {
             })
         } else {
             // console.log("PATCH LAUNCHED IN ACTIONS")
-            console.log("PATCH JOB:", job);
+            // console.log("PATCH JOB:", job);
             url = url + '/' + id
             axios.patch(url, job, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {

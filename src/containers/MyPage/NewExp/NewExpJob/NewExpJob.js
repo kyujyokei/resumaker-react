@@ -406,7 +406,7 @@ class NewExpJob extends Component {
         let jobRedirect = null;
         if (this.props.status == 200) {
             jobRedirect = <Redirect to="/exps/" />
-            this.props.resetState();
+            this.props.resetStatus();
         }
 
         let errorMessage = null;
@@ -451,7 +451,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
         postJob: ( state, isPatch, id ) => dispatch(actions.postJob(state, isPatch, id)),
-        resetState: () => dispatch(actions.jobStateReset())
+        resetStatus: () => dispatch(actions.jobStateReset())
     }
 }
 

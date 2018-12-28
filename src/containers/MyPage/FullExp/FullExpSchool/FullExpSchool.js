@@ -13,7 +13,8 @@ class FullExpSchool extends Component {
     
     state = {
         loadedPost: null,
-        redirect: false
+        redirect: false,
+        isPatch: false
     }
 
     componentDidMount () {
@@ -53,7 +54,8 @@ class FullExpSchool extends Component {
         //         console.log(response);
         //     });
         this.props.resetState();
-        this.props.enablePatch();
+        this.setState({isPatch: true})
+        // this.props.enablePatch();
     }
       
 
@@ -65,7 +67,7 @@ class FullExpSchool extends Component {
             post = <LoadingAnimation />;
         }
         if (this.props.school) {
-            if (! this.props.isPatch){
+            if (! this.state.isPatch){
                 
                 let shouldRedirect = null;
                 if (this.state.redirect) {
