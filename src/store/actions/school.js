@@ -28,10 +28,10 @@ export const schoolStateReset = () => {
     };
 };
 
-export const postSchool = (state) => {
+export const postSchool = (state, isPatch, id) => {
     return dispatch => {
         dispatch(schoolPostStart());
-
+        console.log('isPatch:, ', id);
 
         const school = {
             schoolName: state.info.schoolName.value,
@@ -41,12 +41,14 @@ export const postSchool = (state) => {
             major: state.info.major.value,
             hasGraduated: true // TODO: modify this
         };
-
+        
+        console.log('school info: ', school);
 
         //console.log('SCHOOL: ',school);
         let url = 'https://obscure-journey-65698.herokuapp.com/schools';
-
-        axios.post(url, school, { headers: { "x-auth":  localStorage.getItem("token")}})
+        if ( !isPatch ) {
+            // console.log('post');
+            axios.post(url, school, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
 
@@ -56,7 +58,23 @@ export const postSchool = (state) => {
             .catch(err => {
                 console.log(err.response);
                 dispatch(schoolPostFail(err.response.status, err.response.data.message));
+            });
+        } else {
+            // patch mode
+            // console.log('patch');
+            axios.patch(url + '/' + id, school, { headers: { "x-auth":  localStorage.getItem("token")}})
+            .then(response => {
+                console.log(response);
+
+                dispatch(schoolPostSuccess(response.status));
+
             })
+            .catch(err => {
+                console.log(err.response);
+                dispatch(schoolPostFail(err.response.status, err.response.data.message));
+            });
+        }
+
 
 
 

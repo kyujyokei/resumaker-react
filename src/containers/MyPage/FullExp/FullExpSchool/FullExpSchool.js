@@ -64,8 +64,9 @@ class FullExpSchool extends Component {
         if ( this.props.match.params.id ) {
             post = <LoadingAnimation />;
         }
-        if (! this.props.isPatch){
-            if (this.props.school) {
+        if (this.props.school) {
+            if (! this.props.isPatch){
+                
                 let shouldRedirect = null;
                 if (this.state.redirect) {
                     shouldRedirect = <Redirect to="/exps/"/>
@@ -87,10 +88,16 @@ class FullExpSchool extends Component {
                     </div>
 
                 );
+                
+            } else {
+                // patch mode
+                post = (
+                    <NewExpSchool 
+                        patch={true}
+                        patchId={this.props.match.params.id}
+                        patchSchool={this.props.school}/>
+                );
             }
-        } else {
-            // patch mode
-
         }
         return post;
     }

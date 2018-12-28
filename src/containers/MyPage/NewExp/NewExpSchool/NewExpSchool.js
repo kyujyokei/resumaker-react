@@ -6,14 +6,49 @@ import Button from '../../../../components/UI/Button/Button';
 import * as actions from '../../../../store/actions/index';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Aux from '../../../../hoc/Aux';
+// import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
 
 
 
 class NewExpSchool extends Component {
-    componentDidMount () {
+    componentWillMount () {
         this.props.onInitSkills();
+        this.props.resetSchoolState();
+        if(this.props.patchSchool) {
+            this.setState({info:{
+                schoolName: {
+                    ...this.state.info.schoolName,
+                    value: this.props.patchSchool.schoolName,
+                    valid: true,
+                    touched: true
+                },
+                major: {
+                    ...this.state.info.major,
+                    value: this.props.patchSchool.major,
+                    valid: true,
+                    touched: true
+                },
+                gpa: {
+                    ...this.state.info.gpa,
+                    value: this.props.patchSchool.gpa,
+                    valid: true,
+                    touched: true
+                },
+                startedDate: {
+                    ...this.state.info.startedDate,
+                    value: new Date(this.props.patchSchool.startedDate).toISOString().split('T')[0],
+                    valid: true,
+                    touched: true
+                },
+                endDate: {
+                    ...this.state.info.endDate,
+                    value: new Date(this.props.patchSchool.endDate).toISOString().split('T')[0],
+                    valid: true,
+                    touched: true
+                }
+            }});
+        }
     }
 
 
@@ -91,7 +126,7 @@ class NewExpSchool extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-
+        console.log("Major:", this.state.info.major.value);
         const updatedFormElement = updateObject(this.state.info[inputIdentifier],{
             value: event.target.value,
             valid: checkValidity(event.target.value, this.state.info[inputIdentifier].validation),
@@ -111,11 +146,18 @@ class NewExpSchool extends Component {
 
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
-        this.props.postSchool( this.state );
+        if (!this.props.patchSchool){
+            console.log('is not patch, new');
+            this.props.postSchool( this.state, false, null );
+        } else {
+            console.log('is patch, new');
+            this.props.postSchool( this.state, true, this.props.patchId );
+        }
+        
     }
 
     render () {
-
+        
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -150,8 +192,7 @@ class NewExpSchool extends Component {
 
         let schoolRedirect = null;
         if (this.props.status == 200) {
-            schoolRedirect = <Redirect to="/exps/" />
-            // this.props.status = null;
+            // schoolRedirect = <Redirect to="/exps/" />
             this.props.resetSchoolState();
         }
 
@@ -188,7 +229,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onInitSkills: () => dispatch(actions.initSkills()),
-        postSchool: ( state ) => dispatch(actions.postSchool(state)),
+        postSchool: ( state, isPatch, id ) => dispatch(actions.postSchool(state, isPatch, id)),
         resetSchoolState: () => dispatch(actions.schoolStateReset())
     }
 }

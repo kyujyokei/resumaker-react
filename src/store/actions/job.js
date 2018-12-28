@@ -145,6 +145,8 @@ export const enablePatch = () => {
     };
 };
 
+// TODO: make sure patch methods are all merged with post, and clean up exccess patch methods in all files 
+
 // export const patchJob = ( state ) => {
 //     return dispatch => {
 //         dispatch(jobGetByIdStart());

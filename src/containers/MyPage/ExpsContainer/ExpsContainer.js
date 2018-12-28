@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
 // import axios from '../../../axios';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
 import FullExpSchool from '../FullExp/FullExpSchool/FullExpSchool';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
 import NewExpJob from '../NewExp/NewExpJob/NewExpJob';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 class ExpsContainer extends Component {
 
     state = {
         expSelected: false
     }
+     componentDidMount() {
+         this.props.resetSchoolState();
+         this.props.resetState();
+     }
 
     render () {
         return (
@@ -33,4 +39,21 @@ class ExpsContainer extends Component {
     
 }
 
-export default ExpsContainer;
+const mapStateToProps = state => {
+    return {
+        // school: state.school.school,
+        // error: state.school.error,
+        // status: state.school.status,
+        // loading: state.school.loading,
+        // isPatch: state.school.isPatch // TODO: refresh causes isPatch set to false, might want to find better ways to determine this
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        resetState: () => dispatch(actions.jobStateReset()),
+        resetSchoolState: () => dispatch(actions.schoolStateReset())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps) (ExpsContainer));

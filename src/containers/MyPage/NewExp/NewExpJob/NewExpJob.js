@@ -106,7 +106,9 @@ class NewExpJob extends Component {
         descriptionFormIsValid: false
     }
 
-    componentDidMount () {
+    componentWillMount () {
+
+        
         this.props.onInitSkills();
 
         if (this.props.position){ // patch mode
@@ -300,8 +302,10 @@ class NewExpJob extends Component {
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
         if ( ! this.props.patch) { // not patch
+            // console.log('is not patch, new');
             this.props.postJob( this.state, false, null );
         } else { //patch
+            // console.log('is patch, new');
             this.props.postJob( this.state, true, this.props.patchId);
         }
        
