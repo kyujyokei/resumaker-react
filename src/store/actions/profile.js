@@ -7,7 +7,7 @@ export const initProfile = () => {
         let url = 'https://obscure-journey-65698.herokuapp.com/users/me'
         axios.get(url, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then( response => {
-
+                console.log("Get Profile: ", response.data)
                 dispatch(setProfile(response.data));
             })
             .catch( error => {

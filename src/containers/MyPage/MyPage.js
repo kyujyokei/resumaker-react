@@ -20,7 +20,7 @@ class MyPage extends Component {
     render () {
         let shouldRedirect = null;
         if (!this.props.isAuthenticated) {
-            shouldRedirect = <Redirect to="/signup"/>
+            // shouldRedirect = <Redirect to="/signup"/>
         }
         return (
             <Aux>

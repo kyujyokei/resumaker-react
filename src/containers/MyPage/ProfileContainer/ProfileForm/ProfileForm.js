@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 import { updateObject, checkValidity } from '../../../../shared/utility';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 
 class ProfileForm extends Component {
@@ -17,8 +19,8 @@ class ProfileForm extends Component {
                 validation: {
                     required: true
                 },
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             },
             l_name: {
                 elementType: 'input',
@@ -30,8 +32,8 @@ class ProfileForm extends Component {
                 validation: {
                     required: true
                 },
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             },
             phone: {
                 elementType: 'input',
@@ -46,8 +48,8 @@ class ProfileForm extends Component {
                     maxLength: 10,
                     minLength: 10
                 },
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             },
             address: {
                 elementType: 'input',
@@ -59,8 +61,8 @@ class ProfileForm extends Component {
                 validation: {
                     required: true
                 },
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             },
             email: {
                 elementType: 'input',
@@ -73,13 +75,14 @@ class ProfileForm extends Component {
                     required: true,
                     isEmail: true
                 },
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             }
             
         },
         formIsValid: false,
-        loading: false
+        loading: false,
+        redirect: false
     }
 
 
@@ -102,6 +105,26 @@ class ProfileForm extends Component {
         }
         this.setState({info: updatedInfo, formIsValid: formIsValid});
         console.log(this.state.info);
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault();
+        let info = {
+            f_name: this.state.info.f_name.value,
+            l_name: this.state.info.l_name.value,
+            phone: this.state.info.phone.value,
+            address: this.state.info.address.value,
+            email: this.state.info.email.value
+        }
+        let url = 'https://obscure-journey-65698.herokuapp.com/users/me'
+        axios.patch(url, info, { headers: { "x-auth":  localStorage.getItem("token")}})
+            .then(response => {
+                console.log(response);
+                if (response.status == 200) {
+                    window.location.reload()
+                }
+            });
+
     }
 
     render () {
@@ -128,11 +151,15 @@ class ProfileForm extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 
-                <Button btnType="Success" disabled={!this.state.formIsValid}> save </Button>
+                <Button 
+                    btnType="Success" 
+                    disabled={!this.state.formIsValid}
+                    clicked={this.submitHandler}> save </Button>
             </form>
         )
         return (
             <div>
+
                 {form}
             </div>
         );
