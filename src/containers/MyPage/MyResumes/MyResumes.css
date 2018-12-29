@@ -5,6 +5,48 @@
 .resumeContainer {
     background-color: #fff;
     margin: 20px;
-    padding: 20px;
+    padding: 40px;
     width: 80%;
+}
+
+.FirstName {
+    color: cadetblue;
+    font-weight: lighter;
+    display: inline;
+    font-size: 32px;
+}
+
+.LastName {
+    color: cadetblue;
+    font-weight: bold;
+    display: inline;
+    font-size: 32px;
+}
+
+.SectionTitle {
+    color: cadetblue;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.SchoolName {
+    font-size:16px;
+    display: inline-block;
+    font-weight:normal;
+    width:50%;
+}
+
+.SchoolDate {
+    font-size:14px;
+    display: inline-block;
+    font-weight: lighter;
+    width: 30%;
+    text-align: right;
+
+}
+
+.SchoolMajor {
+    font-size:16px;
+    font-weight:bold;
+
 }
