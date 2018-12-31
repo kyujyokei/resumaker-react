@@ -6,10 +6,13 @@ import Input from '../../../components/UI/Input/Input';
 import * as actions from '../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PDFExport } from '@progress/kendo-react-pdf';
 
 
 
 class MyResumes extends Component {
+
+    resume;
 
     state = {
         url: null,
@@ -23,6 +26,11 @@ class MyResumes extends Component {
     inputChangedHandler = (event) => {
         this.setState({url: event.target.value});
         console.log(this.state.url);
+    }
+
+    exportPDF = () => {
+        console.log('exportPDF');
+        this.resume.save();
     }
 
     render () {
@@ -79,18 +87,26 @@ class MyResumes extends Component {
                     ></Input>
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
-                {scrapedData? 
-                <Aux>
-                    <div className={classes.resumeContainer}>
-                        {profile}
-                        <p className={classes.SectionTitle}>EDUCATION</p>
-                        {schools}
-                        <p className={classes.SectionTitle}>JOB / PROJECT EXPERIENCE</p>
-                        {jobsForDisplay}
-                    </div>
-                    <Button btnType="Danger">Download PDF</Button>
-                </Aux> : null}
-                
+                <PDFExport paperSize={'A4'}
+                    scale={0.6}
+                    fileName="resume.pdf"
+                    title=""
+                    subject=""
+                    keywords=""
+                    ref={(r) => this.resume = r}>
+                    {scrapedData? 
+                    <Aux>
+                        <div className={classes.resumeContainer}>
+                            {profile}
+                            <p className={classes.SectionTitle}>EDUCATION</p>
+                            {schools}
+                            <p className={classes.SectionTitle}>JOB / PROJECT EXPERIENCE</p>
+                            {jobsForDisplay}
+                        </div>
+                       
+                    </Aux> : null}
+                </PDFExport>
+                {scrapedData? <Button btnType="Danger" clicked={this.exportPDF}>Download PDF</Button> : null}
             </Aux>
         );
     }
