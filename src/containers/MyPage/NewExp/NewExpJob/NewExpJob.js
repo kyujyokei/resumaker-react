@@ -144,7 +144,7 @@ class NewExpJob extends Component {
             });
 
 
-            
+            let descriptionArr = [];
             this.props.descriptions.map((des, idx) => {
                 console.log("idx: ", idx, des);
                 let selectArr = [];
@@ -166,11 +166,8 @@ class NewExpJob extends Component {
                     touched: true,
                     skills: selectArr 
                 };
-        
-                let newDescriptions = [
-                    ...this.state.descriptions,
-                    d
-                ]
+
+                descriptionArr.push(d);
 
                 // NOTE: can't use object update because description is supposed to be an array, not an object
                 //       this is important since the latter part uses .map() which is looping through arrays
@@ -178,9 +175,9 @@ class NewExpJob extends Component {
                 //     [idx]: d
                 // })
 
-                console.log('this.state.descriptions: ',this.state.descriptions)
+                console.log('descriptionArr: ',descriptionArr)
 
-                this.setState({ descriptions: newDescriptions})
+                this.setState({ descriptions: descriptionArr})
                 
                 
             })
