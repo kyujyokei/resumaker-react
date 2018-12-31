@@ -8,9 +8,10 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 import Tags from '../../../../components/Tags/Tags';
 import Tag from '../../../../components/UI/Tag/Tag';
-
+import Modal from '../../../../components/UI/Modal/Modal';
 import NewExpJob from '../../NewExp/NewExpJob/NewExpJob';
-
+import Aux from '../../../../hoc/Aux';
+import DeleteConfirm from '../DeleteConfirm/DeleteConfirm';
 
 
 class FullExpJob extends Component {
@@ -18,11 +19,20 @@ class FullExpJob extends Component {
     state = {
         loadedPost: null,
         redirect: false,
-        isPatch: false
+        isPatch: false,
+        deleting: false
     }
 
     componentDidMount () {
         this.loadData();
+    }
+
+    deleteHandler = () => {
+        this.setState({deleting: true});
+    }
+
+    deleteCancelHandler = () => {
+        this.setState({deleting: false});
     }
 
     loadData () {
@@ -57,6 +67,7 @@ class FullExpJob extends Component {
     render () {
         // console.log("JOB:", this.props.job);
         let post = null;
+        let deleteConfirmation = null;
         
         if ( this.props.match.params.id ) {
             post = <LoadingAnimation />;
@@ -85,6 +96,7 @@ class FullExpJob extends Component {
             }
 
             if (!this.state.isPatch){
+                deleteConfirmation = <DeleteConfirm cancel={this.deleteCancelHandler} delete={this.deletePostHandler}/>
                 post = (
                     <div className={classes.FullExpJob}>
                         {shouldRedirect}
@@ -97,7 +109,7 @@ class FullExpJob extends Component {
                         {descriptions}
                         <div>
                             <button onClick={this.editPostHandler} className={classes.Buttons}>Edit</button>
-                            <button onClick={this.deletePostHandler} className={classes.Buttons}>Delete</button>
+                            <button onClick={this.deleteHandler} className={classes.Buttons}>Delete</button>
                         </div>
                         <Route path={this.props.match.url + '/edit/:id'} exact component={FullExpJob} />
                     </div>
@@ -117,7 +129,15 @@ class FullExpJob extends Component {
                     patchId={this.props.match.params.id }/>;   
             }
         }
-        return post;
+        
+        return (
+            <Aux>
+                {post}
+            <Modal show={this.state.deleting} modalClosed={this.deleteCancelHandler}>
+                {deleteConfirmation}
+            </Modal>
+            </Aux>
+        );
     }
 
 }

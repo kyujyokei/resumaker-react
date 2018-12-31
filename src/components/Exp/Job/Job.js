@@ -9,7 +9,7 @@ const job = (props) => {
     return(
     <article className={classes.Job} onClick={props.clicked}>
         <h3 className={classes.Title}>{props.title}</h3>
-        <h4 className={classes.CompanyName}>{props.company}</h4>
+        <h4 className={classes.CompanyName}>{props.company}, {props.location}</h4>
         {
             props.descriptions.map(des => {
                 des.skills.map(skill => {

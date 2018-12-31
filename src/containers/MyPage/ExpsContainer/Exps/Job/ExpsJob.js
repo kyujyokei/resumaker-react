@@ -56,6 +56,7 @@ class ExpsJob extends Component {
                         key={job._id}
                         title={job.position}
                         company={job.companyName}
+                        location={job.location}
                         endDate={new Date(job.endDate).toISOString().split('T')[0]}
                         startedDate={new Date(job.startedDate).toISOString().split('T')[0]}
                         descriptions={job.descriptions}

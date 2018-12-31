@@ -5,8 +5,8 @@ import Button from '../../../../components/UI/Button/Button';
 import * as actions from '../../../../store/actions/index';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
+
 
 
 
@@ -61,10 +61,11 @@ class NewExpSchool extends Component {
         redirect: false, 
         info: {
             schoolName: {
+                title: 'School Name',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'School name'
+                    placeholder: 'ex. Oregon University'
                 },
                 value: '',
                 validation: {
@@ -74,10 +75,11 @@ class NewExpSchool extends Component {
                 touched: false
             },
             major: {
+                title: 'Major',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Major'
+                    placeholder: 'ex. M.S. in Computer Science'
                 },
                 value: '',
                 validation: {
@@ -87,10 +89,11 @@ class NewExpSchool extends Component {
                 touched: false
             },
             location: {
+                title: 'Location',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Location'
+                    placeholder: 'ex. Corvallis, OR'
                 },
                 value: '',
                 validation: {
@@ -100,10 +103,11 @@ class NewExpSchool extends Component {
                 touched: false
             },
             gpa: {
+                title: 'GPA',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'GPA'
+                    placeholder: 'ex. 4.0'
                 },
                 value: '',
                 validation: {
@@ -113,6 +117,7 @@ class NewExpSchool extends Component {
                 touched: false
             },
             startedDate: {
+                title: 'Start Date',
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
@@ -126,6 +131,7 @@ class NewExpSchool extends Component {
                 touched: false
             },
             endDate: {
+                title: 'Graduation Date',
                 elementType: 'input',
                 elementConfig: {
                     type: 'date',
@@ -173,8 +179,10 @@ class NewExpSchool extends Component {
         
     }
 
+
+
     render () {
-        
+
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -193,16 +201,18 @@ class NewExpSchool extends Component {
         let form = (
             <form>
                 {formElementsArray.map(formElement => (
-                    <Input
-                        className={classes.Inputs}
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                    <div key={formElement.id}>
+                        <p className={classes.Title}>{formElement.config.title}</p>
+                        <Input
+                            className={classes.Inputs}
+                            elementType={formElement.config.elementType}
+                            elementConfig={formElement.config.elementConfig}
+                            value={formElement.config.value}
+                            invalid={!formElement.config.valid}
+                            shouldValidate={formElement.config.validation}
+                            touched={formElement.config.touched}
+                            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                    </div>
                 ))}
             </form>
         )
@@ -219,17 +229,19 @@ class NewExpSchool extends Component {
             console.log(this.props.error);
         }
         return (
-            <div className={classes.NewExpSchool}>
-                {schoolRedirect}
-                {errorMessage}
-                {form}
 
-                <Button 
-                    btnType="Success" 
-                    disabled={!this.state.formIsValid}
-                    clicked={this.submitHandler} > save </Button>
-                
-            </div>
+                <div className={classes.NewExpSchool}>
+                    {schoolRedirect}
+                    {errorMessage}
+                    {form}
+
+                    <Button 
+                        btnType="Success" 
+                        disabled={!this.state.formIsValid}
+                        clicked={this.submitHandler} > save </Button>
+                    
+                </div>
+
         );
     }
 }

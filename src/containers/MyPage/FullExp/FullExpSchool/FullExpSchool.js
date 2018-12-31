@@ -7,6 +7,9 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 import NewExpSchool from '../../NewExp/NewExpSchool/NewExpSchool';
+import Modal from '../../../../components/UI/Modal/Modal';
+import DeleteConfirm from '../DeleteConfirm/DeleteConfirm';
+import Aux from '../../../../hoc/Aux';
 
 
 class FullExpSchool extends Component {
@@ -14,7 +17,8 @@ class FullExpSchool extends Component {
     state = {
         loadedPost: null,
         redirect: false,
-        isPatch: false
+        isPatch: false,
+        deleting: false
     }
 
     componentDidMount () {
@@ -57,11 +61,20 @@ class FullExpSchool extends Component {
         this.setState({isPatch: true})
         // this.props.enablePatch();
     }
+
+    deleteHandler = () => {
+        this.setState({deleting: true});
+    }
+
+    deleteCancelHandler = () => {
+        this.setState({deleting: false});
+    }
       
 
     render () {
         console.log(this.state);
         let post = null;
+        let deleteConfirmation = null;
         
         if ( this.props.match.params.id ) {
             post = <LoadingAnimation />;
@@ -73,7 +86,8 @@ class FullExpSchool extends Component {
                 if (this.state.redirect) {
                     shouldRedirect = <Redirect to="/exps/"/>
                 }
-                console.log("SCHOOL: ", this.props.school);
+                // console.log("SCHOOL: ", this.props.school);
+                deleteConfirmation = <DeleteConfirm cancel={this.deleteCancelHandler} delete={this.deletePostHandler}/>
                 post = (
                     <div className={classes.FullExpSchool}>
                         {shouldRedirect}
@@ -86,7 +100,7 @@ class FullExpSchool extends Component {
                         <p>End: {new Date(this.props.school.endDate).toISOString().split('T')[0]}</p>
                         <div >
                             <button onClick={this.editPostHandler} className="Edit">Edit</button>
-                            <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+                            <button onClick={this.deleteHandler} className="Delete">Delete</button>
                             
                         </div>
                     </div>
@@ -103,7 +117,14 @@ class FullExpSchool extends Component {
                 );
             }
         }
-        return post;
+        return (
+            <Aux>
+                <Modal show={this.state.deleting} modalClosed={this.deleteCancelHandler}>
+                    {deleteConfirmation}
+                </Modal>
+                {post}
+            </Aux>
+        );
     }
 
 }

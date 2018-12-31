@@ -51,7 +51,7 @@ class MyResumes extends Component {
                 schools.push(
                     <div key={scrapedData.schools[i]._id}>                 
                         <p className={classes.SchoolMajor}>{scrapedData.schools[i].major} GPA: {scrapedData.schools[i].gpa} </p>
-                        <p className={classes.SchoolName}>{scrapedData.schools[i].schoolName}</p> <p className={classes.SchoolDate}> {new Date(scrapedData.schools[i].startedDate).toISOString().split('T')[0]} - {new Date(scrapedData.schools[i].endDate).toISOString().split('T')[0]}</p>
+                        <p className={classes.SchoolName}>{scrapedData.schools[i].schoolName}, {scrapedData.schools[i].location}</p> <p className={classes.SchoolDate}> {new Date(scrapedData.schools[i].startedDate).toISOString().split('T')[0]} - {new Date(scrapedData.schools[i].endDate).toISOString().split('T')[0]}</p>
 
                     </div>
                 )
@@ -65,7 +65,7 @@ class MyResumes extends Component {
                 }
                 jobsForDisplay.push(<div key={i}>
                     <h3>{scrapedData.jobs[i].position}</h3>
-                    <p>{scrapedData.jobs[i].companyName}</p>
+                    <p>{scrapedData.jobs[i].companyName}, {scrapedData.jobs[i].location}</p>
                     
                     <p>{new Date(scrapedData.jobs[i].startedDate).toISOString().split('T')[0]} - {new Date(scrapedData.jobs[i].endDate).toISOString().split('T')[0]}</p>
                     <ul>
