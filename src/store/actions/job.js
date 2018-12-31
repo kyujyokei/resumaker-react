@@ -56,13 +56,14 @@ export const postJob = (state, isPatch, id) => {
         let job = {
             position: state.info.position.value,
             companyName: state.info.companyName.value,
+            location: state.info.location.value,
             startedDate: state.info.startedDate.value,
             endDate: state.info.endDate.value,
             descriptions: updatedDescriptions
         };
 
 
-        // console.log('JOB: ',job);
+        console.log('JOB: ',job);
         let url = 'https://obscure-journey-65698.herokuapp.com/jobs';
 
 

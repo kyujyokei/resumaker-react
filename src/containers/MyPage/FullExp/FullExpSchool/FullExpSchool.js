@@ -77,8 +77,10 @@ class FullExpSchool extends Component {
                 post = (
                     <div className={classes.FullExpSchool}>
                         {shouldRedirect}
-                        <h1>{this.props.school.schoolName}</h1>
-                        <p>{this.props.school.major}</p>
+                        <h3>{this.props.school.major}</h3>
+                        <h4>{this.props.school.schoolName}, {this.props.school.location}</h4>
+                        
+                        
                         <p>GPA: {this.props.school.gpa}</p>
                         <p>Start: {new Date(this.props.school.startedDate).toISOString().split('T')[0]}</p>
                         <p>End: {new Date(this.props.school.endDate).toISOString().split('T')[0]}</p>

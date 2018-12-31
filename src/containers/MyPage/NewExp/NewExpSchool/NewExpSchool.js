@@ -28,6 +28,12 @@ class NewExpSchool extends Component {
                     valid: true,
                     touched: true
                 },
+                location: {
+                    ...this.state.info.location,
+                    value: this.props.patchSchool.location,
+                    valid: true,
+                    touched: true
+                },
                 gpa: {
                     ...this.state.info.gpa,
                     value: this.props.patchSchool.gpa,
@@ -72,6 +78,19 @@ class NewExpSchool extends Component {
                 elementConfig: {
                     type: 'text',
                     placeholder: 'Major'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            location: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Location'
                 },
                 value: '',
                 validation: {

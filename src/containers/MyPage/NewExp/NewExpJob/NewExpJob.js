@@ -42,6 +42,20 @@ class NewExpJob extends Component {
                 valid: false,
                 touched: false
             },
+            location: {
+                title: 'Location',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ex. Oregon, U.S.'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
             startedDate: {
                 title: 'Start Date',
                 elementType: 'input',
@@ -108,6 +122,8 @@ class NewExpJob extends Component {
 
     componentWillMount () {
 
+        console.log("new props: ", this.props);
+        // console.log("new props.companyLocation: ", this.props.companyLocation);
         
         this.props.onInitSkills();
 
@@ -125,6 +141,12 @@ class NewExpJob extends Component {
                     companyName: {
                         ...this.state.info.companyName,
                         value: this.props.companyName,
+                        valid: true,
+                        touched: true,
+                    },
+                    location: {
+                        ...this.state.info.location,
+                        value: this.props.companyLocation,
                         valid: true,
                         touched: true,
                     },
@@ -146,10 +168,10 @@ class NewExpJob extends Component {
 
             let descriptionArr = [];
             this.props.descriptions.map((des, idx) => {
-                console.log("idx: ", idx, des);
+
                 let selectArr = [];
                 des.skills.map((element) => {
-                    console.log("element: ", element)
+
                     selectArr.push({value: element.skillId, label: element.skillName});
                 });
                 var d = {
@@ -175,9 +197,8 @@ class NewExpJob extends Component {
                 //     [idx]: d
                 // })
 
-                console.log('descriptionArr: ',descriptionArr)
 
-                this.setState({ descriptions: descriptionArr})
+                this.setState({ descriptions: descriptionArr })
                 
                 
             })
@@ -299,17 +320,17 @@ class NewExpJob extends Component {
     submitHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
         if ( ! this.props.patch) { // not patch
-            // console.log('is not patch, new');
+
             this.props.postJob( this.state, false, null );
         } else { //patch
-            // console.log('is patch, new');
+
             this.props.postJob( this.state, true, this.props.patchId);
         }
        
     }
 
     render () {
-        console.log('this.state.descriptions: ', this.state.descriptions);
+        console.log('this.state.info: ', this.state.info);
         var skillsList = [];
         if (!this.props.skills) {
             skillsList = [];
@@ -435,7 +456,7 @@ class NewExpJob extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         skills: state.skill.skills,
         error: state.job.error,

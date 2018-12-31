@@ -17,7 +17,7 @@ const jobPostStart = ( state, action) => {
 };
 
 const jobPostSuccess = (state, action) => {
-    console.log("ACTION: ", action)
+    console.log("REDUCER: ", action)
     return updateObject( state, {
         error: null,
         loading: false,

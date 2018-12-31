@@ -39,6 +39,7 @@ export const postSchool = (state, isPatch, id) => {
             endDate: state.info.endDate.value,
             gpa: state.info.gpa.value,
             major: state.info.major.value,
+            location: state.info.location.value,
             hasGraduated: true // TODO: modify this
         };
         

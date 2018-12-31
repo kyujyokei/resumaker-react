@@ -51,9 +51,7 @@ class FullExpJob extends Component {
         // console.log("History: ",this.props.history);
         this.props.resetState();
         this.setState({isPatch: true});
-        // this.props.enablePatch();
-        // this.props.history.push( '/exps/job/edit/' + this.props.match.params.id );
-        // console.log("History after: ",this.props.history);
+
     }
 
     render () {
@@ -64,7 +62,8 @@ class FullExpJob extends Component {
             post = <LoadingAnimation />;
         }
         if ( this.props.job ) {
-            // console.log(this.state.loadedPost);
+            console.log("loaded post: ", this.state.loadedPost);
+            console.log("props.job.location: ", this.props.job.location);
             
             var descriptions = this.props.job.descriptions.map((d, index) => {
                 var skillNames = d.skills.map((s, index) => {
@@ -91,6 +90,7 @@ class FullExpJob extends Component {
                         {shouldRedirect}
                         <h1>{this.props.job.position}</h1>
                         <h3>{this.props.job.companyName}</h3>
+                        <p>{this.props.job.location}</p>
                         <p>Start: {new Date(this.props.job.startedDate).toISOString().split('T')[0]}</p>
                         <p>End: {new Date(this.props.job.endDate).toISOString().split('T')[0]}</p>
                         <h3>Descriptions</h3>
@@ -110,6 +110,7 @@ class FullExpJob extends Component {
                     // patchJob={this.props.job}
                     position={this.props.job.position}
                     companyName={this.props.job.companyName}
+                    companyLocation={this.props.job.location}
                     startedDate={new Date(this.props.job.startedDate).toISOString().split('T')[0]}
                     endDate={new Date(this.props.job.endDate).toISOString().split('T')[0]}
                     descriptions={this.props.job.descriptions}
