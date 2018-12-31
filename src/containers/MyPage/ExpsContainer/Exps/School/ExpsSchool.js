@@ -7,7 +7,7 @@ import FullExpSchool from '../../../FullExp/FullExpSchool/FullExpSchool';
 import axios from '../../../../../axios';
 import Button from '../../../../../components/UI/Button/Button';
 import LoadingAnimation from '../../../../../components/UI/LoadingAnimation/LoadingAnimation';
-import NewExpSchool from '../../../NewExp/NewExpSchool/NewExpSchool';
+
 
 class ExpsSchool extends Component {
     

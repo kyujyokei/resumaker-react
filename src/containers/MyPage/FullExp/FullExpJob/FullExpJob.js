@@ -38,7 +38,7 @@ class FullExpJob extends Component {
         axios.delete('/jobs/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     this.setState({redirect: true});
                     
                 }

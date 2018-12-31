@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
 import ProfileForm from './ProfileForm/ProfileForm';
 import ProfileDetail from './ProfileDetail/ProfileDetail';
 import * as actions from '../../../store/actions/index';
 import Button from '../../../components/UI/Button/Button'
-import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
+
 
 class ProfileContainer extends Component {
 
@@ -24,6 +24,8 @@ class ProfileContainer extends Component {
             return {isEdit: !prevState.isEdit};
         });
     }
+
+    
 
     render () {
         let content = null;
@@ -45,7 +47,7 @@ class ProfileContainer extends Component {
 
         return (
             <Aux>
-                {/* <Link to={this.props.match.url + '/edit' }>EDIT</Link> */}
+
                 {this.state.isEdit ? <Button clicked={this.editButtonHandler} btnType="Danger">Cancel</Button> : <Button clicked={this.editButtonHandler} btnType="BlueRounded">EDIT</Button>}
                 {content}
             </Aux>
@@ -58,13 +60,15 @@ const mapStateToProps = state => {
         profile: state.profile.profile,
         error: state.profile.error,
         loading: state.profile.loading,
-        status: state.profile.status
+        status: state.profile.status,
+        isAuthenticated: state.auth.token !== null
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onInitProfile: () => dispatch(actions.initProfile())
+        
     }
 }
 

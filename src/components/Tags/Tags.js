@@ -1,6 +1,4 @@
 import React from 'react';
-import Tag from '../UI/Tag/Tag';
-import Aux from '../../hoc/Aux';
 import classes from './Tags.css';
 
 const Tags = (props) => {

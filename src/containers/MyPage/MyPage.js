@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Aux from '../../hoc/Aux';
 import ExpsContainer from './ExpsContainer/ExpsContainer';
 import NavigationHeader from '../../components/Navigation/NavigationHeader';
-import { Route, Switch, withRouter, Redirect} from 'react-router-dom';
+import { Route, Switch, withRouter} from 'react-router-dom';
 import ProfileContainer from './ProfileContainer/ProfileContainer';
 import SignUp from './SignUp/SignUp';
 import MyResumes from './MyResumes/MyResumes';

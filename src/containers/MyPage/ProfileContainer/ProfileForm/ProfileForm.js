@@ -3,7 +3,7 @@ import Input from '../../../../components/UI/Input/Input';
 import Button from '../../../../components/UI/Button/Button';
 import { updateObject, checkValidity } from '../../../../shared/utility';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+
 
 
 class ProfileForm extends Component {
@@ -120,7 +120,7 @@ class ProfileForm extends Component {
         axios.patch(url, info, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     window.location.reload()
                 }
             });

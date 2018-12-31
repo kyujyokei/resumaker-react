@@ -4,10 +4,9 @@ import classes from './MyResumes.css'
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import * as actions from '../../../store/actions/index';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import school from '../../../components/Exp/School/School';
-import { updateObject } from '../../../shared/utility';
+
 
 
 class MyResumes extends Component {

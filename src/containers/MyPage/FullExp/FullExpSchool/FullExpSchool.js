@@ -3,7 +3,7 @@ import classes from './FullExpSchool.css';
 import axios from '../../../../axios';
 import LoadingAnimation from '../../../../components/UI/LoadingAnimation/LoadingAnimation';
 // import Button from '../../../../components/UI/Button/Button';
-import { withRouter, Redirect, Route } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 import NewExpSchool from '../../NewExp/NewExpSchool/NewExpSchool';
@@ -40,7 +40,7 @@ class FullExpSchool extends Component {
         axios.delete('/schools/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
-                if (response.status == 200) {
+                if (response.status === 200) {
                     this.setState({redirect: true});
                     
                 }

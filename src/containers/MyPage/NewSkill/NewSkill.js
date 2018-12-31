@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import { checkValidity } from '../../../shared/utility';
-import { updateObject } from '../../../shared/utility';
+
 
 class NewSkill extends Component {
 

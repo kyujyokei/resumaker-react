@@ -5,7 +5,8 @@ import Tag from '../../UI/Tag/Tag';
 
 var skillNames = [];
 
-const job = (props) => (
+const job = (props) => {
+    return(
     <article className={classes.Job} onClick={props.clicked}>
         <h3 className={classes.Title}>{props.title}</h3>
         <h4 className={classes.CompanyName}>{props.company}</h4>
@@ -28,6 +29,7 @@ const job = (props) => (
         <p className={classes.Date}>{props.startedDate}~{props.endDate}</p>
         {/* <p>{props.description}</p> */}
     </article>
-);
+    )
+};
 
 export default job;

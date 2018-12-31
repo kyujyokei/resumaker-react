@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
 import MyPage from './containers/MyPage/MyPage';

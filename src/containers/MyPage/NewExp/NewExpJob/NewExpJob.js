@@ -404,7 +404,7 @@ class NewExpJob extends Component {
         }
 
         let jobRedirect = null;
-        if (this.props.status == 200) {
+        if (this.props.status === 200) {
             jobRedirect = <Redirect to="/exps/" />
             this.props.resetStatus();
         }

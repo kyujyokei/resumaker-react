@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
-// import axios from '../../../axios';
 import FullExpJob from '../FullExp/FullExpJob/FullExpJob';
 import FullExpSchool from '../FullExp/FullExpSchool/FullExpSchool';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
-import NewExpJob from '../NewExp/NewExpJob/NewExpJob';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
