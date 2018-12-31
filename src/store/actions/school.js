@@ -53,7 +53,7 @@ export const postSchool = (state, isPatch, id) => {
             .then(response => {
                 console.log(response);
 
-                dispatch(schoolPostSuccess(response.status));
+                dispatch(schoolPostSuccess(response));
 
             })
             .catch(err => {
@@ -67,7 +67,7 @@ export const postSchool = (state, isPatch, id) => {
             .then(response => {
                 console.log(response);
 
-                dispatch(schoolPostSuccess(response.status));
+                dispatch(schoolPostSuccess(response));
 
             })
             .catch(err => {

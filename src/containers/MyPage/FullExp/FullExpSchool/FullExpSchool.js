@@ -99,8 +99,8 @@ class FullExpSchool extends Component {
                         <p>Start: {new Date(this.props.school.startedDate).toISOString().split('T')[0]}</p>
                         <p>End: {new Date(this.props.school.endDate).toISOString().split('T')[0]}</p>
                         <div >
-                            <button onClick={this.editPostHandler} className="Edit">Edit</button>
-                            <button onClick={this.deleteHandler} className="Delete">Delete</button>
+                            <button onClick={this.editPostHandler} className={classes.Buttons}>Edit</button>
+                            <button onClick={this.deleteHandler} className={classes.Buttons}>Delete</button>
                             
                         </div>
                     </div>

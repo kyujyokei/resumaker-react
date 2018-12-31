@@ -5,7 +5,8 @@ const initialState = {
     error: null,
     loading: false,
     status: null,
-    isPatch: false
+    isPatch: false,
+    response: null
 };
 
 const jobPostStart = ( state, action) => {
@@ -21,7 +22,8 @@ const jobPostSuccess = (state, action) => {
     return updateObject( state, {
         error: null,
         loading: false,
-        status: action.status.status
+        status: action.status.status,
+        response: action.status.data
     });
 };
 

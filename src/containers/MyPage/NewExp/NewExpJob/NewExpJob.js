@@ -422,9 +422,16 @@ class NewExpJob extends Component {
         }
 
         let jobRedirect = null;
+        this.props.resetStatus();
+
         if (this.props.status === 200) {
-            jobRedirect = <Redirect to="/exps/" />
-            this.props.resetStatus();
+            // console.log("POST ID: ", this.props.response)
+            if ( !this.props.position && this.props.response._id ){
+                let path = "/exps/job/" + this.props.response._id;
+            jobRedirect = <Redirect to={path} />  
+            } else {
+                window.location.reload();
+            }
         }
 
         let errorMessage = null;
@@ -461,7 +468,8 @@ const mapStateToProps = (state) => {
         skills: state.skill.skills,
         error: state.job.error,
         status: state.job.status,
-        loading: state.job.loading
+        loading: state.job.loading,
+        response: state.job.response
     }
 }
 

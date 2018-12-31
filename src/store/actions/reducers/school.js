@@ -4,7 +4,8 @@ import { updateObject } from '../../../shared/utility';
 const initialState = {
     error: null,
     loading: false,
-    status: null
+    status: null,
+    response: null
 };
 
 const schoolPostStart = ( state, action) => {
@@ -16,10 +17,12 @@ const schoolPostStart = ( state, action) => {
 };
 
 const schoolPostSuccess = (state, action) => {
+    console.log("school reducer: ", action);
     return updateObject( state, {
         error: null,
         loading: false,
-        status: action.status
+        status: action.status.status,
+        response: action.status.data
     });
 };
 

@@ -218,9 +218,15 @@ class NewExpSchool extends Component {
         )
 
         let schoolRedirect = null;
+
         if (this.props.status === 200) {
-            schoolRedirect = <Redirect to="/exps/" />
-            this.props.resetSchoolState();
+            console.log("props.response: ", this.props.response)
+            if ( !this.props.patchId && this.props.response.school._id ){
+                let path = "/exps/school/" + this.props.response.school._id;
+                schoolRedirect = <Redirect to={path} />  
+            } else {
+                window.location.reload();
+            }
         }
 
         let errorMessage = null;
@@ -251,7 +257,8 @@ const mapStateToProps = state => {
         skills: state.skill.skills,
         error: state.school.error,
         status: state.school.status,
-        loading: state.school.loading
+        loading: state.school.loading,
+        response: state.school.response
     }
 }
 
