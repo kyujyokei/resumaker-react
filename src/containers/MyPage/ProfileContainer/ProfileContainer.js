@@ -6,6 +6,7 @@ import ProfileForm from './ProfileForm/ProfileForm';
 import ProfileDetail from './ProfileDetail/ProfileDetail';
 import * as actions from '../../../store/actions/index';
 import Button from '../../../components/UI/Button/Button'
+import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 
 
 class ProfileContainer extends Component {
@@ -30,12 +31,16 @@ class ProfileContainer extends Component {
     render () {
         let content = null;
         if (!this.state.isEdit) {
-            content = <ProfileDetail
+            if (this.props.profile.f_name){
+                content = <ProfileDetail
                 f_name={this.props.profile.f_name}
                 l_name={this.props.profile.l_name}
                 phone={this.props.profile.phone}
                 address={this.props.profile.address}
                 email={this.props.profile.email}/>
+            } else {
+                content = <LoadingAnimation/>
+            }
         } else {
 
             content = <ProfileForm>{this.props.profile}</ProfileForm>

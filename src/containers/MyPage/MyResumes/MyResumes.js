@@ -16,11 +16,12 @@ class MyResumes extends Component {
 
     state = {
         url: null,
-        valid: false
+        valid: false,
+        textMode: false
     }
 
     postBtnHandler = () => {
-        this.props.postRes(this.state.url);
+        this.props.postRes(this.state.url, this.state.textMode);
     }
 
     inputChangedHandler = (event) => {
@@ -31,6 +32,11 @@ class MyResumes extends Component {
     exportPDF = () => {
         console.log('exportPDF');
         this.resume.save();
+    }
+
+    changeTextModeHandler = () => {
+        let curr = this.state.textMode;
+        this.setState({ textMode: !curr });
     }
 
     render () {
@@ -79,12 +85,22 @@ class MyResumes extends Component {
 
         return (
             <Aux>
-                
-                <p>Paste job description url: </p>
-                <Input 
-                    className={classes.JobLink} 
-                    changed={(event) => this.inputChangedHandler(event)}
-                    ></Input>
+                { !this.state.textMode ? 
+                    <div>
+                        <p>Paste job description url: </p>
+                        <Input 
+                            className={classes.JobLink} 
+                            changed={(event) => this.inputChangedHandler(event)}
+                            ></Input>
+                    </div> :
+                    <div>
+                        <p>Paste job description pain text: </p>
+                        <Input 
+                            className={classes.JobLink} 
+                            changed={(event) => this.inputChangedHandler(event)}
+                            ></Input>
+                    </div>}
+
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
                 <PDFExport paperSize={'A4'}
@@ -107,6 +123,7 @@ class MyResumes extends Component {
                     </Aux> : null}
                 </PDFExport>
                 {scrapedData? <Button btnType="Danger" clicked={this.exportPDF}>Download PDF</Button> : null}
+                <button onClick={this.changeTextModeHandler}>Switch to {this.state.textMode ? "URL mode" : "TEXT mode"} </button>
             </Aux>
         );
     }
@@ -124,7 +141,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        postRes: ( url ) => dispatch(actions.postRes(url)),
+        postRes: ( url, isText ) => dispatch(actions.postRes(url, isText)),
         resetState: () => dispatch(actions.resPostReset)
     }
 }

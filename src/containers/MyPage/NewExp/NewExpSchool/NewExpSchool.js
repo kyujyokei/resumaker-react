@@ -220,7 +220,7 @@ class NewExpSchool extends Component {
         let schoolRedirect = null;
 
         if (this.props.status === 200) {
-            console.log("props.response: ", this.props.response)
+            // console.log("props.response: ", this.props.response)
             if ( !this.props.patchId && this.props.response.school._id ){
                 let path = "/exps/school/" + this.props.response.school._id;
                 schoolRedirect = <Redirect to={path} />  

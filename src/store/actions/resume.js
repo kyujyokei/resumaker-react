@@ -33,23 +33,29 @@ export const resPostReset = () => {
 };
 
 
-export const postRes = (state) => {
+export const postRes = (state, isText) => {
     return dispatch => {
         dispatch(resPostStart());
         
         console.log("STATE: ",state);
 
-        const jobPostUrl = {
+        let jobPost = {
             url: state
         };
 
-        console.log(jobPostUrl);
+        console.log("Job post:", jobPost);
 
 
         //console.log('RES: ',res);
         let url = 'https://obscure-journey-65698.herokuapp.com/resumes';
+        if (isText) {
+            jobPost = {
+                text: state
+            };
+            url = url + '/text';
+        } 
 
-        axios.post(url, jobPostUrl, { headers: { "x-auth":  localStorage.getItem("token")}})
+        axios.post(url, jobPost, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log("R:: " , response);
                 dispatch(resPostSuccess(response));
