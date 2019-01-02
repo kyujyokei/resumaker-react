@@ -8,9 +8,7 @@ export const resPostStart = () => {
 };
 
 export const resPostSuccess = (response) => {
-    // console.log('success');
-    // console.log(response)
-    // console.log(response.status, response.data);
+
     return {
         type: actionTypes.RES_POST_SUCCESS,
         status: response.status,
