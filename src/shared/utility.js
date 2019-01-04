@@ -28,6 +28,7 @@ export const checkValidity = (value, rules) => {
         isValid = pattern.test(value) && isValid
     }
 
+
     return isValid;
 };
 

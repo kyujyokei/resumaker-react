@@ -9,9 +9,8 @@ class CoverPage extends Component {
                 <img src={TopImage} className={classes.TopImage}/>
                 <h1>Welcome!</h1>
                 <h3>This is an alpha version of Resumaker</h3>
-                <p>Please try it out and let me know your feedback!
-                </p>
-                <p>email: hsiehke@oregonstate.edu</p>
+                <p>Please try it out and let me know your feedback!</p>
+                <p></p>
             </div>
         );
     }

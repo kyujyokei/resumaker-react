@@ -70,6 +70,20 @@ class SignUp extends Component {
                 valid: false,
                 touched: false
             },
+            password_re: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Re-enter your password'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 6
+                },
+                valid: false,
+                touched: false
+            },
             f_name: {
                 elementType: 'input',
                 elementConfig: {
@@ -145,30 +159,29 @@ class SignUp extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Website Link'
+                    placeholder: 'Website Link (optional)'
                 },
                 value: '',
                 validation: {},
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             },
             githubURL:{
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Github Link'
+                    placeholder: 'Github Link (optional)'
                 },
                 value: '',
                 validation: {},
-                valid: false,
-                touched: false
+                valid: true,
+                touched: true
             }
         },
         formIsValid: false,
         passwordMatched: false,
         isSignup: false
     }
-
 
     inputChangedHandler = (event, controlName) => {
         let currentForm = this.state.info;
@@ -177,22 +190,55 @@ class SignUp extends Component {
             currentForm = this.state.signUpInfo;
         }
 
-        const updatedInfo = {
-            ...currentForm,
-            [controlName]: {
-                ...currentForm[controlName],
-                value: event.target.value,
-                valid: checkValidity(event.target.value, currentForm[controlName].validation),
-                touched: true
-            }
-        };
-
-        if (this.state.isSignup) {
-            this.setState({signUpInfo: updatedInfo});
+        let updatedInfo = {};
+        // console.log('control name: ', controlName)
+        if (controlName === 'password_re'){
+            let check = checkValidity(event.target.value, currentForm[controlName].validation);
+            let match = event.target.value === this.state.signUpInfo.password.value;
+            
+            updatedInfo = {
+                ...currentForm,
+                [controlName]: {
+                    ...currentForm[controlName],
+                    value: event.target.value,
+                    valid: check && match,
+                    touched: true
+                }
+            };
+            
         } else {
-            this.setState({info: updatedInfo});
+            updatedInfo = {
+                ...currentForm,
+                [controlName]: {
+                    ...currentForm[controlName],
+                    value: event.target.value,
+                    valid: checkValidity(event.target.value, currentForm[controlName].validation),
+                    touched: true
+                }
+            };
         }
+
         
+        let formIsValid = this.checkFormIsValid(updatedInfo);
+        
+        console.log('handler formIsValid: ',formIsValid);
+        if (this.state.isSignup) {
+            this.setState({signUpInfo: updatedInfo, formIsValid: formIsValid});
+        } else {
+            this.setState({info: updatedInfo, formIsValid: formIsValid});
+        }
+
+
+        
+    }
+
+    checkFormIsValid = (currentForm) => {
+        let formIsValid = true;
+        console.log('current: ', this.state.isSignup);
+        for (let inputIdentifier in currentForm) {
+            formIsValid = currentForm[inputIdentifier].valid && formIsValid;
+        }
+        return formIsValid;
     }
 
     submitHandler = (event) => {
@@ -219,9 +265,12 @@ class SignUp extends Component {
     }
 
     switchAuthModeHandler = () => {
+        let nextForm = this.state.isSignup ? this.state.info : this.state.signUpInfo;
+        let valid = this.checkFormIsValid(nextForm);
         this.setState(prevState => {
             return {isSignup: !prevState.isSignup};
         });
+        this.setState({formIsValid: valid});
     }
 
     render () {
@@ -271,7 +320,7 @@ class SignUp extends Component {
             authRedirect = <Redirect to="/exps/" />
         }
         
-
+        // console.log(this.state.signUpInfo.password_re.valid);
         return (
             <div className={classes.SignUp}>
                 {this.state.isSignup ? <p>Sign Up</p> :  <p>Sign in</p> }
@@ -279,7 +328,9 @@ class SignUp extends Component {
                 {errorMsg}
                 <form onSubmit={this.submitHandler}> 
                     {form}
-                    <Button btnType="Success" > submit </Button>
+                    <Button 
+                        btnType="Success" 
+                        disabled={!this.state.formIsValid}> submit </Button>
                 </form>
                 
                 <Button btnType="Danger" 
