@@ -101,28 +101,13 @@ class NewExpJob extends Component {
             valid: false,
             touched: false
         },
-        descriptions: [
-        //     {
-        //     elementType: 'input',
-        //     elementConfig: {
-        //         type: 'text',
-        //         placeholder: 'Enter your accomplishments here'
-        //     },
-        //     value: '',
-        //     validation: {
-        //         required: true
-        //     },
-        //     valid: false,
-        //     touched: false,
-        //     skills: ''    
-        // }
-        ],
+        descriptions: [],
         descriptionFormIsValid: false
     }
 
     componentWillMount () {
 
-        console.log("new props: ", this.props);
+        // console.log("new props: ", this.props);
         // console.log("new props.companyLocation: ", this.props.companyLocation);
         
         this.props.onInitSkills();
@@ -442,7 +427,7 @@ class NewExpJob extends Component {
         return (
             
             <div className={classes.NewExpJob}>
-            <h1>{this.props.patchId}</h1>
+            {this.props.position ? <h2>Edit job / project</h2> : <h2>Create new job / project</h2> }
                 {jobRedirect}
                 {errorMessage}
                 {form}

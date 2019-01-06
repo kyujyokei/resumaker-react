@@ -53,7 +53,7 @@ class ProfileContainer extends Component {
         return (
             <Aux>
 
-                {this.state.isEdit ? <Button clicked={this.editButtonHandler} btnType="Danger">Cancel</Button> : <Button clicked={this.editButtonHandler} btnType="BlueRounded">EDIT</Button>}
+                {this.state.isEdit ? <Button clicked={this.editButtonHandler} btnType="Danger">cancel</Button> : <Button clicked={this.editButtonHandler} btnType="BlueRounded">EDIT</Button>}
                 {content}
             </Aux>
         )

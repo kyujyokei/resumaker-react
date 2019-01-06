@@ -179,6 +179,10 @@ class NewExpSchool extends Component {
         
     }
 
+    cancelHandler = () => {
+        window.location.reload();
+    }
+
 
 
     render () {
@@ -237,10 +241,15 @@ class NewExpSchool extends Component {
         return (
 
                 <div className={classes.NewExpSchool}>
+                    {this.props.patchSchool ? <h2>Patch education</h2> : <h2>Create new education</h2>}
                     {schoolRedirect}
                     {errorMessage}
                     {form}
-
+                    
+                    <Button
+                        btnType="Danger"
+                        clicked={this.cancelHandler}
+                        >cancel</Button>
                     <Button 
                         btnType="Success" 
                         disabled={!this.state.formIsValid}
