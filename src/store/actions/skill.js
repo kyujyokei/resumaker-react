@@ -44,18 +44,19 @@ export const postSkill = ( state, action ) => {
             name: state.skillName.value
         };
 
-        console.log(skill);
+        // console.log(skill);
 
         let url = 'https://obscure-journey-65698.herokuapp.com/skills';
 
         axios.post(url, skill, { headers: { "x-auth":  localStorage.getItem("token")}})
             .then(response => {
                 console.log(response);
+                dispatch(skillPostSuccess(response));
 
             })
             .catch(err => {
                 console.log(err);
-
+                dispatch(skillPostFail(err));
             })
     }
 }

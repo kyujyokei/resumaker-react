@@ -4,7 +4,9 @@ import { updateObject } from '../../../shared/utility';
 
 const initialState = {
     skills: [],
-    error: false
+    error: false,
+    response: null,
+    status: null
 }
 
 const setSkills = ( state, action ) => {
@@ -19,25 +21,26 @@ const fetchSkillsFailed = ( state, action ) => {
 }
 
 
-export const skillPostStart = () => {
-    return {
-        type: actionTypes.SKILL_POST_START
-    };
+export const skillPostStart = (state, action) => {
+    return updateObject( state, {
+        type: actionTypes.SKILL_POST_START,
+        });
 };
 
-export const skillPostSuccess = (status) => {
-    return {
+export const skillPostSuccess = (state, action) => {
+    return updateObject( state, {
         type: actionTypes.SKILL_POST_SUCCESS,
-        status: status
-    };
+        status: action.status.status,
+        response: action.status.data
+        });
 };
 
-export const skillPostFail = (status, error) => {
-    return {
+export const skillPostFail = (state, error) => {
+    return updateObject( state, {
         type: actionTypes.SKILL_POST_FAIL,
-        error: error,
-        status: status
-    };
+        error: error.status.response.data,
+        status: error.status.response.status
+        });
 };
 
 

@@ -33,7 +33,7 @@ class navigationHeader extends Component {
                         </nav>
                         : null
                     }
-                    {this.props.isAuth ? <a href="/logout"><Button btnType="Auth">Logout</Button></a> : <a href="/signup"><Button btnType="Auth">Signin / Sign Up</Button></a>}
+                    {this.props.isAuth ? <a href="/logout"><Button btnType="Logout">Logout</Button></a> : <a href="/signup"><Button btnType="Login">Signin / Sign Up</Button></a>}
                     {/* { props.isAuth ? <a className={classes.RightCorner} href="/logout">Logout</a> : <a className={classes.RightCorner} href="/signup">Signin / Sign Up</a>} */}
                 </div>
             </div>

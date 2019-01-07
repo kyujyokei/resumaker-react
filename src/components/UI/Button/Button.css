@@ -43,7 +43,7 @@
     width: 100px;
 }
 
-.Auth {
+.Logout {
     background-color: cornflowerblue;
     height: 30px;
     border-radius: 15px;
@@ -56,4 +56,33 @@
     margin: 4px 2px;
     /* padding: 5px 13px; */
     width: 100px;
+}
+
+.Login {
+    background-color: coral;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    /* padding: 5px 13px; */
+    width: 150px;
+}
+
+.Help {
+    background-color: #fff;
+    height: 15px;
+    width: 15px;
+    border-radius: 12.5px;
+    border: 2px;
+    border-color: cornflowerblue;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
 }

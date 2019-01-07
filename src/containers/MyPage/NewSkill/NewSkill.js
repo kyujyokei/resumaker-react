@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import Aux from '../../../hoc/Aux';
 import * as actions from '../../../store/actions/index';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Router } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import { checkValidity } from '../../../shared/utility';
+import classes from './NewSkill.css';
+
 
 
 class NewSkill extends Component {
@@ -50,6 +52,10 @@ class NewSkill extends Component {
         
     }
 
+    goBackHandler = () => {
+        this.props.history.goBack();
+    }
+
 
     postSkillHandler = (event) => {
         event.preventDefault(); // stops the page from refreshing
@@ -70,6 +76,14 @@ class NewSkill extends Component {
             placeholder: 'Enter your skill name'
         }
 
+        let errorMsgDefault = 'Could not send empty string';
+        let errorNameDefault = 'null';
+
+        if (this.props.error.op) {
+            errorMsgDefault = this.props.error.errmsg;
+            errorNameDefault = this.props.error.op.name;
+        }
+
         return (
             <Aux>
                 <p>Please make sure your tag has not been created in the list below : </p>
@@ -81,9 +95,26 @@ class NewSkill extends Component {
                 elementConfig={elementConfig}
                 value={this.state.skillName.value}
                 changed={this.inputChangedHandler}/>
+
+                {this.props.status === 200 ? 
+                    <div className={classes.Success}>
+                        <p>Successfully created new skill: {this.props.response.name}</p>
+                        <p>You can countinue adding new skills or go back to job posting page</p>
+                    </div>
+                     : null}
+
+                {this.props.status === 400 ? 
+                    <div className={classes.Fail}>
+                        <p>Was unable to create: {errorNameDefault}</p>
+                        <p>{errorMsgDefault}</p>
+                    </div> : null}
+
                 <Button 
                     btnType="Success"
-                    clicked={this.postSkillHandler}>Post</Button>
+                    clicked={this.postSkillHandler}>post</Button>
+                <Button
+                    btnType="Danger"
+                    clicked={this.goBackHandler}>go back</Button>
             </Aux>
         );
     };
@@ -93,7 +124,9 @@ class NewSkill extends Component {
 const mapStateToProps = state => {
     return {
         skills: state.skill.skills,
-        error: state.error
+        error: state.skill.error,
+        response: state.skill.response,
+        status: state.skill.status
     }
 }
 
