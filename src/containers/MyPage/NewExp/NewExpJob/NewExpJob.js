@@ -427,7 +427,8 @@ class NewExpJob extends Component {
         return (
             
             <div className={classes.NewExpJob}>
-            {this.props.position ? <h2>Edit job / project</h2> : <h2>Create new job / project</h2> }
+            {this.props.position ? <h2 className={classes.Head}>Edit job / project</h2> : <h2 className={classes.Head}>Create new job / project</h2> }
+                <Button btnType="Help">?</Button>
                 {jobRedirect}
                 {errorMessage}
                 {form}

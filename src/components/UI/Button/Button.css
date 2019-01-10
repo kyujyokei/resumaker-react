@@ -13,7 +13,7 @@
 
 .Button:first-of-type {
     margin-left: 0;
-    padding-left: 0;
+    /* padding-left: 0; */
 }
 
 .Button:disabled {
@@ -74,15 +74,27 @@
 }
 
 .Help {
-    background-color: #fff;
+    /* background-color: #fff; */
+    /* color: cornflowerblue;
     height: 15px;
     width: 15px;
-    border-radius: 12.5px;
-    border: 2px;
-    border-color: cornflowerblue;
+    border: 2px cornflowerblue;
+    border-radius: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    padding: 14px 28px; */
+    border: 2px solid cornflowerblue;
+    background-color: white;
+    color: cornflowerblue;
+    padding: 5px 10px 5px 10px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: #2196F3;
+    color: dodgerblue;
+    border-radius: 20px;
+    text-align: center;
+    display: inline;
 }
