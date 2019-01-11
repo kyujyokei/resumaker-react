@@ -241,7 +241,8 @@ class NewExpSchool extends Component {
         return (
 
                 <div className={classes.NewExpSchool}>
-                    {this.props.patchSchool ? <h2>Patch education</h2> : <h2>Create new education</h2>}
+                    {this.props.patchSchool ? <h2 className={classes.Head}>Patch education</h2> : <h2 className={classes.Head}>Create new education</h2>}
+                    <Button btnType="Help">?</Button>
                     {schoolRedirect}
                     {errorMessage}
                     {form}

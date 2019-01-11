@@ -98,3 +98,8 @@
     text-align: center;
     display: inline;
 }
+
+.Arrow {
+    color: grey;
+    display: inline-block;
+}
