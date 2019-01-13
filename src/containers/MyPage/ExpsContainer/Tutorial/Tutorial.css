@@ -2,10 +2,27 @@
     display: inline;
 }
 
-.Left {
 
+
+.col2 {
+    padding: 20px;
+    text-align: center;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    width: 20%;
+    background-color: green;
+    display: inline-block;
+    height: 100%;
 }
 
-.Right {
-
+.col6 {
+    padding: 20px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 60%;
+    flex: 0 0 60%;
+    width: 60%;
+    background-color: blue;
+    display: inline-block;
+    height: 100%;
 }

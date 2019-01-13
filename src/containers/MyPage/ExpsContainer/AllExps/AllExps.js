@@ -19,9 +19,11 @@ class AllExps extends Component {
     }
 
     render () {
-
+        let tutorialElement1 = <img src="https://pbs.twimg.com/media/DwxRC8SUwAALdGI.jpg"></img>;
         let tutorials = <Tutorial
-                            totalPage={3}>{['a','b','c']}</Tutorial>;
+                            totalPage={3}>{['The display property specifies the display behavior (the type of rendering box) of an element.In HTML, the default display property value is taken from the HTML specifications or from the browser/user default style sheet. The default value in XML is inline, including SVG elements.',
+                                            tutorialElement1,
+                                            'c']}</Tutorial>;
 
         return (
 

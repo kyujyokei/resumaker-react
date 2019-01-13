@@ -29,19 +29,22 @@ class DeleteConfirm extends Component {
 
     render () {
         return (
-            <Aux className={classes.Tutorial}>
-                <Button btnType="Arrow" clicked={this.flipRightHandler}>➡</Button>
-                <div>
-                    <div>
-                        {this.props.children[this.state.currPage - 1]}
-                    </div>
-                    <div>
-                        <p>{this.state.currPage} / {this.state.totalPage}</p>
-                    </div>
+            <Aux>
+                <div className={classes.col2}>
+                    <Button btnType="Arrow" clicked={this.flipLeftHandler}>⬅</Button>
                 </div>
                 
-                
-                <Button btnType="Arrow" clicked={this.flipLeftHandler}>⬅</Button>
+                    <div className={classes.col6}>
+                        <div >
+                            {this.props.children[this.state.currPage - 1]}
+                        </div>
+                        <div >
+                            <p >{this.state.currPage} / {this.state.totalPage}</p>
+                        </div>
+                    </div>
+                <div className={classes.col2}>
+                    <Button btnType="Arrow" clicked={this.flipRightHandler}>➡</Button>
+                </div>
             </Aux>
         );
     }
