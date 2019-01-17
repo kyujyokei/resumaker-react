@@ -39,7 +39,7 @@ class DeleteConfirm extends Component {
                             {this.props.children[this.state.currPage - 1]}
                         </div>
                         <div >
-                            <p >{this.state.currPage} / {this.state.totalPage}</p>
+                            <p className={classes.centered}>{this.state.currPage} / {this.state.totalPage}</p>
                         </div>
                     </div>
                 <div className={classes.col2}>

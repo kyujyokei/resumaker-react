@@ -11,9 +11,10 @@
     -ms-flex: 0 0 20%;
     flex: 0 0 20%;
     width: 20%;
-    background-color: green;
+    /* background-color: green; */
     display: inline-block;
-    height: 100%;
+    margin: auto;
+    line-height: 100%;
 }
 
 .col6 {
@@ -22,7 +23,12 @@
     -ms-flex: 0 0 60%;
     flex: 0 0 60%;
     width: 60%;
-    background-color: blue;
+    background-color: white;
     display: inline-block;
     height: 100%;
+    margin: auto;
+}
+
+.centered {
+    text-align: center
 }

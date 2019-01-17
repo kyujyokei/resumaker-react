@@ -8,7 +8,7 @@ import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
-
+import Tutorial from  '../../ExpsContainer/Tutorial/Tutorial';
 
 class NewExpJob extends Component {
 
@@ -102,7 +102,8 @@ class NewExpJob extends Component {
             touched: false
         },
         descriptions: [],
-        descriptionFormIsValid: false
+        descriptionFormIsValid: false,
+        showTutorial: false
     }
 
     componentWillMount () {
@@ -424,6 +425,13 @@ class NewExpJob extends Component {
             errorMessage = <p>{this.props.error}</p>
             console.log(this.props.error);
         }
+
+        let tutorialPage1 = <div>
+                                <p>In this page, you can input your job experience for 1 specific job.</p>
+                                <p>Make sure to put the basic info listed in the form.</p>
+                                <P>These will be the essential fundementals towards creating your resume,</P>
+                                <p>so make sure you only put what you wanted to show!</p>
+                            </div>;
         return (
             
             <div className={classes.NewExpJob}>
