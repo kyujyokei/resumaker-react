@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
 import Tutorial from  '../../ExpsContainer/Tutorial/Tutorial';
+import Modal from '../../../../components/UI/Modal/Modal';
 
 class NewExpJob extends Component {
 
@@ -315,6 +316,11 @@ class NewExpJob extends Component {
        
     }
 
+    toggleTutorialHandler = () => {
+        let current = this.state.showTutorial;
+        this.setState({showTutorial: !current});
+    }
+
     render () {
         console.log('this.state.info: ', this.state.info);
         var skillsList = [];
@@ -429,14 +435,22 @@ class NewExpJob extends Component {
         let tutorialPage1 = <div>
                                 <p>In this page, you can input your job experience for 1 specific job.</p>
                                 <p>Make sure to put the basic info listed in the form.</p>
-                                <P>These will be the essential fundementals towards creating your resume,</P>
+                                <p>These will be the essential fundementals towards creating your resume,</p>
                                 <p>so make sure you only put what you wanted to show!</p>
                             </div>;
+        let tutorialArray = [tutorialPage1];
+        let pages = tutorialArray.length;
+        let tutorials = <Tutorial
+                            totalPage={pages}>
+                            {tutorialArray}</Tutorial>;
         return (
             
             <div className={classes.NewExpJob}>
             {this.props.position ? <h2 className={classes.Head}>Edit job / project</h2> : <h2 className={classes.Head}>Create new job / project</h2> }
-                <Button btnType="Help">?</Button>
+                <Button btnType="Help" clicked={this.toggleTutorialHandler}>?</Button>
+                <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
+                    {tutorials}
+                </Modal>
                 {jobRedirect}
                 {errorMessage}
                 {form}

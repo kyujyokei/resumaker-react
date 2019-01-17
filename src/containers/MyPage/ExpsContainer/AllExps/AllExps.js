@@ -6,7 +6,7 @@ import Aux from '../../../../hoc/Aux';
 import Button from '../../../../components/UI/Button/Button';
 import Modal from  '../../../../components/UI/Modal/Modal';
 import Tutorial from '../Tutorial/Tutorial';
-// import classes from './AllExps.css'
+import classes from './AllExps.css'
 
 class AllExps extends Component {
     state = {
@@ -35,10 +35,9 @@ class AllExps extends Component {
                                 <p>Be sure to fill as much experiences and in detailed format! </p>
                                 <p>They are the funamental core towards creating dynamic resumes</p>
                             </div>;
-        let tutorials = <Tutorial
-                            totalPage={3}>{[tutorialPage0,
-                                            tutorialPage1,
-                                            tutorialPage2]}</Tutorial>;
+        let tutorialArray = [tutorialPage0, tutorialPage1, tutorialPage2]
+        let pages = tutorialArray.length;
+        let tutorials = <Tutorial totalPage={pages}>{tutorialArray}</Tutorial>;
 
         return (
 
