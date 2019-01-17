@@ -7,5 +7,6 @@
 .Tags li {
     display: inline-block;
     margin-right: 0px;
-
+    font-size: 15px;
+    line-height: 1.5;
 }
