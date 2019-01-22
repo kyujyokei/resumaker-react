@@ -10,6 +10,7 @@ import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
 import Tutorial from  '../../ExpsContainer/Tutorial/Tutorial';
 import Modal from '../../../../components/UI/Modal/Modal';
+// import totu from '../../../../../src/assets/images/tutorials/'
 
 class NewExpJob extends Component {
 
@@ -432,13 +433,25 @@ class NewExpJob extends Component {
             console.log(this.props.error);
         }
 
-        let tutorialPage1 = <div>
+        let tutorialArray = [<div>
                                 <p>In this page, you can input your job experience for 1 specific job.</p>
                                 <p>Make sure to put the basic info listed in the form.</p>
                                 <p>These will be the essential fundementals towards creating your resume,</p>
                                 <p>so make sure you only put what you wanted to show!</p>
-                            </div>;
-        let tutorialArray = [tutorialPage1];
+                            </div>,
+                            <div>
+                                <img src={window.location.origin + "/tutorials/new_job_skills_tags.png"} />
+                                <p>In the description section, enter the accomplishments in a bullet point format.</p>
+                                <p>You can add skill tags to the description, these will be used to identify if this is a job or acheivement worth mentioning when we build your resume, so be specific and pick your tags wisely!</p>
+                                <img src={window.location.origin + "/tutorials/new_job_no_skill.png"} />
+                                <p>The description without skill tags will always be included in this job experience. This is useful for accomplishments that does not involve any skill.</p>
+                            </div>,
+                            <div>
+                                <img src={window.location.origin + "/tutorials/new_job_add_des.png"} />
+                                <p>You can also add or remove descriptions all you want.</p>
+                            </div>
+                            ];
+        // let tutorialArray = [tutorialPage1];
         let pages = tutorialArray.length;
         let tutorials = <Tutorial
                             totalPage={pages}>

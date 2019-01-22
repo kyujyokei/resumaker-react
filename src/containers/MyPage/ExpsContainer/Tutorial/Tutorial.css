@@ -50,3 +50,9 @@
 .centered {
     text-align: center
 }
+
+.img {
+    display: block;
+    width: auto;
+    height: auto;
+}

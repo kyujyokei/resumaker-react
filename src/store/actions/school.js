@@ -57,7 +57,7 @@ export const postSchool = (state, isPatch, id) => {
 
             })
             .catch(err => {
-                console.log(err.response);
+                console.log(err);
                 dispatch(schoolPostFail(err.response.status, err.response.data.message));
             });
         } else {
@@ -71,7 +71,7 @@ export const postSchool = (state, isPatch, id) => {
 
             })
             .catch(err => {
-                console.log(err.response);
+                console.log(err);
                 dispatch(schoolPostFail(err.response.status, err.response.data.message));
             });
         }
