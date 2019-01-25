@@ -5,6 +5,7 @@
     flex-wrap: nowrap;
     flex-flow: row nowrap;
     align-items: stretch;
+    margin: auto;
 }
 
 

@@ -460,7 +460,7 @@ class NewExpJob extends Component {
             
             <div className={classes.NewExpJob}>
             {this.props.position ? <h2 className={classes.Head}>Edit job / project</h2> : <h2 className={classes.Head}>Create new job / project</h2> }
-                <Button btnType="Help" clicked={this.toggleTutorialHandler}>?</Button>
+                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal>
@@ -477,8 +477,8 @@ class NewExpJob extends Component {
                 {/* <Select options={skillsList} /> */}
                 <p>Didn't find the skill tag? Add new ones from <Link to="/newskill">
                     here
-                </Link></p>
-                
+                </Link> (which will make you lose all progress, save before you do this!)</p>
+
             </div>
         );
     }

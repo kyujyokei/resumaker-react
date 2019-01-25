@@ -7,7 +7,8 @@ import * as actions from '../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PDFExport } from '@progress/kendo-react-pdf';
-
+import Tutorial from '../ExpsContainer/Tutorial/Tutorial';
+import Modal from '../../../components/UI/Modal/Modal';
 
 
 class MyResumes extends Component {
@@ -17,7 +18,8 @@ class MyResumes extends Component {
     state = {
         url: null,
         valid: false,
-        textMode: false
+        textMode: false,
+        showTutorial: false
     }
 
     postBtnHandler = () => {
@@ -39,12 +41,40 @@ class MyResumes extends Component {
         this.setState({ textMode: !curr });
     }
 
+    toggleTutorialHandler = () => {
+        let current = this.state.showTutorial;
+        this.setState({showTutorial: !current});
+    }
+
     render () {
         let scrapedData = this.props.data;
         let schools = [];
         let jobsForDisplay = [];
         let profile = [];
         console.log("scraped data: ", scrapedData);
+
+        let tutorialArray = [<div>
+            <p>This is the exciting part...</p>
+            <p>Paste the job description URL and generate your resume!</p>
+            <p></p>
+            <p></p>
+        </div>,
+        <div>
+            <p>After the resume has been generated, click save PDF to save the resume to your local drive</p>
+            <p>As for the alpha version, the resume would not be stored in the database/</p>
+            <p></p>
+        </div>,
+        <div>
+
+            <p>If the URL was not scrapeable (a.k.a. nothing returns), you can also switch to TEXT MODE, simply copy and paste the job description text in to the text box.</p>
+        </div>
+        ];
+
+        let pages = tutorialArray.length;
+        let tutorials = <Tutorial
+                            totalPage={pages}>
+                            {tutorialArray}</Tutorial>;
+
         if (scrapedData){
             let user = scrapedData.user;
             profile.push(
@@ -85,6 +115,10 @@ class MyResumes extends Component {
 
         return (
             <Aux>
+                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
+                <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
+                    {tutorials}
+                </Modal>
                 { !this.state.textMode ? 
                     <div>
                         <p>Paste job description url: </p>

@@ -42,7 +42,7 @@ class AllExps extends Component {
         return (
 
             <Aux>
-                <Button btnType="Help" clicked={this.toggleTutorialHandler}>?</Button>
+                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal>
