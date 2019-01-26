@@ -7,9 +7,17 @@
 
 .Background {
     width: 100%;
+    margin-top: -80px;
     margin-left: -80px;
     margin-right: -80px;
     margin-bottom: -80px;
     padding: 80px;
-    background-color: #fff;
+    height: 900px;
+    background-color: white;
+    /* background-color: #fff; */
+    background-image: url('../../../assets/images/front.png');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
+
+
