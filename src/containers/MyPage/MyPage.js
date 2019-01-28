@@ -14,6 +14,7 @@ import ProfileForm from './ProfileContainer/ProfileForm/ProfileForm';
 import Logout from './SignUp/Logout/Logout';
 import CoverPage from './CoverPage/CoverPage';
 import NewSkill from './NewSkill/NewSkill';
+import Footer from '../../components/Footer/Footer';
 
 class MyPage extends Component {
     
@@ -46,6 +47,7 @@ class MyPage extends Component {
                 </div>
                 {/* <ExpsContainer /> */}
                 </div>
+                <Footer/>
             </Aux>
         );
     }
