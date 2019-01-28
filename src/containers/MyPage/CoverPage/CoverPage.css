@@ -12,6 +12,17 @@
 .Top {
     padding-top: 60px;
     padding-left: 150px;
+    color: #222;
+}
+
+.Top p{
+    line-height: 1.5;
+    color: #777;
+}
+
+.Top h1{
+    font-size: 36px;
+    font-weight: bolder
 }
 
 .Background {
@@ -39,6 +50,7 @@
 }
 .Content {
     /* padding: 50px; */
+    /* line-height: 1.5; */
 }
 .Title {
     /* width: 20%; */

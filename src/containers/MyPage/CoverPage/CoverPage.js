@@ -19,9 +19,12 @@ class CoverPage extends Component {
                 <NavigationHeader className={classes.NavigationHeader} bgType={""}/>
                 <div className={classes.Main}>
                     <div className={classes.Top}>
-                        <h1>Manage your resume<br/>in seconds!</h1>
-                        <h3>This is an alpha version of Resumaker</h3>
-                        <p>Please try it out and let me know your feedback!</p>
+                        <h1>Manage Your Resume<br/>in a Blink</h1>
+                        {/* <h3>This is an alpha version of Resumaker</h3> */}
+                        <p>Apply for different jobs with a single click <br/>
+                        No more tweaking for each and every job position<br/>
+                        3 lines looks better so here's the third one</p>
+                        <br/>
                         <Button btnType="Cover">Get Started!</Button>
                     </div>
                     
