@@ -1,5 +1,6 @@
 .Footer{
-    background-color: white;
+    /* background-color: white; */
+    color: #ccc;
     text-align: center;
     display: inline;
     margin: auto;

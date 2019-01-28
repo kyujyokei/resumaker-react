@@ -1,8 +1,11 @@
 .NavigationHeader {
     height: 110px;
     width: 100%;
-    background-color: #fff;
     font-weight: bold;
+}
+
+.White {
+    background-color: #fff;
 }
 .Content {
     padding: 50px;
@@ -23,10 +26,10 @@
     display: inline;
 }
 
-
-
-
-
 a {
     margin: 30px;
+}
+
+.cover {
+    background-color: null;
 }

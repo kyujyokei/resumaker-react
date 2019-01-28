@@ -20,14 +20,12 @@ class MyPage extends Component {
     
     render () {
         let shouldRedirect = null;
-        if (!this.props.isAuthenticated) {
-            // shouldRedirect = <Redirect to="/signup"/>
-        }
+        let path = this.props.location.pathname;
         return (
             <Aux>
                 <div className={classes.MyPage}>
-                <NavigationHeader 
-                    isAuth={this.props.isAuthenticated}/>
+                {path === "/" ? null : <NavigationHeader bgType={"White"}/>}
+                
                 <div className={classes.Contents}>
                     {shouldRedirect}
                     <Switch>

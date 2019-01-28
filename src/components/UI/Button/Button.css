@@ -13,7 +13,6 @@
 
 .Button:first-of-type {
     margin-left: 0;
-    /* padding-left: 0; */
 }
 
 .Button:disabled {
@@ -74,17 +73,6 @@
 }
 
 .Help {
-    /* background-color: #fff; */
-    /* color: cornflowerblue;
-    height: 15px;
-    width: 15px;
-    border: 2px cornflowerblue;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    padding: 14px 28px; */
     border: 2px solid cornflowerblue;
     background-color: white;
     color: cornflowerblue;
@@ -102,4 +90,21 @@
 .Arrow {
     color: grey;
     display: inline-block;
+}
+
+.Cover {
+    background-color: cornflowerblue;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 100;
+    margin: 4px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* width: 10px; */
 }
