@@ -26,7 +26,7 @@ class navigationHeader extends Component {
                 </div> */}
                 <div className={classes.Content}>
                 <Link to={'/'}>
-                    <h2 className={classes.Title}><b>Resumaker</b>:α</h2>
+                    <h2 className={classes.Title}><b>Resumaker</b> :α</h2>
                 </Link>
                     {this.props.isAuthenticated ? 
                         <nav className={classes.Nav}>
