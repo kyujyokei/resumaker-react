@@ -73,9 +73,11 @@ class ExpsJob extends Component {
             <div className="job__section">
     
                 <h3>JOB / PROJECTS</h3>
+                <div className="job__button">
                 <Link to='/job/new'>
                     <Button btnType="BlueRounded">+ NEW</Button>
                 </Link>
+                </div>
                 {this.state.loading ? <LoadingAnimation/> : null}  
                 <section className={classes.Exps}>
                     {jobs}
