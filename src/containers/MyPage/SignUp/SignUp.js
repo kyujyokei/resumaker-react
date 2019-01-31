@@ -8,6 +8,8 @@ import classes from './SignUp.css';
 import * as actions from '../../../store/actions/index';
 import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 import { checkValidity } from '../../../shared/utility';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 // import { updateObject } from '../../../shared/utility';
 
 class SignUp extends Component {
@@ -291,15 +293,25 @@ class SignUp extends Component {
         }
 
         let form = formElementsArray.map(formElement => (
-            <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            // <Input
+            //     key={formElement.id}
+            //     elementType={formElement.config.elementType}
+            //     elementConfig={formElement.config.elementConfig}
+            //     value={formElement.config.value}
+            //     invalid={!formElement.config.valid}
+            //     shouldValidate={formElement.config.validation}
+            //     touched={formElement.config.touched}
+            //     changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            <div>
+            <TextField
+            id={formElement.id}
+            label={formElement.config.elementConfig.placeholder}
+            className={classes.textField}
+            value={formElement.config.value}
+            onChange={(event) => this.inputChangedHandler(event, formElement.id)}
+            margin="normal"
+            /><br/>
+            </div>
             )
         );
         
