@@ -70,7 +70,7 @@ class ExpsJob extends Component {
 
         return (
                   
-            <div >
+            <div className="job__section">
     
                 <h3>JOB / PROJECTS</h3>
                 <Link to='/job/new'>

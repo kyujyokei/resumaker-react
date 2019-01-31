@@ -7,16 +7,56 @@ import Button from '../../../../components/UI/Button/Button';
 import Modal from  '../../../../components/UI/Modal/Modal';
 import Tutorial from '../Tutorial/Tutorial';
 import classes from './AllExps.css'
+import ReactJoyride, { STATUS } from 'react-joyride';
 
 class AllExps extends Component {
     state = {
-        showTutorial: false
+        run: false,
+        steps: [
+            {
+              content: <h2>Let's begin our journey!</h2>,
+              placement: 'center',
+              locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+              target: 'body',
+            },
+            {
+              content: 'These are our super awesome projects!',
+              placement: 'bottom',
+              styles: {
+                options: {
+                  width: 300
+                }
+              },
+              target: '.job__section h3',
+              title: 'JOB / PROJECTS'
+            }
+        ]
     }
 
-    toggleTutorialHandler = () => {
-        let current = this.state.showTutorial;
-        this.setState({showTutorial: !current});
-    }
+    // toggleTutorialHandler = () => {
+    //     let current = this.state.showTutorial;
+    //     this.setState({showTutorial: !current});
+    // }
+
+    handleJoyrideCallback = data => {
+        const { status, type } = data;
+    
+        if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+          this.setState({ run: false });
+        }
+    
+        console.groupCollapsed(type);
+        console.log(data); //eslint-disable-line no-console
+        console.groupEnd();
+    };
+
+    handleClickStart = e => {
+        e.preventDefault();
+    
+        this.setState({
+          run: true
+        });
+    };
 
     render () {
         let tutorialPage0 = <div>
@@ -42,7 +82,21 @@ class AllExps extends Component {
         return (
 
             <Aux>
-                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
+                <ReactJoyride
+                    callback={this.handleJoyrideCallback}
+                    continuous
+                    run={this.state.run}
+                    scrollToFirstStep
+                    showProgress
+                    showSkipButton
+                    steps={this.state.steps}
+                    styles={{
+                        options: {
+                        zIndex: 10000,
+                        }
+                    }}
+                    />
+                <Button btnType="Help" clicked={this.handleClickStart}>? Help</Button>
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal>
