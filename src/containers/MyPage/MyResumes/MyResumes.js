@@ -128,7 +128,7 @@ class MyResumes extends Component {
                             ></Input>
                     </div> :
                     <div>
-                        <p>Paste job description pain text: </p>
+                        <p>Paste job description plain text: </p>
                         <Input 
                             className={classes.JobLink} 
                             changed={(event) => this.inputChangedHandler(event)}

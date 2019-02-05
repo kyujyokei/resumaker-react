@@ -8,9 +8,9 @@ import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Aux from '../../../../hoc/Aux';
 import { updateObject, checkValidity } from '../../../../shared/utility';
-import Tutorial from  '../../ExpsContainer/Tutorial/Tutorial';
-import Modal from '../../../../components/UI/Modal/Modal';
-// import totu from '../../../../../src/assets/images/tutorials/'
+// import Tutorial from  '../../ExpsContainer/Tutorial/Tutorial';
+// import Modal from '../../../../components/UI/Modal/Modal';
+import ReactJoyride, { STATUS } from 'react-joyride';
 
 class NewExpJob extends Component {
 
@@ -105,7 +105,43 @@ class NewExpJob extends Component {
         },
         descriptions: [],
         descriptionFormIsValid: false,
-        showTutorial: false
+        showTutorial: false,
+        steps: [
+            {
+                content: <h3>This is the page where you can enter you job experience</h3>,
+                placement: 'center',
+                locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+                target: 'body',
+            },
+            {
+                content: 'First, enter the basic information is this section',
+                placement: 'bottom',
+                styles: {
+                    options: {
+                    width: 300
+                    }
+                },
+                target: '.basic__form'
+            },
+            {
+                content: 'Second, enter the skills involved or acheivements accomplished in the description details, just like how you would make bullet points in your resume',
+                placement: 'right',
+                target: '.des__form'
+            },
+            {
+                content: <div><p>You will want to add skill tags for your descriptions which involves specific technical skills</p>
+                        <p>For example, if my description is "Implemented frontend with React and backend with Node.js", then make sure to tag "React" and "Node.js" along this description.</p>
+                        <p>Remember, this will be the determining factor of whether this experience is going to show up in the generated resume.</p>
+                        <p>For accomplishments that does not involve specific skills (e.g. Managed a dev team of 10 people), simply leave the skill tag area blank</p></div>,
+                target: '.skill__input',
+                styles: {
+                    options: {
+                    width: 600
+                    }
+                },
+            }
+        ],
+        run: false
     }
 
     componentWillMount () {
@@ -322,6 +358,26 @@ class NewExpJob extends Component {
         this.setState({showTutorial: !current});
     }
 
+    handleJoyrideCallback = data => {
+        const { status, type } = data;
+    
+        if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+          this.setState({ run: false });
+        }
+    
+        console.groupCollapsed(type);
+        console.log(data); //eslint-disable-line no-console
+        console.groupEnd();
+    };
+
+    handleClickStart = e => {
+        e.preventDefault();
+    
+        this.setState({
+          run: true
+        });
+    };
+
     render () {
         console.log('this.state.info: ', this.state.info);
         var skillsList = [];
@@ -342,7 +398,7 @@ class NewExpJob extends Component {
         
 
         let form = (
-            <form>
+            <form className="basic__form">
                 {formElementsArray.map(formElement => {
                     return (
                         <div key={formElement.id} className={classes.InfoRow}>
@@ -365,23 +421,23 @@ class NewExpJob extends Component {
 
         let descriptionsForm = (
             <Aux>
-            <form>
+            <form className="des__form">
             <h3>Descriptions</h3>
             {this.state.descriptions.map((description, index) => {
                 
                 let select = null;
 
-                select = <Select  
+                select = <div className='skill__input'><Select  
                 className={classes.Select} 
                 options={skillsList} 
                 placeholder="Select skills"
                 isMulti={true}
                 value={this.state.descriptions[index].skills}
-                onChange={(opt) => this.selectChangeHandler(opt, index)}/>
+                onChange={(opt) => this.selectChangeHandler(opt, index)}/></div>
 
                 
                 return (
-                    <div key={index} >
+                    <div key={index}>
                 <p className={classes.DesNum}>{index+1}.</p>
                 <Input
                     className={classes.Inputs}
@@ -433,37 +489,53 @@ class NewExpJob extends Component {
             console.log(this.props.error);
         }
 
-        let tutorialArray = [<div>
-                                <p>In this page, you can input your job experience for 1 specific job.</p>
-                                <p>Make sure to put the basic info listed in the form.</p>
-                                <p>These will be the essential fundementals towards creating your resume,</p>
-                                <p>so make sure you only put what you wanted to show!</p>
-                            </div>,
-                            <div>
-                                <img src={window.location.origin + "/tutorials/new_job_skills_tags.png"} />
-                                <p>In the description section, enter the accomplishments in a bullet point format.</p>
-                                <p>You can add skill tags to the description, these will be used to identify if this is a job or acheivement worth mentioning when we build your resume, so be specific and pick your tags wisely!</p>
-                                <img src={window.location.origin + "/tutorials/new_job_no_skill.png"} />
-                                <p>The description without skill tags will always be included in this job experience. This is useful for accomplishments that does not involve any skill.</p>
-                            </div>,
-                            <div>
-                                <img src={window.location.origin + "/tutorials/new_job_add_des.png"} />
-                                <p>You can also add or remove descriptions all you want.</p>
-                            </div>
-                            ];
+        // let tutorialArray = [<div>
+        //                         <p>In this page, you can input your job experience for 1 specific job.</p>
+        //                         <p>Make sure to put the basic info listed in the form.</p>
+        //                         <p>These will be the essential fundementals towards creating your resume,</p>
+        //                         <p>so make sure you only put what you wanted to show!</p>
+        //                     </div>,
+        //                     <div>
+        //                         <img src={window.location.origin + "/tutorials/new_job_skills_tags.png"} />
+        //                         <p>In the description section, enter the accomplishments in a bullet point format.</p>
+        //                         <p>You can add skill tags to the description, these will be used to identify if this is a job or acheivement worth mentioning when we build your resume, so be specific and pick your tags wisely!</p>
+        //                         <img src={window.location.origin + "/tutorials/new_job_no_skill.png"} />
+        //                         <p>The description without skill tags will always be included in this job experience. This is useful for accomplishments that does not involve any skill.</p>
+        //                     </div>,
+        //                     <div>
+        //                         <img src={window.location.origin + "/tutorials/new_job_add_des.png"} />
+        //                         <p>You can also add or remove descriptions all you want.</p>
+        //                     </div>
+        //                     ];
         // let tutorialArray = [tutorialPage1];
-        let pages = tutorialArray.length;
-        let tutorials = <Tutorial
-                            totalPage={pages}>
-                            {tutorialArray}</Tutorial>;
+        // let pages = tutorialArray.length;
+        // let tutorials = <Tutorial
+        //                     totalPage={pages}>
+        //                     {tutorialArray}</Tutorial>;
+
+        
         return (
             
             <div className={classes.NewExpJob}>
+            <ReactJoyride
+                    callback={this.handleJoyrideCallback}
+                    continuous
+                    run={this.state.run}
+                    scrollToFirstStep
+                    showProgress
+                    showSkipButton
+                    steps={this.state.steps}
+                    styles={{
+                        options: {
+                        zIndex: 10000,
+                        }
+                    }}
+                    />
             {this.props.position ? <h2 className={classes.Head}>Edit job / project</h2> : <h2 className={classes.Head}>Create new job / project</h2> }
-                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
-                <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
+                <Button btnType="Help" clicked={this.handleClickStart}>? Help</Button>
+                {/* <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
-                </Modal>
+                </Modal> */}
                 {jobRedirect}
                 {errorMessage}
                 {form}
