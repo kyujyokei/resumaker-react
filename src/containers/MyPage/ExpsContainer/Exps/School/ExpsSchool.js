@@ -66,7 +66,7 @@ class ExpsSchool extends Component {
 
         return (
                   
-            <div >
+            <div className="school__section">
     
                 <h3>EDUCATION</h3>
                 <Link to='/school/new'>

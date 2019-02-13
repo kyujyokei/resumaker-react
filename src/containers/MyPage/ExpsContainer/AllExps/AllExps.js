@@ -12,28 +12,36 @@ class AllExps extends Component {
         run: false,
         steps: [
             {
-                content: <h3>Welcome to Resumaker! </h3>,
+                content: 'Let\'s walk thourgh how to input your experiences',
                 placement: 'center',
-                locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+                title:<h3>Welcome to Resumaker! </h3>,
+                locale: { skip: <strong aria-label="skip">SKIP</strong> },
                 target: 'body',
+            },
+            {
+                content: 'This experience page will keep track of all your experiences. A.k.a, your contents to generate resumes. Each experience will be stored in a card.',
+                target: '.nav__ ',
+                title: 'Experiences'
             },
             {
                 content: 'This is the field that stores all your job / project experiences',
                 placement: 'bottom',
-                styles: {
-                    options: {
-                    width: 300
-                    }
-                },
                 target: '.job__section h3',
                 title: 'JOB / PROJECTS'
             },
             {
-                content: 'Click this button to enter a new experience card',
+                content: 'Click this button to enter a new experience card regarding your ob experience',
                 placement: 'right',
                 target: '.job__button Button',
                 title: '+ NEW'
-            }
+            },
+            {
+                content: 'This is the field that stores all your educational experiences, same thing, click "+NEW" button to add a new card regarding your educational experience',
+                placement: 'bottom',
+                target: '.school__section h3',
+                title: 'EDUCATION'
+            },
+
         ]
     }
 

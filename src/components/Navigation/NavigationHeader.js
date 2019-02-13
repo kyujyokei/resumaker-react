@@ -29,12 +29,15 @@ class navigationHeader extends Component {
                     <h2 className={classes.Title}><b>Resumaker</b> :α</h2>
                 </Link>
                     {this.props.isAuthenticated ? 
-                        <nav className={classes.Nav}>
+
+                        <nav className={[classes.Nav, 'nav__'].join(' ')}>
                         {path === '/exps' ? <a><b>Experiences</b></a> : <a href="/exps">Experiences</a>}    |  
                         {path === '/me' ? <a><b>Personal Info</b></a>: <a href="/me">Personal Info</a>}    |
                         {path === '/resume' ? <a><b>Resume</b></a>: <a href="/resume">Resume</a>} 
                         {/* <NavLink to="/resume" exact>My Resume</NavLink> */}
+
                         </nav>
+
                         : null
                     }
                     {this.props.isAuthenticated ? <a href="/logout"><Button btnType="Logout">Logout</Button></a> : <a href="/signup"><Button btnType="Login">Signin / Sign Up</Button></a>}

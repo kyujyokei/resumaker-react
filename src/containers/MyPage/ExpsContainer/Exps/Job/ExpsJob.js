@@ -34,12 +34,8 @@ class ExpsJob extends Component {
     }
 
     jobSelectHandler = ( id ) => {
-        // console.log("Match: ",this.props.match.url);
-        // console.log("History: ",this.props.history);
         this.props.history.push( '/exps/job/' + id );
         this.setState( { jobSelected: id } )
-        // console.log("Match: ",this.props.match.url);
-        // console.log("History: ",this.props.history);
     }
 
 
@@ -50,7 +46,6 @@ class ExpsJob extends Component {
         if ( !this.state.error ){
             if ( !this.state.jobSelected ) {
                 jobs = this.state.jobs.map( job => {
-                    // console.log("JOB: ", job);
                     return (
                         <Job
                         key={job._id}

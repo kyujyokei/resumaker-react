@@ -119,21 +119,14 @@ class MyResumes extends Component {
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal>
-                { !this.state.textMode ? 
-                    <div>
-                        <p>Paste job description url: </p>
-                        <Input 
-                            className={classes.JobLink} 
-                            changed={(event) => this.inputChangedHandler(event)}
-                            ></Input>
-                    </div> :
-                    <div>
-                        <p>Paste job description plain text: </p>
-                        <Input 
-                            className={classes.JobLink} 
-                            changed={(event) => this.inputChangedHandler(event)}
-                            ></Input>
-                    </div>}
+                <div>
+                    <p>Paste job description : </p>
+                    <p><Button btnType="Success" disabled={this.state.textMode} clicked={this.changeTextModeHandler}> URL </Button> | <Button btnType="Success" clicked={this.changeTextModeHandler} disabled={!this.state.textMode}>plain text</Button></p>
+                    <Input 
+                        className={classes.JobLink} 
+                        changed={(event) => this.inputChangedHandler(event)}
+                        ></Input>
+                </div>
 
                 <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 <br/>
@@ -157,7 +150,7 @@ class MyResumes extends Component {
                     </Aux> : null}
                 </PDFExport>
                 {scrapedData? <Button btnType="Danger" clicked={this.exportPDF}>Download PDF</Button> : null}
-                <button onClick={this.changeTextModeHandler}>Switch to {this.state.textMode ? "URL mode" : "TEXT mode"} </button>
+                
             </Aux>
         );
     }
