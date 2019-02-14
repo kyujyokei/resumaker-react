@@ -1,21 +1,21 @@
 .Input {
-    padding: 10px;
     box-sizing: border-box;
+    margin-bottom: 40px;
+    display: block;
 }
 
 .Label {
     font-weight: bold;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
 }
 
 .InputElement {
-    /* outline: none; */
     font: inherit;
-    padding: 6px 10px;
     width: 80%;
-    /* display: block; */
     box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
 }
 
 .InputElement:focus {

@@ -5,6 +5,7 @@
   "dependencies": {
     "@progress/kendo-drawing": "^1.5.7",
     "@progress/kendo-react-pdf": "^2.5.0",
+    "antd": "^3.13.2",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",
