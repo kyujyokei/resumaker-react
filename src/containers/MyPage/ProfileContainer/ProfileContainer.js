@@ -38,7 +38,11 @@ class ProfileContainer extends Component {
 
     componentDidMount () {
         this.props.onInitProfile();
-        // console.log
+        let tutorialShown = localStorage.getItem('profTutoShown');
+        if (!tutorialShown) {
+            this.setState({run: true});
+            localStorage.setItem('profTutoShown', true);
+        }
     }
 
     editButtonHandler = () => {

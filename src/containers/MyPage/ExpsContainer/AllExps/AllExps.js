@@ -45,6 +45,14 @@ class AllExps extends Component {
         ]
     }
 
+    componentDidMount(){
+        let tutorialShown = localStorage.getItem('expTutoShown');
+        if (!tutorialShown) {
+            this.setState({run: true});
+            localStorage.setItem('expTutoShown', true);
+        }
+    }
+
     handleJoyrideCallback = data => {
         const { status, type } = data;
     

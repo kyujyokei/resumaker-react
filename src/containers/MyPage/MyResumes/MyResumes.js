@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import Tutorial from '../ExpsContainer/Tutorial/Tutorial';
 import Modal from '../../../components/UI/Modal/Modal';
+import ReactJoyride, { STATUS } from 'react-joyride';
 
 
 class MyResumes extends Component {
@@ -19,7 +20,45 @@ class MyResumes extends Component {
         url: null,
         valid: false,
         textMode: false,
-        showTutorial: false
+        showTutorial: false,
+        run: false,
+        steps: [
+            {
+                content: 'This is the page where resumes are generated!!! ',
+                placement: 'center',
+                title:<h3>Generate you resume! </h3>,
+                locale: { skip: <strong aria-label="skip">SKIP</strong> },
+                target: 'body',
+            },
+            {
+                content: 'Copy & paste the URL from a job description page that you would like to apply to.',
+                placement: 'left',
+                target: '.input__'
+            },
+            {
+                content: 
+                    <div>
+                        <p>Click here to switch between URL & plain text mode</p>
+                        <p><b>URL mode:</b> Scrapes the website and reads the requirements of the job post. You will have to provide a URL in the text box.</p>
+                        <p><b>Plain text mode:</b> Just in case some websites couldn't be scraped, you can copy the descriptions in a job post and paste them in the text box.</p>
+                    </div>,
+                placement: 'left',
+                target:'.mode__switch Button'
+            },
+            {
+                content:'Cick "Generate" to create the perfect resume for this job!',
+                placement:'left',
+                target: '.generate__button Button'
+            }
+        ]
+    }
+
+    componentDidMount(){
+        let tutorialShown = localStorage.getItem('resTutoShown');
+        if (!tutorialShown) {
+            this.setState({run: true});
+            localStorage.setItem('resTutoShown', true);
+        }
     }
 
     postBtnHandler = () => {
@@ -41,10 +80,25 @@ class MyResumes extends Component {
         this.setState({ textMode: !curr });
     }
 
-    toggleTutorialHandler = () => {
-        let current = this.state.showTutorial;
-        this.setState({showTutorial: !current});
-    }
+    handleClickStart = e => {
+        e.preventDefault();
+    
+        this.setState({
+          run: true
+        });
+    };
+
+    handleJoyrideCallback = data => {
+        const { status, type } = data;
+    
+        if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+          this.setState({ run: false });
+        }
+
+        console.groupCollapsed(type);
+        console.log(data); //eslint-disable-line no-console
+        console.groupEnd();
+    };
 
     render () {
         let scrapedData = this.props.data;
@@ -115,20 +169,39 @@ class MyResumes extends Component {
 
         return (
             <Aux>
-                <Button btnType="Help" clicked={this.toggleTutorialHandler}>? Help</Button>
+                <ReactJoyride
+                    callback={this.handleJoyrideCallback}
+                    continuous
+                    run={this.state.run}
+                    scrollToFirstStep
+                    showProgress
+                    showSkipButton
+                    steps={this.state.steps}
+                    styles={{
+                        options: {
+                        zIndex: 10000,
+                        }
+                    }}
+                    />
+                <Button btnType="Help" clicked={this.handleClickStart}>? Help</Button>
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal>
                 <div>
                     <p>Paste job description : </p>
-                    <p><Button btnType="Success" disabled={this.state.textMode} clicked={this.changeTextModeHandler}> URL </Button> | <Button btnType="Success" clicked={this.changeTextModeHandler} disabled={!this.state.textMode}>plain text</Button></p>
-                    <Input 
-                        className={classes.JobLink} 
-                        changed={(event) => this.inputChangedHandler(event)}
-                        ></Input>
+                    <div className="mode__switch">
+                        <p><Button btnType="Success" disabled={this.state.textMode} clicked={this.changeTextModeHandler}> URL </Button> | <Button btnType="Success" clicked={this.changeTextModeHandler} disabled={!this.state.textMode}>plain text</Button></p>
+                    </div>
+                    <div className="input__">
+                        <Input 
+                            className={classes.JobLink} 
+                            changed={(event) => this.inputChangedHandler(event)}
+                            ></Input>
+                    </div>
                 </div>
-
-                <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
+                <div className="generate__button">
+                    <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
+                </div>
                 <br/>
                 <PDFExport paperSize={'A4'}
                     scale={0.6}
