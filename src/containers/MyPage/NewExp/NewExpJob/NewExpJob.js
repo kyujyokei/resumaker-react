@@ -249,6 +249,15 @@ class NewExpJob extends Component {
         }
     }
 
+    componentDidMount(){
+        // localStorage.setItem('jobTutoShown', null);
+        let tutorialShown = localStorage.getItem('jobTutoShown');
+        if (!tutorialShown) {
+            this.setState({run: true});
+            localStorage.setItem('jobTutoShown', true);
+        }
+    }
+
 
     pushDescription = () => {
         var d = {
@@ -351,11 +360,6 @@ class NewExpJob extends Component {
             this.props.postJob( this.state, true, this.props.patchId);
         }
        
-    }
-
-    toggleTutorialHandler = () => {
-        let current = this.state.showTutorial;
-        this.setState({showTutorial: !current});
     }
 
     handleJoyrideCallback = data => {

@@ -41,6 +41,11 @@ class AllExps extends Component {
                 target: '.school__section h3',
                 title: 'EDUCATION'
             },
+            {
+                content: 'You can always click on the HELP button to read this guide again',
+                placement: 'left',
+                target: '.help__button Button'
+            },
 
         ]
     }
@@ -92,7 +97,9 @@ class AllExps extends Component {
                         }
                     }}
                     />
+                <div className="help__button">
                 <Button btnType="Help" clicked={this.handleClickStart}>? Help</Button>
+                </div>
                 {/* <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
                     {tutorials}
                 </Modal> */}
