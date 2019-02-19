@@ -107,27 +107,6 @@ class MyResumes extends Component {
         let profile = [];
         console.log("scraped data: ", scrapedData);
 
-        let tutorialArray = [<div>
-            <p>This is the exciting part...</p>
-            <p>Paste the job description URL and generate your resume!</p>
-            <p></p>
-            <p></p>
-        </div>,
-        <div>
-            <p>After the resume has been generated, click save PDF to save the resume to your local drive</p>
-            <p>As for the alpha version, the resume would not be stored in the database/</p>
-            <p></p>
-        </div>,
-        <div>
-
-            <p>If the URL was not scrapeable (a.k.a. nothing returns), you can also switch to TEXT MODE, simply copy and paste the job description text in to the text box.</p>
-        </div>
-        ];
-
-        let pages = tutorialArray.length;
-        let tutorials = <Tutorial
-                            totalPage={pages}>
-                            {tutorialArray}</Tutorial>;
 
         if (scrapedData){
             let user = scrapedData.user;
@@ -185,7 +164,6 @@ class MyResumes extends Component {
                     />
                 <Button btnType="Help" clicked={this.handleClickStart}>? Help</Button>
                 <Modal show={this.state.showTutorial} modalClosed={this.toggleTutorialHandler}>
-                    {tutorials}
                 </Modal>
                 <div>
                     <p>Paste job description : </p>
@@ -198,6 +176,7 @@ class MyResumes extends Component {
                             changed={(event) => this.inputChangedHandler(event)}
                             ></Input>
                     </div>
+                    <p className={classes.Error}>{this.props.error}</p>
                 </div>
                 <div className="generate__button">
                     <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
@@ -235,7 +214,6 @@ const mapStateToProps = state => {
         status: state.resume.status,
         loading: state.resume.loading,
         data: state.resume.data
-
     }
 }
 

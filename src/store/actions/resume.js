@@ -16,11 +16,10 @@ export const resPostSuccess = (response) => {
     };
 };
 
-export const resPostFail = (status, error) => {
+export const resPostFail = (error) => {
     return {
         type: actionTypes.RES_POST_FAIL,
-        error: error,
-        status: status
+        error: error
     };
 };
 
@@ -61,7 +60,8 @@ export const postRes = (state, isText) => {
             })
             .catch(err => {
                 console.log("ERR: ",err);
-                dispatch(resPostFail(err.response.status, err.response.data.message));
+                let error = 'Something went wrong, please check if the URL is valid or use the plain text mode.';
+                dispatch(resPostFail(error));
             })
 
 
