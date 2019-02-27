@@ -1,12 +1,14 @@
 .TopImage {
-    margin-top: -180px;
-    margin-left: -100px;
-    width: 120%;
+    /* margin-top: -180px; */
+    /* margin-left: -100px; */
+    /* width: 10%; */
 
 }
 
 .Main{
-    padding: 80px;
+    /* padding: 80px; */
+    width: 80%;
+    margin: 0 auto;
 }
 
 .Top {
@@ -63,13 +65,21 @@
 .Nav {
     /* width: 60%; */
     /* padding-top: 30px; */
-    margin-right: 50px;
+    margin-right: 40px;
     font-weight: 400;
     display: inline;
-    margin-left: 50px; 
+    margin-left: 40px; 
 }
 
 .NavigationHeader a{
     margin: 0px;
 }
 
+@media only screen and (max-width: 700px) {
+    .Top {
+        padding-left: 10px;
+        /* width: 80%; */
+        /* margin: 0 auto; */
+        color: #222;
+    }
+}
