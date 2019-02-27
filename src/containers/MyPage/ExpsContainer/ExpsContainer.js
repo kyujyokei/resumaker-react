@@ -6,6 +6,7 @@ import FullExpSchool from '../FullExp/FullExpSchool/FullExpSchool';
 import AllExps from '../ExpsContainer/AllExps/AllExps';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+// import classes from './ExpsContainer.css';
 
 class ExpsContainer extends Component {
 

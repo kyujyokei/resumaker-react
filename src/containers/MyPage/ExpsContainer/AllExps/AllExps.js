@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Aux from '../../../../hoc/Aux';
 import Button from '../../../../components/UI/Button/Button';
 import ReactJoyride, { STATUS } from 'react-joyride';
+import classes from './AllExps.css';
 
 class AllExps extends Component {
 
@@ -82,7 +83,7 @@ class AllExps extends Component {
 
         return (
 
-            <Aux>
+            <div className={classes.Content}>
                 <ReactJoyride
                     callback={this.handleJoyrideCallback}
                     continuous
@@ -106,7 +107,7 @@ class AllExps extends Component {
                 <Route path={this.props.match.url} component={ExpsJob} />
                 <Route path={this.props.match.url} component={ExpsSchool} />
 
-            </Aux>
+            </div>
         );
     }
 }

@@ -7,7 +7,6 @@ import * as actions from '../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PDFExport } from '@progress/kendo-react-pdf';
-import Tutorial from '../ExpsContainer/Tutorial/Tutorial';
 import Modal from '../../../components/UI/Modal/Modal';
 import ReactJoyride, { STATUS } from 'react-joyride';
 
@@ -147,7 +146,7 @@ class MyResumes extends Component {
 
 
         return (
-            <Aux>
+            <div className={classes.Content}>
                 <ReactJoyride
                     callback={this.handleJoyrideCallback}
                     continuous
@@ -203,7 +202,7 @@ class MyResumes extends Component {
                 </PDFExport>
                 {scrapedData? <Button btnType="Danger" clicked={this.exportPDF}>Download PDF</Button> : null}
                 
-            </Aux>
+            </div>
         );
     }
 }

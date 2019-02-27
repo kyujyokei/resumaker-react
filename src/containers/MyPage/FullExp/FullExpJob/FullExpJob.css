@@ -1,11 +1,11 @@
 .FullExpJob {
-    width: 80%;
-    margin: 20px auto;
+    width: 40%;
+    margin: 30px auto;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     text-align: left;
     background-color: white;
-    padding: 30px;
+    padding: 30px 80px;
 }
 
 .Buttons {

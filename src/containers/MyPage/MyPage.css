@@ -5,6 +5,20 @@
 }
 
 .Contents {
-    margin: 80px;
+    /* margin: 80px; */
     /* align-content: center; */
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .MyPage {
+        background-color: #ccc;
+        align-content: center;
+        align-self: center;
+    }
+    
+    .Contents {
+        /* margin: 80px; */
+        /* align-content: center; */
+    }
 }

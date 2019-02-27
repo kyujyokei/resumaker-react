@@ -8,7 +8,7 @@ import * as actions from '../../../store/actions/index';
 import Button from '../../../components/UI/Button/Button'
 import LoadingAnimation from '../../../components/UI/LoadingAnimation/LoadingAnimation';
 import ReactJoyride, { STATUS } from 'react-joyride';
-
+import classes from './ProfileContainer.css';
 
 class ProfileContainer extends Component {
 
@@ -96,7 +96,7 @@ class ProfileContainer extends Component {
 
 
         return (
-            <Aux>
+            <div className={classes.Content}>
                 <ReactJoyride
                     callback={this.handleJoyrideCallback}
                     continuous
@@ -117,7 +117,7 @@ class ProfileContainer extends Component {
                     {this.state.isEdit ? <Button clicked={this.editButtonHandler} btnType="Danger">cancel</Button> : <Button clicked={this.editButtonHandler} btnType="BlueRounded">EDIT</Button>}
                 </div>
                 
-            </Aux>
+            </div>
         )
     }
 }

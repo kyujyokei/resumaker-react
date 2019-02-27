@@ -1,3 +1,8 @@
+.Content {
+    width: 80%;
+    margin: 0 auto;
+}
+
 .JobLink {
     width: 500px;
 }

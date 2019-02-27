@@ -16,6 +16,7 @@ import CoverPage from './CoverPage/CoverPage';
 import NewSkill from './NewSkill/NewSkill';
 import Footer from '../../components/Footer/Footer';
 
+
 class MyPage extends Component {
     
     render () {
