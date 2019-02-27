@@ -1,7 +1,14 @@
 .NavigationHeader {
-    height: 110px;
+    /* height: 110px; */
     width: 100%;
     font-weight: bold;
+}
+
+.NavigationHeader li {
+    display: inline;
+    /* font-size: 13px; */
+    list-style-type: none;
+    margin-left: 30px;
 }
 
 .White {
@@ -33,3 +40,12 @@ a {
 .cover {
     background-color: null;
 }
+
+@media only screen and (max-width: 700px) {
+    .NavigationHeader li {
+        padding: 10px 0;
+        display: block;
+        margin-left: 0;
+    }
+  }
+
