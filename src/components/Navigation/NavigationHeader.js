@@ -38,7 +38,7 @@ class navigationHeader extends Component {
                                     <li>{path === '/exps' ? <a><b>Experiences</b></a> : <a href="/exps">Experiences</a>}</li> 
                                     <li>{path === '/me' ? <a><b>Personal Info</b></a>: <a href="/me">Personal Info</a>}</li>
                                     <li>{path === '/resume' ? <a><b>Resume</b></a>: <a href="/resume">Resume</a>}</li>
-                                    <li>{this.props.isAuthenticated ? <a href="/logout"><Button btnType="Logout">Logout</Button></a> : <a href="/signup"><Button btnType="Login">Signin / Sign Up</Button></a>}</li>
+                                    <li><a href="/logout"><Button btnType="Logout">Logout</Button></a></li>
                         </ul>
                         // <ResponsiveMenu
                         //     menuOpenButton={<FaBars size={30} color="MediumPurple" />}
@@ -51,7 +51,7 @@ class navigationHeader extends Component {
                         //     }
                         // />
 
-                        : null
+                        : <a href="/signup"><Button btnType="Login">Signin / Sign Up</Button></a>
                     }
                     
                     {/* { props.isAuth ? <a className={classes.RightCorner} href="/logout">Logout</a> : <a className={classes.RightCorner} href="/signup">Signin / Sign Up</a>} */}
