@@ -86,7 +86,7 @@ class NewSkill extends Component {
         }
 
         return (
-            <Aux>
+            <div className={classes.Content}>
                 <p>Please make sure your tag has not been created in the list below : </p>
                 <Select options={skillsList} />
                 <br/><br/>
@@ -116,7 +116,7 @@ class NewSkill extends Component {
                 <Button
                     btnType="Danger"
                     clicked={this.goBackHandler}>go back</Button>
-            </Aux>
+            </div>
         );
     };
 }
