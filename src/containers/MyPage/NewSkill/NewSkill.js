@@ -58,6 +58,7 @@ class NewSkill extends Component {
 
 
     postSkillHandler = (event) => {
+        console.log('Pressed');
         event.preventDefault(); // stops the page from refreshing
         this.props.postSkill( this.state );
     }
