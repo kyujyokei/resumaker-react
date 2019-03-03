@@ -19,7 +19,7 @@
 }
 
 .InputElement:focus {
-    background-color: #ccc;
+    background-color: #fff;
 }
 
 .Invalid {

@@ -30,11 +30,6 @@ class FullExpSchool extends Component {
         console.log("Bubui");
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
-                // axios.get( '/schools/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}} )
-                //     .then( response => {
-                //         console.log("R:", response);
-                //         this.setState( { loadedPost: response.data } );
-                //     } );
                 this.props.getSchool( this.props.match.params.id );
             }
         }
@@ -53,13 +48,8 @@ class FullExpSchool extends Component {
     }
 
     editPostHandler = () => {
-        // axios.delete('/schools/' + this.props.match.params.id, { headers: { "x-auth":  localStorage.getItem("token")}})
-        //     .then(response => {
-        //         console.log(response);
-        //     });
         this.props.resetState();
         this.setState({isPatch: true})
-        // this.props.enablePatch();
     }
 
     deleteHandler = () => {
@@ -86,7 +76,7 @@ class FullExpSchool extends Component {
                 if (this.state.redirect) {
                     shouldRedirect = <Redirect to="/exps/"/>
                 }
-                // console.log("SCHOOL: ", this.props.school);
+
                 deleteConfirmation = <DeleteConfirm cancel={this.deleteCancelHandler} delete={this.deletePostHandler}/>
                 post = (
                     <div className={classes.FullExpSchool}>
