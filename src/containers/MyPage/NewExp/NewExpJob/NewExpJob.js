@@ -31,11 +31,11 @@ class NewExpJob extends Component {
                 touched: false
             },
             companyName: {
-                title: 'Company Name',
+                title: 'Company Name / Project Title',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'ex. Example Inc.'
+                    placeholder: 'ex. Example Inc. / Resumaker'
                 },
                 value: '',
                 validation: {

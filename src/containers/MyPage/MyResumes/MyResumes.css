@@ -8,10 +8,17 @@
 }
 
 .resumeContainer {
+    display: block;
     background-color: #fff;
-    margin: 20px;
+    /* margin: auto;
     padding: 40px;
-    width: 80%;
+    widows: 595px;
+    height: 842px; */
+    size: A4;
+    margin: 0;
+    padding: 80px;
+    width: 893px;
+    height: 1263px;
 }
 
 .FirstName {
@@ -34,25 +41,36 @@
     font-size: 20px;
 }
 
+.FlexContainer {
+    display: flex;
+    align-items: stretch;
+    /* background-color: #fffdfd; */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .SchoolName {
     font-size:16px;
     display: inline-block;
     font-weight:normal;
-    width:50%;
+    /* width:70%; */
+    flex-grow: 7;
 }
 
 .SchoolDate {
     font-size:14px;
     display: inline-block;
     font-weight: lighter;
-    width: 30%;
+    /* width: 30%; */
     text-align: right;
+    flex-grow: 3;
 
 }
 
 .SchoolMajor {
     font-size:16px;
     font-weight:bold;
+    margin-top: -12px;
 
 }
 

@@ -117,10 +117,11 @@ class MyResumes extends Component {
             );
             for (var i in scrapedData.schools){
                 schools.push(
-                    <div key={scrapedData.schools[i]._id}>                 
+                    <div key={scrapedData.schools[i]._id}>   
+                        <div className={classes.FlexContainer}>            
+                            <p className={classes.SchoolName}>{scrapedData.schools[i].schoolName}, {scrapedData.schools[i].location}</p> <p className={classes.SchoolDate}> {new Date(scrapedData.schools[i].startedDate).toISOString().split('T')[0]} - {new Date(scrapedData.schools[i].endDate).toISOString().split('T')[0]}</p>
+                        </div>  
                         <p className={classes.SchoolMajor}>{scrapedData.schools[i].major} GPA: {scrapedData.schools[i].gpa} </p>
-                        <p className={classes.SchoolName}>{scrapedData.schools[i].schoolName}, {scrapedData.schools[i].location}</p> <p className={classes.SchoolDate}> {new Date(scrapedData.schools[i].startedDate).toISOString().split('T')[0]} - {new Date(scrapedData.schools[i].endDate).toISOString().split('T')[0]}</p>
-
                     </div>
                 )
             }
@@ -181,7 +182,7 @@ class MyResumes extends Component {
                     <Button btnType="BlueRounded" clicked={this.postBtnHandler}>Generate</Button>
                 </div>
                 <br/>
-                <PDFExport paperSize={'A4'}
+                <PDFExport paperSize={'A4'} 
                     scale={0.6}
                     fileName="resume.pdf"
                     title=""
