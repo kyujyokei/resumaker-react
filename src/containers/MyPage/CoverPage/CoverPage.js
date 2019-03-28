@@ -25,7 +25,7 @@ class CoverPage extends Component {
                         No more tweaking for each and every job position<br/>
                         3 lines looks better so here's the third one</p>
                         <br/>
-                        <Button btnType="Cover">Get Started!</Button>
+                        <a className={classes.Button} href="https://resumaker-alpha.herokuapp.com/signup"><Button btnType="Cover">Get Started!</Button></a>
                     </div>
                     
                    

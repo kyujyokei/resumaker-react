@@ -42,6 +42,7 @@ export const checkAuthTimeout = () => {
 export const auth = (authInfo, isSignup) => {
     return dispatch => {
         dispatch(authStart());
+        console.log("isSignup: ", isSignup, authInfo);
         const authData = {
             ...authInfo
         };
