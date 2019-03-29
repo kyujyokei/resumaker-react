@@ -311,7 +311,7 @@ class SignUp extends Component {
 
         if (this.props.error) {
             errorMsg = (
-                <p>{this.props.error}</p>
+                <p className={classes.Error}>{this.props.error}</p>
             )
         }
 

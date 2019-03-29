@@ -16,6 +16,7 @@ export const authSuccess = ( token, userId) => {
 };
 
 export const authFail = (error) => {
+    console.log("Actions:", error);
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -63,8 +64,19 @@ export const auth = (authInfo, isSignup) => {
 
             })
             .catch(err => {
-                console.log(err);
-                dispatch(authFail(err));
+                if (isSignup) {
+                    console.log("SignUpFailed: ",err.response);
+                    if (err.response.data.err.code === 11000) {
+                        dispatch(authFail('This email has already been taken'));
+                    } else {
+                        dispatch(authFail(err.response.data.err.errmsg));
+                    }
+                    
+                } else {
+                    console.log(err.response);
+                    dispatch(authFail(err.response.data.err));
+                }
+                
                 // dispatch(authFail(err.response.data.errmsg));
             })
     }

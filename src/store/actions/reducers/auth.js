@@ -22,6 +22,7 @@ const authSuccess = (state, action) => {
 };
 
 const authFail = ( state, action) => {
+    console.log("Reducer:", action.error);
     return updateObject( state, {
         error: action.error,
         loading: false
